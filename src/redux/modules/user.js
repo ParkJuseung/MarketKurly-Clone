@@ -5,14 +5,19 @@ import { apis } from "../../shared/axios";
 const SIGN_UP = "SIGN_UP";
 const LOG_IN = "LOG_IN";
 const LOG_OUT = "LOG_OUT";
+const VALIDATE_EMAIL = "VALIDATE_EMAIL";
 
 const signUp = createAction(SIGN_UP, user => ({ user }));
 const logIn = createAction(LOG_IN, user => ({ user }));
-const logOut = createAction(LOG_OUT, user => ({user}));
+const logOut = createAction(LOG_OUT, user => ({ user }));
+const validateEmail = createAction(VALIDATE_EMAIL, validation => ({
+  validation,
+}));
 
 const initialState = {
   user: null,
   is_login: false,
+  emailValidation: false,
 };
 
 export const singUpAPI = (email, username, password) => {
@@ -45,7 +50,7 @@ export const logInAPI = (email, password) => {
     };
 
     apis
-      .logIn("1")
+      .logIn("2")
       .then(res => {
         console.log(res);
         const user = res.data;
@@ -54,7 +59,15 @@ export const logInAPI = (email, password) => {
         history.push("/");
       })
       .catch(err => console.log(err));
-    return null;
+  };
+};
+
+export const validateEmailAPI = email => {
+  return function (dispatch, getState, { history }) {
+    console.log(email);
+    // apis.emailValidation(email).then(res => {
+    //   console.log(res);
+    // });
   };
 };
 
@@ -84,6 +97,10 @@ export default handleActions(
         draft.user = { ...action.payload.user };
         draft.is_login = true;
       }),
+    [VALIDATE_EMAIL]: (state, action) =>
+      produce(state, draft => {
+        draft.emailValidation = action.payload.validation;
+      }),
   },
   initialState
 );
@@ -92,6 +109,7 @@ const userActions = {
   singUpAPI,
   logInAPI,
   logOutAPI,
+  validateEmailAPI,
 };
 
 export { userActions };

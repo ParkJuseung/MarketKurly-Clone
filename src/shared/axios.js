@@ -9,7 +9,7 @@ const instance = axios.create({
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json",
-    authorization: `Bearer ${localStorage.getItem("token")}`,
+    // authorization: `Bearer ${localStorage.getItem("token")}`,
     // "Access-Control-Allow-Origin": true,
   },
 });
@@ -46,8 +46,8 @@ export const apis = {
   emailValidation: email => instance.get(`/user/register`, email),
 
   //로그인
-  logIn: email => instance.post(`/user/${email}`),
+  logIn: id => instance.get(`/user/${id}`),
 
   //회원정보 요청
-  getUser: id => instance.get(`user/${id}`),
+  getUser: () => instance.get(`user/info/`),
 };

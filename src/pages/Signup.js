@@ -1,91 +1,134 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../redux/modules/user";
 import Text from "../elements/Text";
 
 const Signup = props => {
   const dispatch = useDispatch();
+  const validation = useSelector(state => state);
+  console.log(validation);
+
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
+
+  const [checkEmail, setCheckEmail] = useState(true);
+  const [checkPassword, setCheckPassword] = useState(true);
 
   const onChange = (e, setIntput) => {
     setIntput(e.target.value);
   };
 
   const signUp = () => {
+    if (password !== passwordCheck) {
+      setCheckPassword(!checkPassword);
+      return;
+    } else if (!checkEmail) {
+      return;
+    }
     dispatch(userActions.singUpAPI(email, username, password));
   };
 
-  const checkDuplicateEmail = () => {
-    console.log("클릭");
+  const validateEmail = () => {
+    dispatch(userActions.validateEmailAPI(email));
+
+    if (validation) {
+      setCheckEmail(true);
+    }
   };
 
   return (
     <>
       <Wrap>
-        <Text size="20px" bold>
-          회원가입
-        </Text>
-        <InputWrapper>
-          <Text size="14px" padding="20px" margin="50px" bold>
-            아이디
-          </Text>
-          <Input
-            type="text"
-            placeholer="Email"
-            required
-            onChange={e => onChange(e, setEmail)}
-            value={email}
-          />
-          <Button>중복확인</Button>
-        </InputWrapper>
+        <Wrap>
+          <Title>회원가입</Title>
+          <InputWrapper>
+            <TextWrapper>
+              <Text size="14px" padding="20px" margin="50px" bold>
+                이메일
+              </Text>
+            </TextWrapper>
 
-        <InputWrapper>
-          <Text size="14px" padding="20px" margin="50px" bold>
-            실명
-          </Text>
-          <Input
-            type="text"
-            placeholer="Email"
-            onChange={e => onChange(e, setUsername)}
-            required
-            value={username}
-          />
-          <Button>중복확인</Button>
-        </InputWrapper>
-        <InputWrapper>
-          <Text size="14px" padding="20px" margin="50px" bold>
-            비밀번호
-          </Text>
-          <Input
-            type="text"
-            placeholer="Email"
-            onChange={e => onChange(e, setPassword)}
-            required
-            value={password}
-          />
-          <Button>중복확인</Button>
-        </InputWrapper>
+            <Input
+              type="text"
+              placeholer="Email"
+              required
+              onChange={e => onChange(e, setEmail)}
+              value={email}
+            />
+            <Button onClick={validateEmail}>중복확인</Button>
+          </InputWrapper>
+          {!checkEmail && (
+            <Text style={{ fontSize: "10px" }}> 중복확인하셈 </Text>
+          )}
 
-        <InputWrapper>
-          <Text size="14px" padding="20px" margin="50px" bold>
-            비밀번호
-          </Text>
-          <Input
-            type="text"
-            placeholer="Email"
-            onChange={e => onChange(e, setPasswordCheck)}
-            required
-            value={passwordCheck}
-          />
-          <Button>중복확인</Button>
-        </InputWrapper>
+          <InputWrapper>
+            <TextWrapper>
+              <Text size="14px" padding="20px" margin="50px" bold>
+                실명
+              </Text>
+            </TextWrapper>
+            <Input
+              type="text"
+              placeholer="Email"
+              onChange={e => onChange(e, setUsername)}
+              required
+              value={username}
+            />
+            <FakeDiv />
+          </InputWrapper>
+          <InputWrapper>
+            <TextWrapper>
+              <Text size="14px" padding="20px" margin="50px" bold>
+                비밀번호
+              </Text>
+            </TextWrapper>
+            <Input
+              type="password"
+              placeholer="Email"
+              onChange={e => onChange(e, setPassword)}
+              required
+              value={password}
+            />
+            <FakeDiv />
+          </InputWrapper>
+
+          <InputWrapper>
+            <TextWrapper>
+              <Text size="14px" padding="20px" margin="50px" bold>
+                비밀번호 확인
+              </Text>
+            </TextWrapper>
+            <Input
+              type="password"
+              placeholer="Email"
+              onChange={e => onChange(e, setPasswordCheck)}
+              required
+              value={passwordCheck}
+            />
+            <FakeDiv />
+          </InputWrapper>
+          {!checkPassword && (
+            <Text style={{ fontSize: "10px" }}>
+              {" "}
+              비밀번호 동일한지 확인하셈{" "}
+            </Text>
+          )}
+        </Wrap>
 
         <ButtonWrapper>
-          <Button onClick={signUp}>가입하기</Button>
+          <Button
+            style={{
+              backgroundColor: "#5f0080",
+              color: "white",
+              width: "300px",
+            }}
+            onClick={signUp}
+          >
+            가입하기
+          </Button>
         </ButtonWrapper>
       </Wrap>
     </>
@@ -99,10 +142,18 @@ const Wrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 1050px;
   height: 500px;
-  margin: 0 auto;
+  margin: 30px auto;
   box-sizing: border-box;
+`;
+
+const Title = styled.p`
+  color: black;
+  font-size: 24px;
+  margin: 0 auto;
+  font-weight: 900;
+  margin-bottom: 50px;
 `;
 
 const InputWrapper = styled.div`
@@ -110,7 +161,8 @@ const InputWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 640px;
-  height: 200px;
+  height: 44px;
+  padding: 10px 0px;
 `;
 
 const Input = styled.input`
@@ -125,7 +177,6 @@ const Input = styled.input`
   border-radius: 5px;
   color: black;
   margin-right: 20px;
-  placeholder: ${props => props.placeholder};
 `;
 
 const ButtonWrapper = styled.div`
@@ -141,4 +192,13 @@ const Button = styled.button`
   height: 54px;
   border-radius: 5px;
   border: 0.5px solid #5f0080;
+`;
+
+const TextWrapper = styled.div`
+  width: 120px;
+  margin: 0 auto;
+`;
+
+const FakeDiv = styled.div`
+  width: 100px;
 `;
