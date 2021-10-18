@@ -12,7 +12,7 @@ function App() {
   return (
     <React.Fragment>
       <ConnectedRouter history={history}>
-      <Header/>
+        <Header/>
         <Switch>
           <Route path="/" exact component={Product}></Route>
           <Route path="/signup" exact component={Signup}></Route>

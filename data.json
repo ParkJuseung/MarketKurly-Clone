@@ -31,10 +31,20 @@
   ],
   "user": [
     {
+      "id" : "0",
       "email": "gizmo7duck@gmail.com",
       "password": "123456",
       "username": "김덕현",
       "token": "gizmogizmogizmo"
+    },
+    {
+      "id": "4",
+      "email": "admin@naver.com",
+      "username": "admin",
+      "password": "admin1234",
+      "token": "gizmogizmogizmo"
     }
   ]
 }
+
+// npx json-server ./data.json --port 4000
