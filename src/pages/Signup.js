@@ -17,6 +17,7 @@ const Signup = props => {
   const [passwordCheck, setPasswordCheck] = useState("");
 
   const [checkEmail, setCheckEmail] = useState(false);
+  const [checkPassword, setCheckPassword] = useState(true);
 
   const onChange = (e, setIntput) => {
     setIntput(e.target.value);
@@ -31,7 +32,11 @@ const Signup = props => {
   };
 
   const signUp = () => {
-    if (checkEmail && password !== passwordCheck) {
+    if (password !== passwordCheck) {
+      setCheckPassword(false);
+      return;
+    }
+    if (checkEmail && checkPassword) {
       dispatch(userActions.singUpAPI(email, username, password));
     } else {
       return;
@@ -60,7 +65,7 @@ const Signup = props => {
             <Button onClick={validateEmail}>중복확인</Button>
           </InputWrapper>
           {checkEmail && (
-            <Text style={{ fontSize: "10px", color: "red" }}>
+            <Text style={{ fontSize: "10px" }} bold>
               ✅&nbsp; 이메일 중복확인 완료
             </Text>
           )}
@@ -111,8 +116,10 @@ const Signup = props => {
             />
             <FakeDiv />
           </InputWrapper>
-          {password === passwordCheck && (
-            <Text style={{ fontSize: "10px" }}>✅&nbsp; 비밀번호 동일함</Text>
+          {!checkPassword && (
+            <Text style={{ fontSize: "10px" }} bold>
+              🕵️&nbsp; 비밀번호 확인해보셈
+            </Text>
           )}
         </Wrap>
 
