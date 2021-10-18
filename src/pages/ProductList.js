@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { productActions } from "../redux/modules/product";
 
-const ProductList = (props) => {
+const ProductList = props => {
   const dispatch = useDispatch();
 
   useEffect(() => {

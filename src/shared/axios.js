@@ -22,13 +22,13 @@ export const apis = {
   getBanner: () => instance.get("/banners"),
 
   // 상세페이지 상품 조회
-  getProductDetail: (id) => instance.get(`products/${id}`),
+  getProductDetail: id => instance.get(`products/${id}`),
 
   // 상세페이지 후기 조회
-  getReviews: (id) => instance.get(`/reviews/${id}`),
+  getReviews: id => instance.get(`/reviews/${id}`),
 
   // 상세페이지 후기 삭제
-  deleteReviews: (id) => instance.delete(`/reviews/${id}`),
+  deleteReviews: id => instance.delete(`/reviews/${id}`),
 
   // 장바구니 상품리스트 조회
   getCartProduct: () => instance.get("/cart"),
@@ -40,11 +40,14 @@ export const apis = {
   RemoveCartProduct: () => instance.delete("/cart"),
 
   // 회원가입
-  signUp: (user) => instance.post("/user", user),
+  signUp: user => instance.post("/user", user),
+
+  // 이메일 유효확인
+  emailValidation: email => instance.get(`/user/register`, email),
 
   //로그인
-  logIn: (email) => instance.post(`/user/${email}`),
+  logIn: email => instance.post(`/user/${email}`),
 
   //회원정보 요청
-  getUser: (id) => instance.get(`user/${id}`),
+  getUser: id => instance.get(`user/${id}`),
 };
