@@ -18,11 +18,11 @@ const ProductList = (props) => {
     <>
       {product_list && (
         <React.Fragment>
-          {product_list.map((p, idx) => (
-            <ProductWrap key={idx}>
+          <ProductWrap>
+            {product_list.map((p, idx) => (
               <Product key={idx} {...p} />
-            </ProductWrap>
-          ))}
+            ))}
+          </ProductWrap>
         </React.Fragment>
       )}
     </>
