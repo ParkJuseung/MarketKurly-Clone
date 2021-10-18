@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Product from "../components/Product";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+import { productActions } from "../redux/modules/product";
 
-const ProductList = () => {
+const ProductList = (props) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(productActions.getProductAPI());
+  }, []);
+
   return (
     <React.Fragment>
       <ProductWrap>

@@ -1,0 +1,40 @@
+{
+  "products": [
+    {
+      "id": "productId",
+      "name": "상품명",
+      "price": "price",
+      "description": "간단설명",
+      "unit": 1,
+      "delivery": "샛별배송/택배배송",
+      "type": "상온/종이포장"
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "postId": "2",
+      "commentDesc": "2번 댓글이다요",
+      "commentUserId": "aslkdfjas",
+      "commentDate": "2021-10-12"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "1",
+      "username": "asdf",
+      "title": "dd",
+      "createdAt": "20211018",
+      "likeCount": 3,
+      "viewCount": 55
+    }
+  ],
+  "user": [
+    {
+      "email": "gizmo7duck@gmail.com",
+      "password": "123456",
+      "username": "김덕현",
+      "token": "gizmogizmogizmo"
+    }
+  ]
+}
