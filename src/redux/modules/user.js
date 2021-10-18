@@ -8,7 +8,7 @@ const LOG_OUT = "LOG_OUT";
 
 const signUp = createAction(SIGN_UP, user => ({ user }));
 const logIn = createAction(LOG_IN, user => ({ user }));
-const logOut = createAction(LOG_OUT);
+const logOut = createAction(LOG_OUT, user => ({user}));
 
 const initialState = {
   user: null,
