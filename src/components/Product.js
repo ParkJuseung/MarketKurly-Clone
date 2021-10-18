@@ -12,11 +12,11 @@ const Product = (props) => {
         <ProductImgWrap>
           <img src="https://img-cf.kurly.com/shop/data/goods/1634280888964l0.jpg" />
         </ProductImgWrap>
-        <ProductTitle>[캐스키드슨뷰티] 블라썸 핸드크림 트리오</ProductTitle>
+        <ProductTitle>{props.name}</ProductTitle>
         <CostBox>
-          <ProductPrice>7,500원</ProductPrice>
+          <ProductPrice>{props.price} 원</ProductPrice>
         </CostBox>
-        <ProductSubTitle>달콤하고 사랑스러운 핸드크림 선물세트</ProductSubTitle>
+        <ProductSubTitle>{props.description}</ProductSubTitle>
       </ProductContainer>
     </React.Fragment>
   );
