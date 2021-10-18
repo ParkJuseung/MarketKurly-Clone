@@ -1,7 +1,34 @@
 {
   "products": [
     {
-      "id": "productId",
+      "id": "productId1",
+      "name": "상품명",
+      "price": "price",
+      "description": "간단설명",
+      "unit": 1,
+      "delivery": "샛별배송/택배배송",
+      "type": "상온/종이포장"
+    },
+    {
+      "id": "productId2",
+      "name": "상품명",
+      "price": "price",
+      "description": "간단설명",
+      "unit": 1,
+      "delivery": "샛별배송/택배배송",
+      "type": "상온/종이포장"
+    },
+    {
+      "id": "productId3",
+      "name": "상품명",
+      "price": "price",
+      "description": "간단설명",
+      "unit": 1,
+      "delivery": "샛별배송/택배배송",
+      "type": "상온/종이포장"
+    },
+    {
+      "id": "productId4",
       "name": "상품명",
       "price": "price",
       "description": "간단설명",

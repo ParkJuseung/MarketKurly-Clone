@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Image, Grid } from "../elements/index";
 
-const Product = () => {
+const Product = (props) => {
   return (
     <React.Fragment>
       <ProductContainer>
