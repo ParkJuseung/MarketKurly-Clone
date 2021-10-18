@@ -13,7 +13,9 @@ const Cart = props => {
           </ProductWrap>
         </Wrap>
         <Wrap>
-          <div>가격정보</div>
+          <PriceWrap>
+            <div>가격정보</div>
+          </PriceWrap>
         </Wrap>
       </Wrap>
     </>
@@ -38,6 +40,16 @@ const ProductWrap = styled.div`
   align-items: center;
   width: 730px;
   box-sizing: border-box;
-  padding: 10px;
-  color: green;
+  padding: 20px;
+  background-color: green;
+`;
+
+const PriceWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 284px;
+  box-sizing: border-box;
+  padding: 20px;
+  background-color: green;
 `;
