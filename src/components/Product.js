@@ -1,8 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { Image, Grid } from "../elements/index";
+import { useSelector, useDispatch } from "react-redux";
 
 const Product = (props) => {
+  const dispatch = useDispatch();
+  console.log("프롭스", props);
   return (
     <React.Fragment>
       <ProductContainer>

@@ -8,7 +8,7 @@ const LOG_OUT = "LOG_OUT";
 
 const signUp = createAction(SIGN_UP, user => ({ user }));
 const logIn = createAction(LOG_IN, user => ({ user }));
-const logOut = createAction(LOG_OUT);
+const logOut = createAction(LOG_OUT, user => ({user}));
 
 const initialState = {
   user: null,
@@ -29,7 +29,7 @@ export const singUpAPI = (email, username, password) => {
       .signUp(_user)
       .then(res => {
         const user = res.data;
-        localStorage.setItem("toekn", res.data.token);
+        localStorage.setItem("token", res.data.token);
         dispatch(signUp(user));
         history.push("/login");
       })

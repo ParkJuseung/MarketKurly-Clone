@@ -2,7 +2,7 @@
   "products": [
     {
       "id": "productId1",
-      "name": "상품명",
+      "name": "상품명1",
       "price": "price",
       "description": "간단설명",
       "unit": 1,
@@ -11,7 +11,7 @@
     },
     {
       "id": "productId2",
-      "name": "상품명",
+      "name": "상품명2",
       "price": "price",
       "description": "간단설명",
       "unit": 1,
@@ -20,7 +20,7 @@
     },
     {
       "id": "productId3",
-      "name": "상품명",
+      "name": "상품명3",
       "price": "price",
       "description": "간단설명",
       "unit": 1,
@@ -58,10 +58,19 @@
   ],
   "user": [
     {
+      "id" : "0",
       "email": "gizmo7duck@gmail.com",
       "password": "123456",
       "username": "김덕현",
       "token": "gizmogizmogizmo"
+    },
+    {
+      "id": "4",
+      "email": "admin@naver.com",
+      "username": "admin",
+      "password": "admin1234",
+      "token": "gizmogizmogizmo"
     }
   ]
 }
+

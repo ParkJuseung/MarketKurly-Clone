@@ -9,6 +9,7 @@ const ProductList = (props) => {
 
   const product_list = useSelector((state) => state.product.list);
   console.log(product_list);
+
   useEffect(() => {
     dispatch(productActions.getProductAPI());
   }, []);
@@ -19,7 +20,7 @@ const ProductList = (props) => {
         <React.Fragment>
           {product_list.map((p, idx) => {
             <ProductWrap key={idx}>
-              <Product key={idx} {...p}></Product>
+              <Product key={idx} {...p} />
             </ProductWrap>;
           })}
         </React.Fragment>
