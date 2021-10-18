@@ -1,5 +1,4 @@
 {
-  // npx json-server ./data.json --port 4000
   "products": [
     {
       "id": "productId1",
