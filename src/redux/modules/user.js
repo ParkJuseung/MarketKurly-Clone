@@ -18,7 +18,7 @@ const initialState = {
 export const singUpAPI = (email, username, password) => {
   return function (dispatch, getState, { history }) {
     const _user = {
-      id: "4",
+      id: "6",
       email,
       username,
       password,
@@ -29,7 +29,7 @@ export const singUpAPI = (email, username, password) => {
       .signUp(_user)
       .then(res => {
         const user = res.data;
-        localStorage.setItem("toekn", res.data.token);
+        localStorage.setItem("token", res.data.token);
         dispatch(signUp(user));
         history.push("/login");
       })
