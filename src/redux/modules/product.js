@@ -22,7 +22,7 @@ export const getProductAPI = () => {
     apis
       .getProduct()
       .then(res => {
-        console.log(res);
+        dispatch(getProduct(res.data));
       })
       .catch(err => console.log(err.response));
   };
@@ -32,7 +32,9 @@ export default handleActions(
   {
     [GET_PRODUCT]: (state, action) =>
       produce(state, draft => {
-        console.log(action);
+        console.log("액션", action);
+        draft.list = action.payload.data;
+        console.log("draft", draft.list);
       }),
   },
   initialState

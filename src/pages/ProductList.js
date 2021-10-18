@@ -7,20 +7,25 @@ import { productActions } from "../redux/modules/product";
 const ProductList = props => {
   const dispatch = useDispatch();
 
+  const product_list = useSelector(state => state.product.list);
+  console.log(product_list);
+
   useEffect(() => {
     dispatch(productActions.getProductAPI());
   }, []);
 
   return (
-    <React.Fragment>
-      <ProductWrap>
-        <Product></Product>
-        <Product></Product>
-        <Product></Product>
-        <Product></Product>
-        <Product></Product>
-      </ProductWrap>
-    </React.Fragment>
+    <>
+      {product_list && (
+        <React.Fragment>
+          {product_list.map((p, idx) => (
+            <ProductWrap key={idx}>
+              <Product key={idx} {...p} />
+            </ProductWrap>
+          ))}
+        </React.Fragment>
+      )}
+    </>
   );
 };
 
