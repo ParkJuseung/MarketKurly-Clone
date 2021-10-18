@@ -3,14 +3,14 @@ import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux/configureStore";
-import Product from "../pages/Product";
+import ProductList from "../pages/ProductList";
 
 function App() {
   return (
     <React.Fragment>
       <ConnectedRouter history={history}>
         <Switch>
-          <Route path="/" exact component={Product}></Route>
+          <Route path="/" exact component={ProductList}></Route>
         </Switch>
       </ConnectedRouter>
     </React.Fragment>
