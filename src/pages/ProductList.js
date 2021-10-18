@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useEffect } from "react";
 import Product from "../components/Product";
 import styled from "styled-components";

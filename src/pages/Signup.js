@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,7 +8,7 @@ import Text from "../elements/Text";
 
 const Signup = props => {
   const dispatch = useDispatch();
-  const validation = useSelector(state => state);
+  const validation = useSelector(state => state.user.emailValidation);
   console.log(validation);
 
   const [email, setEmail] = useState("");
@@ -21,22 +23,23 @@ const Signup = props => {
     setIntput(e.target.value);
   };
 
-  const signUp = () => {
-    if (password !== passwordCheck) {
-      setCheckPassword(!checkPassword);
-      return;
-    } else if (!checkEmail) {
-      return;
-    }
-    dispatch(userActions.singUpAPI(email, username, password));
-  };
-
   const validateEmail = () => {
     dispatch(userActions.validateEmailAPI(email));
 
     if (validation) {
       setCheckEmail(true);
     }
+  };
+
+  const signUp = () => {
+    if (!checkEmail) {
+      setCheckEmail(false);
+      return;
+    } else if (password !== passwordCheck) {
+      setCheckPassword(!checkPassword);
+      return;
+    }
+    dispatch(userActions.singUpAPI(email, username, password));
   };
 
   return (
@@ -61,7 +64,7 @@ const Signup = props => {
             <Button onClick={validateEmail}>중복확인</Button>
           </InputWrapper>
           {!checkEmail && (
-            <Text style={{ fontSize: "10px" }}> 중복확인하셈 </Text>
+            <Text style={{ fontSize: "10px", color: "red" }}>중복확인하셈</Text>
           )}
 
           <InputWrapper>
