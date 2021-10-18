@@ -61,14 +61,18 @@ const Header = (props) => {
 }
 
 const Grid = styled.div`
-    margin: 0px 400px;
+    display:block;
+    max-width : 1050px;
+    margin: 0 auto;
+    text-align : center;
+
 `
 
 const HeaderMenu = styled.ul`
   display: flex;
   font-size: 11px;
   justify-content: flex-end;
-
+  cursor : pointer;
   /* position : absolute; */
 
   & li{
@@ -93,6 +97,7 @@ const Logo = styled.div`
     height: 79px;
     background-image: url("https://res.kurly.com/images/marketkurly/logo/logo_x2.png") ;
     background-size: cover;
+    cursor : pointer;
 /* background-position: center; */
 `
 
@@ -101,13 +106,14 @@ const HeaderCategory = styled.ul`
     padding:0px;
     font-weight : bold;
     margin-top : 90px;
+    cursor : pointer;
 
 
   & li{
     padding:0px 75px 0px 0px;
-    cursor: pointer;
     display: block;
-
+    text-align : center;
+    cursor : pointer;
     &:hover{
       color:purple;
       text-decoration : underline;
