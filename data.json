@@ -33,7 +33,8 @@
     {
       "email": "gizmo7duck@gmail.com",
       "password": "123456",
-      "username": "김덕현"
+      "username": "김덕현",
+      "token": "gizmogizmogizmo"
     }
   ]
 }
