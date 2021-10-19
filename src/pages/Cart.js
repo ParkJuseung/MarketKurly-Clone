@@ -1,13 +1,36 @@
 /* eslint-disable */
 
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import ClearIcon from "@mui/icons-material/Clear";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import RoomIcon from "@mui/icons-material/Room";
+import { useSelector } from "react-redux";
 
 const Cart = props => {
+  const productList = useSelector(state => state);
+  console.log(productList);
+
+  const [qty, setQty] = useState(1);
+  const [price, setPrice] = useState(100);
+
+  const plusQty = () => {
+    setQty(qty + 1);
+  };
+
+  const subQty = () => {
+    setQty(qty - 1);
+  };
+
+  const deleteProduct = () => {
+    console.log("삭제!");
+  };
+
+  const setOrder = () => {
+    console.log("주문!");
+  };
+
   return (
     <>
       <Wrapper>
@@ -33,9 +56,9 @@ const Cart = props => {
               </ProductTextWrapper>
 
               <ProductQtyWrapper>
-                <ProductQtyButton>-</ProductQtyButton>
-                <ProductQty>1</ProductQty>
-                <ProductQtyButton>+</ProductQtyButton>
+                <ProductQtyButton onClick={subQty}>-</ProductQtyButton>
+                <ProductQty>{qty}</ProductQty>
+                <ProductQtyButton onClick={plusQty}>+</ProductQtyButton>
               </ProductQtyWrapper>
               <ProductPriceWrapper>
                 <ProductActualPrice>100원</ProductActualPrice>
@@ -45,7 +68,7 @@ const Cart = props => {
             </ProductUnitWrapper>
           </ProductWrapper>
           <PriceWrapper>
-            <DeliveryArea>
+            <DeliveryArea style={{ padding: "20px" }}>
               <p style={{ fontWeight: 600 }}>🏠 &nbsp; 배송지</p>
               <p
                 style={{
@@ -75,39 +98,55 @@ const Cart = props => {
                   marginTop: "17px",
                   fontWeight: 600,
                   fontSize: "12px",
-                  width: "243px",
+                  width: "281px",
+                  margin: "20px 0 30px 0",
                 }}
               >
                 배송지 변경
               </button>
             </DeliveryArea>
-            <PriceArea>
+            <PriceArea style={{ padding: "20px" }}>
               <PriceDetail>
                 <p>상품금액</p>
-                <p>16,740원</p>
+                <p>{price * qty}원</p>
               </PriceDetail>
               <PriceDetail>
-                <p>상품할인금액</p>
-                <p>16,540원</p>
+                <p style={{ margin: 0 }}>상품할인금액</p>
+                <p style={{ margin: 0 }}>0원</p>
               </PriceDetail>
               <PriceDetail>
                 <p>배송비</p>
                 <p>0원</p>
               </PriceDetail>
-              <hr style={{ width: "300px" }} />
-              <PriceDetail>
+              <hr style={{ width: "278px", border: "1px solid #f2f2f2" }} />
+              <PriceDetail style={{ alignItems: "center" }}>
                 <p>결제예정금액</p>
-                <p>200원</p>
+                <p style={{ fontSize: "20px", fontWeight: "700" }}>
+                  {price * qty}원
+                </p>
               </PriceDetail>
             </PriceArea>
-            <button>주문하기</button>
+            <button
+              style={{
+                backgroundColor: "#5f0080",
+                color: "white",
+                height: "50px",
+                borderRadius: "5px",
+                fontSize: "17px",
+                fontWeight: 700,
+                width: "326px",
+                border: "none",
+              }}
+            >
+              주문하기
+            </button>
 
             <ul
               style={{
-                fontSize: 10,
-                padding: "20 0 0 11",
+                fontSize: 11,
                 fontWeight: 400,
                 lineHeight: 1.5,
+                padding: "20px 0 0 20px",
               }}
             >
               <li>쿠폰/적립금은 주문서에서 사용 가능합니다</li>
@@ -178,9 +217,6 @@ const PriceWrapper = styled.div`
   flex-direction: column;
   width: 284px;
   box-sizing: border-box;
-  padding: 20px;
-  box-sizing: border-box;
-  border: 1px solid black;
 `;
 
 const ProductUnitWrapper = styled.div`
@@ -260,13 +296,13 @@ const ProductPrice = styled.div`
 const DeliveryArea = styled.div`
   background-color: white;
   border: 1px solid #f2f2f2;
-  padding: 10px;
   width: 284px;
 `;
 
 const PriceArea = styled.div`
   background-color: #fafafa;
   border: 1px solid #f2f2f2;
+  width: 284px;
 `;
 
 const PriceDetail = styled.div`

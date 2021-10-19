@@ -12,6 +12,7 @@ const ProductDetail = props => {
   let product_id = props.match.params.id;
 
   let product = p_redux_id.find(p => p.id === product_id);
+  console.log(product);
 
   React.useEffect(() => {
     console.log(product);

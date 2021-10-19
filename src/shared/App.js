@@ -23,19 +23,19 @@ function App() {
   console.log(user);
 
   useEffect(() => {
-    dispatch(userActions.getUserAPI());
+    // dispatch(userActions.getUserAPI());
   }, []);
 
   return (
     <React.Fragment>
       <ConnectedRouter history={history}>
-        {/* <Header/> */}
+        <Header />
         <Switch>
           <Route path="/" exact component={ProductList}></Route>
           <Route path="/signup" exact component={Signup}></Route>
           <Route path="/login" exact component={Login}></Route>
           <Route path="/cart" exact component={Cart}></Route>
-          <Route path="/product" exact component={ProductDetail}></Route>
+          <Route path="/product/:id" exact component={ProductDetail}></Route>
           <Route path="/comment" exact component={CommentWrite}></Route>
         </Switch>
         <Footer />
