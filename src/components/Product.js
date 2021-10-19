@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { Image, Grid } from "../elements/index";
 import { useSelector, useDispatch } from "react-redux";
 
 import { history } from "../redux/configureStore";

@@ -3,9 +3,9 @@
   "products": [
     {
       "id": "productId1",
-      "name": "상품명1",
-      "price": "price",
-      "description": "간단설명",
+      "name": "[그린밤] 샐러드 샌드위치",
+      "price": 4000,
+      "description": "꽉 찬 단면이 흐뭇한 샌드위치",
       "unit": 1,
       "delivery": "샛별배송/택배배송",
       "type": "상온/종이포장"
@@ -13,7 +13,7 @@
     {
       "id": "productId2",
       "name": "상품명2",
-      "price": "price",
+      "price": 5000,
       "description": "간단설명",
       "unit": 1,
       "delivery": "샛별배송/택배배송",
@@ -22,7 +22,7 @@
     {
       "id": "productId3",
       "name": "상품명3",
-      "price": "price",
+      "price": 6000,
       "description": "간단설명",
       "unit": 1,
       "delivery": "샛별배송/택배배송",
@@ -30,7 +30,7 @@
     },
     {
       "id": "productId4",
-      "name": "상품명",
+      "name": 2000,
       "price": "price",
       "description": "간단설명",
       "unit": 1,

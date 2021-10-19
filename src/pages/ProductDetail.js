@@ -1,8 +1,37 @@
-import { style } from "@mui/system";
 import React from "react";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
 
-const ProductDetail = () => {
+const ProductDetail = (props) => {
+  const [buy_count, setBuy_count] = React.useState(1);
+  const [price, setPrice] = React.useState();
+
+  const p_redux_id = useSelector((state) => state.product.list);
+  console.log(p_redux_id);
+
+  let product_id = props.match.params.id;
+
+  let product = p_redux_id.find((p) => p.id === product_id);
+
+  React.useEffect(() => {
+    console.log(product);
+    setPrice(product.price);
+  }, []);
+
+  const BuyMinus = () => {
+    if (buy_count > 1) {
+      setBuy_count(buy_count - 1);
+      setPrice(price - product.price);
+    }
+  };
+
+  const BuyPlus = () => {
+    if (buy_count < 9) {
+      setBuy_count(buy_count + 1);
+      setPrice(product.price + product.price * buy_count);
+    }
+  };
+
   return (
     <React.Fragment>
       <OutWrap>
@@ -22,15 +51,15 @@ const ProductDetail = () => {
             <ShareIcon src="https://res.kurly.com/mobile/service/goodsview/1910/ico_view_sns.png"></ShareIcon>
           </div>
 
-          <Description>꽉찬 단면이 흐뭇한 샌드위치</Description>
-          <PriceText>4000원</PriceText>
+          <Description>{product.description}</Description>
+          <PriceText>{product.price}원</PriceText>
           <FlexDiv>
             <FlexDiv_title>판매단위</FlexDiv_title>
             <FlexDiv_des>1개</FlexDiv_des>
           </FlexDiv>
           <FlexDiv>
             <FlexDiv_title>배송구분</FlexDiv_title>
-            <FlexDiv_des>샛별배송/택배배송g</FlexDiv_des>
+            <FlexDiv_des>샛별배송/택배배송</FlexDiv_des>
           </FlexDiv>
           <FlexDiv>
             <FlexDiv_title>포장타입</FlexDiv_title>
@@ -41,19 +70,33 @@ const ProductDetail = () => {
               </FlexDiv_des_des>
             </div>
           </FlexDiv>
-          <FlexDiv>
-            <FlexDiv_title>판매단위</FlexDiv_title>
-            <FlexDiv_des>1개</FlexDiv_des>
-          </FlexDiv>
+
           <FlexDivBuy>
             <FlexDiv_title>구매수량</FlexDiv_title>
             <Buycount>
-              <BuyCountMinus>&nbsp;</BuyCountMinus>
-              <BuyCountText>1</BuyCountText>
-              <BuyCountPlus>&nbsp; </BuyCountPlus>
+              <BuyCountMinus
+                onClick={() => {
+                  BuyMinus();
+                }}
+              >
+                &nbsp;
+              </BuyCountMinus>
+              <BuyCountText>{buy_count}</BuyCountText>
+              <BuyCountPlus
+                onClick={() => {
+                  BuyPlus();
+                }}
+              >
+                &nbsp;{" "}
+              </BuyCountPlus>
             </Buycount>
           </FlexDivBuy>
-          <Price></Price>
+          <PriceBox>
+            <FlexDiv_des>총 상품금액: </FlexDiv_des>
+            <Price>{price}</Price>
+            <Won>&nbsp;원</Won>
+          </PriceBox>
+          <BuyButton>장바구니 담기</BuyButton>
         </InfoWrap>
       </OutWrap>
     </React.Fragment>
@@ -149,11 +192,41 @@ const Buycount = styled.div`
   width: 80px;
 `;
 
-const Price = styled.div`
+const PriceBox = styled.div`
   display: flex;
   float: right;
 `;
-
+const Price = styled.div`
+  padding-left: 8px;
+  font-weight: 800;
+  font-size: 32px;
+  line-height: 32px;
+`;
+const Won = styled.p`
+  padding-left: 2px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 5px;
+`;
+const BuyButton = styled.button`
+  display: block;
+  width: 408px;
+  height: 54px;
+  padding-bottom: 2px;
+  border: 0;
+  background: 0 0;
+  font-weight: 700;
+  color: #fff;
+  background-color: #5f0080;
+  font-size: 16px;
+  line-height: 52px;
+  letter-spacing: -0.1px;
+  text-align: center;
+  cursor: pointer;
+  float: right;
+  margin-top: 10px;
+`;
+//
 export default ProductDetail;
 
 // url 들어가니까 밑에 색 표시가 이상함 => 밑으로 뺴놓음
