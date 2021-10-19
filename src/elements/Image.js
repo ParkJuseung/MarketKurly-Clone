@@ -1,8 +1,10 @@
+/* eslint-disable */
+
 import React from "react";
 import styled from "styled-components";
 
 // Image 함수형 컴포넌트를 만들어 준다.
-const Image = (props) => {
+const Image = props => {
   const { shape, src, size, _onClick, children } = props;
 
   const styles = {
@@ -45,10 +47,10 @@ Image.defaultProps = {
 };
 
 const ImageDefault = styled.div`
-  --size: ${(props) => props.size}px;
+  --size: ${props => props.size}px;
   width: var(--size);
   height: var(--size);
-  background-image: url("${(props) => props.src}");
+  background-image: url("${props => props.src}");
   background-size: cover;
   background-position: center;
 `;
@@ -62,18 +64,18 @@ const AspectInner = styled.div`
   position: relative;
   padding-top: 100%;
   overflow: hidden;
-  background-image: url("${(props) => props.src}");
+  background-image: url("${props => props.src}");
   background-size: cover;
   box-sizing: border-box;
   cursor: pointer;
 `;
 
 const ImageCircle = styled.div`
-  --size: ${(props) => props.size}px;
+  --size: ${props => props.size}px;
   width: var(--size);
   height: var(--size);
   border-radius: var(--size);
-  background-image: url("${(props) => props.src}");
+  background-image: url("${props => props.src}");
   background-size: cover;
   margin: 4px;
 `;
@@ -94,7 +96,7 @@ const MainInner = styled.div`
   position: relative;
   padding-top: 35%;
   overflow: hidden;
-  background-image: url("${(props) => props.src}");
+  background-image: url("${props => props.src}");
   background-position: center;
   box-sizing: border-box;
   cursor: pointer;

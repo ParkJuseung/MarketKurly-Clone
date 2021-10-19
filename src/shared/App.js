@@ -1,4 +1,6 @@
-import React from "react";
+/* eslint-disable */
+
+import React, { useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux/configureStore";
@@ -11,7 +13,18 @@ import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Comment from "../pages/CommentWrite";
 
+import { useDispatch, useSelector } from "react-redux";
+import { userActions } from "../redux/modules/user";
+
 function App() {
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.user.user);
+  console.log(user);
+
+  useEffect(() => {
+    // dispatch(userActions.getUserAPI());
+  }, []);
+
   return (
     <React.Fragment>
       <ConnectedRouter history={history}>
