@@ -12,11 +12,11 @@ const Product = (props) => {
         <ProductImgWrap>
           <img src="https://img-cf.kurly.com/shop/data/goods/1634280888964l0.jpg" />
         </ProductImgWrap>
-        <ProductTitle>[캐스키드슨뷰티] 블라썸 핸드크림 트리오</ProductTitle>
+        <ProductTitle>{props.name}</ProductTitle>
         <CostBox>
-          <ProductPrice>7,500원</ProductPrice>
+          <ProductPrice>{props.price} 원</ProductPrice>
         </CostBox>
-        <ProductSubTitle>달콤하고 사랑스러운 핸드크림 선물세트</ProductSubTitle>
+        <ProductSubTitle>{props.description}</ProductSubTitle>
       </ProductContainer>
     </React.Fragment>
   );
@@ -99,11 +99,11 @@ const ProductContainer = styled.div`
 const ProductImgWrap = styled.div`
   overflow: hidden;
   position: relative;
-  width: 308px;
-  height: 396px;
+  width: 338px;
+  height: 435px;
   & img {
-    width: 308px;
-    height: 396px;
+    width: 338px;
+    height: 435px;
     margin: 0px;
     padding: 0px;
     -webkit-transform: scale(1);
@@ -117,11 +117,11 @@ const ProductImgWrap = styled.div`
     -o-transition: 0.4s;
     transition: 0.4s;
     &:hover {
-      transform: scale(1.1);
-      -webkit-transform: scale(1.1);
-      -moz-transform: scale(1.1);
-      -ms-transform: scale(1.1);
-      -o-transform: scale(1.1);
+      transform: scale(1.05);
+      -webkit-transform: scale(1.05);
+      -moz-transform: scale(1.05);
+      -ms-transform: scale(1.05);
+      -o-transform: scale(1.05);
     }
   }
 `;
