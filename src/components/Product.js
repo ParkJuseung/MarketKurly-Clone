@@ -3,12 +3,18 @@ import styled from "styled-components";
 import { Image, Grid } from "../elements/index";
 import { useSelector, useDispatch } from "react-redux";
 
+import { history } from "../redux/configureStore";
+
 const Product = (props) => {
   const dispatch = useDispatch();
   console.log("프롭스", props);
   return (
     <React.Fragment>
-      <ProductContainer>
+      <ProductContainer
+        onClick={() => {
+          history.push(`/product/${props.id}`);
+        }}
+      >
         <ProductImgWrap>
           <img src="https://img-cf.kurly.com/shop/data/goods/1634280888964l0.jpg" />
         </ProductImgWrap>
@@ -33,27 +39,6 @@ const CostBox = styled.span`
     margin: 0;
     padding: 0;
   }
-`;
-
-const ProductDc = styled.span`
-  font-weight: 800;
-  color: #fa622f;
-  letter-spacing: 0;
-  font-size: 18px;
-  line-height: 29px;
-  padding-right: 8px;
-`;
-
-const ProductOriginalPrice = styled.p`
-  display: block;
-  font-size: 16px;
-  color: #999;
-  text-decoration: line-through;
-  font-weight: 400;
-  letter-spacing: 0;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 `;
 
 const ProductPrice = styled.span`

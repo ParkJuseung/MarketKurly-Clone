@@ -10,6 +10,7 @@ import Cart from "../pages/Cart";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Comment from "../pages/CommentWrite";
+import ProductDetail from "../pages/ProductDetail";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" exact component={ProductList}></Route>
           <Route path="/signup" exact component={Signup}></Route>
           <Route path="/login" exact component={Login}></Route>
+          <Route path="/product/:id" exact component={ProductDetail}></Route>
         </Switch>
       </ConnectedRouter>
     </React.Fragment>
