@@ -11,7 +11,6 @@ import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Comment from "../pages/CommentWrite";
 
-
 function App() {
   return (
     <React.Fragment>
