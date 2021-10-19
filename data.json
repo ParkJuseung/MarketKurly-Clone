@@ -59,17 +59,29 @@
   ],
   "user": [
     {
-      "id" : "0",
+      "id": "1",
       "email": "gizmo7duck@gmail.com",
       "password": "123456",
       "username": "김덕현",
       "token": "gizmogizmogizmo"
     },
     {
+      "id": "2",
+      "email": "gizmo7duck@gmail.com",
+      "password": "123456",
+      "username": "gizmo7duck",
+      "token": "gizmogizmogizmo"
+    },
+    {
+      "id": "3",
+      "email": "gizmo7duck@gmail.com",
+      "username": "123456",
+      "token": "gizmogizmogizmo"
+    },
+    {
       "id": "4",
-      "email": "admin@naver.com",
-      "username": "admin",
-      "password": "admin1234",
+      "email": "gizmo7duck@naver.com",
+      "username": "111111",
       "token": "gizmogizmogizmo"
     }
   ]

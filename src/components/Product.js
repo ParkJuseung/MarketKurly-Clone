@@ -99,11 +99,11 @@ const ProductContainer = styled.div`
 const ProductImgWrap = styled.div`
   overflow: hidden;
   position: relative;
-  width: 308px;
-  height: 396px;
+  width: 338px;
+  height: 435px;
   & img {
-    width: 308px;
-    height: 396px;
+    width: 338px;
+    height: 435px;
     margin: 0px;
     padding: 0px;
     -webkit-transform: scale(1);
