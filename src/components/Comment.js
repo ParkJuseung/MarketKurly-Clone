@@ -1,11 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import {history} from "../redux/configureStore";
+import { history } from "../redux/configureStore";
 
-const Comment = () => {
+
+const Comment = (props) => {
+   
+
     return(
         <React.Fragment>
+
             <Grid>
+
             <P>
             PRODUCT REVIEW<br/>
             ▪ 상품에 대한 리뷰가 쓰여지는 공간입니다.<br/>
@@ -14,7 +19,7 @@ const Comment = () => {
                 <thead>
                     <tr>
                         <th scope="cols" style={{width:"50px"}}>번호</th>
-                        <th scope="cols" style={{width:"1000px"}}>제목</th>
+                        <th scope="cols" style={{width:"1000px"}}>내용</th>
                         <th scope="cols" style={{width:"100px"}}>작성자</th>
                         <th scope="cols" style={{width:"100px"}}>작성일</th>
                         <th scope="cols" style={{width:"50px"}}>추천</th>
@@ -30,7 +35,7 @@ const Comment = () => {
                     </tr>
                     <tr>
                         <td>2</td>
-                        <td className="title">개별로에요</td>
+                        <td className="title">개맛없네요 사지마세요</td>
                         <td>박*승</td>
                         <td>2020-09-09</td>
                         <td>0</td>
@@ -44,7 +49,7 @@ const Comment = () => {
                     </tr>
                     <tr>
                         <td>4</td>
-                        <td className="title">길이체크길이체크길이체크길이체크길이체크길이체크길이체크길이체크길이체크길이체크</td>
+                        <td className="title">길이체크길이체크길이체크길이체크길이체크길이체크길이체크v길이체크길이체크길이체크길이체크길이체크길이체크길이체크길이체크길이체크</td>
                         <td>세글자</td>
                         <td>1000-01-01</td>
                         <td>100</td>
@@ -56,9 +61,10 @@ const Comment = () => {
                         <td>2000-11-11</td>
                         <td>0</td>
                     </tr>
+
                     </tbody>
                 </Table>
-                <Button onClick={()=> history.push('/comment')}>후기쓰기</Button>
+                <Button onClick={()=> window.open("/comment", "box_new", "width=600,height=700,scrollbars=no,resizable=yes")}>후기쓰기</Button>  
             </Grid>
         </React.Fragment>
     )
