@@ -58,6 +58,12 @@ export const logInAPI = (email, password) => {
   };
 };
 
+export const loginCheckAPI = () => {
+  return function (dispatch, getState, {history}) {
+    const token = localStorage.getItem('token')
+  }
+}
+
 export const logOutAPI = () => {
   return function (dispatch, getState, { history }) {
     localStorage.removeItem("token");

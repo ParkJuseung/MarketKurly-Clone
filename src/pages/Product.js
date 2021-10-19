@@ -1,17 +1,13 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { userActions } from "../redux/modules/user";
+import Comment from "../components/Comment";
 
 const Product = () => {
-  const dispatch = useDispatch();
 
-  const logOut = () => {
-    dispatch(userActions.logOutAPI());
-  };
   return (
-    <>
-      <button onClick={logOut}>로그아웃</button>
-    </>
+    <React.Fragment>
+      <p style={{textAlign:"center"}}>Product info</p>
+      <Comment/>
+    </React.Fragment>
   );
 };
 
