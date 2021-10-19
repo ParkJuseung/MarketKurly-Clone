@@ -19,7 +19,6 @@ function App() {
           <Route path="/" exact component={ProductList}></Route>
           <Route path="/signup" exact component={Signup}></Route>
           <Route path="/login" exact component={Login}></Route>
-          <Route path="/product" exact component={Product}></Route>
           <Route path="/comment" exact component={Comment}></Route>
         </Switch>
       </ConnectedRouter>
