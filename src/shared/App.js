@@ -22,7 +22,7 @@ function App() {
   console.log(user);
 
   useEffect(() => {
-    // dispatch(userActions.getUserAPI());
+    dispatch(userActions.getUserAPI());
   }, []);
 
   return (
