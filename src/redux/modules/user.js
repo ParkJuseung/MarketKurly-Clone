@@ -6,6 +6,7 @@ const SIGN_UP = "SIGN_UP";
 const LOG_IN = "LOG_IN";
 const LOG_OUT = "LOG_OUT";
 const VALIDATE_EMAIL = "VALIDATE_EMAIL";
+const GET_LOGIN_ERROR = "GET_LOGIN_ERROR";
 
 const signUp = createAction(SIGN_UP, user => ({ user }));
 const logIn = createAction(LOG_IN, user => ({ user }));
@@ -13,11 +14,13 @@ const logOut = createAction(LOG_OUT, user => ({ user }));
 const validateEmail = createAction(VALIDATE_EMAIL, validation => ({
   validation,
 }));
+const getLoginError = createAction(GET_LOGIN_ERROR, error => ({ error }));
 
 const initialState = {
   user: null,
   is_login: false,
   emailValidation: false,
+  loginError: {},
 };
 
 export const singUpAPI = (email, username, password) => {
@@ -58,7 +61,9 @@ export const logInAPI = (email, password) => {
         dispatch(logIn(user));
         history.push("/");
       })
-      .catch(err => console.log(err));
+      .catch(error => {
+        dispatch(getLoginError(error));
+      });
   };
 };
 
@@ -67,6 +72,7 @@ export const validateEmailAPI = email => {
     console.log(email);
     // apis.emailValidation(email).then(res => {
     //   console.log(res);
+    // dispatch(validateEmail(validation))
     // });
   };
 };
@@ -106,6 +112,10 @@ export default handleActions(
     [VALIDATE_EMAIL]: (state, action) =>
       produce(state, draft => {
         draft.emailValidation = action.payload.validation;
+      }),
+    [GET_LOGIN_ERROR]: (state, action) =>
+      produce(state, draft => {
+        draft.loginError = action.payload.error;
       }),
   },
   initialState

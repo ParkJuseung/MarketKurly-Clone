@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,7 +8,7 @@ import Text from "../elements/Text";
 
 const Signup = props => {
   const dispatch = useDispatch();
-  const validation = useSelector(state => state);
+  const validation = useSelector(state => state.user.emailValidation);
   console.log(validation);
 
   const [email, setEmail] = useState("");
@@ -14,21 +16,11 @@ const Signup = props => {
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
 
-  const [checkEmail, setCheckEmail] = useState(true);
+  const [checkEmail, setCheckEmail] = useState(false);
   const [checkPassword, setCheckPassword] = useState(true);
 
   const onChange = (e, setIntput) => {
     setIntput(e.target.value);
-  };
-
-  const signUp = () => {
-    if (password !== passwordCheck) {
-      setCheckPassword(!checkPassword);
-      return;
-    } else if (!checkEmail) {
-      return;
-    }
-    dispatch(userActions.singUpAPI(email, username, password));
   };
 
   const validateEmail = () => {
@@ -36,6 +28,18 @@ const Signup = props => {
 
     if (validation) {
       setCheckEmail(true);
+    }
+  };
+
+  const signUp = () => {
+    if (password !== passwordCheck) {
+      setCheckPassword(false);
+      return;
+    }
+    if (checkEmail && checkPassword) {
+      dispatch(userActions.singUpAPI(email, username, password));
+    } else {
+      return;
     }
   };
 
@@ -60,8 +64,10 @@ const Signup = props => {
             />
             <Button onClick={validateEmail}>중복확인</Button>
           </InputWrapper>
-          {!checkEmail && (
-            <Text style={{ fontSize: "10px" }}> 중복확인하셈 </Text>
+          {checkEmail && (
+            <Text style={{ fontSize: "10px" }} bold>
+              ✅&nbsp; 이메일 중복확인 완료
+            </Text>
           )}
 
           <InputWrapper>
@@ -111,9 +117,8 @@ const Signup = props => {
             <FakeDiv />
           </InputWrapper>
           {!checkPassword && (
-            <Text style={{ fontSize: "10px" }}>
-              {" "}
-              비밀번호 동일한지 확인하셈{" "}
+            <Text style={{ fontSize: "10px" }} bold>
+              🕵️&nbsp; 비밀번호 확인해보셈
             </Text>
           )}
         </Wrap>
