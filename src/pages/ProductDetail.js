@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
@@ -273,3 +274,22 @@ const FootMarketIMG = styled.img`
 
 //
 export default ProductDetail;
+=======
+import React from "react";
+import Comment from "../components/Comment";
+import Header from "../components/Header";
+
+const Product = () => {
+
+  return (
+    <React.Fragment>
+      <Header/>
+      <p style={{textAlign:"center"}}>Product Detail</p>
+      <Comment/>
+
+    </React.Fragment>
+  );
+};
+
+export default Product;
+>>>>>>> 0853f4d36141b0b42c32817d58fe2effb98a957f
