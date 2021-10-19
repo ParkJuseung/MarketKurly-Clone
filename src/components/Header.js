@@ -73,7 +73,7 @@ const Header = props => {
               placeholer: "검색어를 입력해주세요.",
             }}
           ></input>
-          <Icon onClick={() => history.push("/cart")} />
+          <CartIcon onClick={() => history.push("/cart")} />
         </HeaderCategory>
       </Grid>
     </React.Fragment>
@@ -146,7 +146,7 @@ const HeaderCategory = styled.ul`
 
 // `
 
-const Icon = styled.span`
+const CartIcon = styled.span`
   margin-left: 1000px;
   position: absolute;
   width: 36px;
