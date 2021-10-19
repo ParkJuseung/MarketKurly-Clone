@@ -99,6 +99,7 @@ const ProductDetail = (props) => {
           <BuyButton>장바구니 담기</BuyButton>
         </InfoWrap>
       </OutWrap>
+      <FootMarketIMG src="https://media.vlpt.us/images/kbs2082/post/369c9ad0-6a69-4f23-9b7c-acbe288949c8/marketkurly_ProductDetail_Footer.PNG"></FootMarketIMG>
     </React.Fragment>
   );
 };
@@ -107,6 +108,7 @@ const OutWrap = styled.div`
   display: flex;
   width: 1050px;
   margin: auto;
+  margin-bottom: 100px;
 `;
 
 const ImgWrap = styled.div`
@@ -196,6 +198,41 @@ const PriceBox = styled.div`
   display: flex;
   float: right;
 `;
+
+// url 들어가니까 밑에 색 표시가 이상함 => 밑으로 뺴놓음
+const BuyCountMinus = styled.button`
+  font-size: 20px;
+  display: block;
+  width: 30px;
+  margin: 0px 2px;
+  border: none;
+  background-color: #ffffff;
+  cursor: pointer;
+  width: 20px;
+  background: url("https://res.kurly.com/pc/ico/2010/ico_minus_on.svg");
+`;
+
+const BuyCountPlus = styled.button`
+  font-size: 20px;
+  margin-left: 5px;
+  border: none;
+
+  display: block;
+  margin: 0px auto;
+  cursor: pointer;
+  width: 20px;
+  background: #fff url("https://res.kurly.com/pc/ico/2010/ico_plus_on.svg");
+`;
+
+const BuyCountText = styled.p`
+  font-size: 12px;
+
+  display: block;
+  align-items: center;
+  margin: 5px 0px 0px 12px;
+  font-weight: bold;
+`;
+
 const Price = styled.div`
   padding-left: 8px;
   font-weight: 800;
@@ -226,39 +263,13 @@ const BuyButton = styled.button`
   float: right;
   margin-top: 10px;
 `;
+
+const FootMarketIMG = styled.img`
+  margin-top: 200px;
+  align-content: center;
+  display: flex;
+  margin: auto;
+`;
+
 //
 export default ProductDetail;
-
-// url 들어가니까 밑에 색 표시가 이상함 => 밑으로 뺴놓음
-const BuyCountMinus = styled.button`
-  font-size: 20px;
-  display: block;
-  width: 30px;
-  margin: 0px 2px;
-  border: none;
-  background-color: #ffffff;
-  cursor: pointer;
-  width: 20px;
-  background: url(https://res.kurly.com/pc/ico/2010/ico_minus_on.svg);
-`;
-
-const BuyCountPlus = styled.button`
-  font-size: 20px;
-  margin-left: 5px;
-  border: none;
-
-  display: block;
-  margin: 0px auto;
-  cursor: pointer;
-  width: 20px;
-  background: #fff url(https://res.kurly.com/pc/ico/2010/ico_plus_on.svg);
-`;
-
-const BuyCountText = styled.p`
-  font-size: 12px;
-
-  display: block;
-  align-items: center;
-  margin: 5px 0px 0px 12px;
-  font-weight: bold;
-`;
