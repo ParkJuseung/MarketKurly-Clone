@@ -1,10 +1,12 @@
+/* eslint-disable */
+
 import React from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 
 import { history } from "../redux/configureStore";
 
-const Product = (props) => {
+const Product = props => {
   const dispatch = useDispatch();
   console.log("프롭스", props);
   return (

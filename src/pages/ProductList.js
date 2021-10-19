@@ -8,14 +8,14 @@ import { productActions } from "../redux/modules/product";
 import { Grid } from "../elements/index";
 import Banner from "../shared/img/45f975c1-e57c-403f-9f4f-1cb0c965897a.webp";
 
-const ProductList = (props) => {
+const ProductList = props => {
   const dispatch = useDispatch();
 
-  const product_list = useSelector((state) => state.product.list);
+  const product_list = useSelector(state => state.product.list);
   console.log(product_list);
 
   useEffect(() => {
-    dispatch(productActions.getProductAPI());
+    // dispatch(productActions.getProductAPI());
   }, []);
 
   return (

@@ -9,7 +9,6 @@ import Text from "../elements/Text";
 const Login = props => {
   const dispatch = useDispatch();
   const loginError = useSelector(state => state.user.loginError);
-  console.log(loginError);
 
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -30,7 +29,7 @@ const Login = props => {
     <>
       <Wrap>
         <Wrap>
-          <Title>회원가입</Title>
+          <Title>로그인</Title>
           <InputWrapper>
             <TextWrapper>
               <Text size="14px" padding="20px" margin="50px" bold>

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { apis } from "../../shared/axios";
@@ -5,12 +7,14 @@ import { apis } from "../../shared/axios";
 const SIGN_UP = "SIGN_UP";
 const LOG_IN = "LOG_IN";
 const LOG_OUT = "LOG_OUT";
+const GET_USER = "GET_USER";
 const VALIDATE_EMAIL = "VALIDATE_EMAIL";
 const GET_LOGIN_ERROR = "GET_LOGIN_ERROR";
 
 const signUp = createAction(SIGN_UP, user => ({ user }));
 const logIn = createAction(LOG_IN, user => ({ user }));
-const logOut = createAction(LOG_OUT, user => ({ user }));
+const logOut = createAction(LOG_OUT);
+const getUser = createAction(GET_USER, user => ({ user }));
 const validateEmail = createAction(VALIDATE_EMAIL, validation => ({
   validation,
 }));
@@ -20,25 +24,32 @@ const initialState = {
   user: null,
   is_login: false,
   emailValidation: false,
-  loginError: {},
+  loginError: null,
+};
+
+const headers = {
+  "content-type": "application/json;charset=UTF-8",
+  accept: "application/json",
+  // authorization: `Bearer ${localStorage.getItem("token")}`,
+  // "Access-Control-Allow-Origin": "*",
 };
 
 export const singUpAPI = (email, username, password) => {
   return function (dispatch, getState, { history }) {
     const _user = {
-      id: "6",
       email,
       username,
       password,
-      token: "gizmogizmogizmo",
     };
+    console.log(_user);
 
     apis
       .signUp(_user)
       .then(res => {
-        const user = res.data;
-        localStorage.setItem("token", res.data.token);
-        dispatch(signUp(user));
+        console.log(res);
+        // const user = res.data;
+        // localStorage.setItem("token", res.data.token);
+        // dispatch(signUp(user));
         history.push("/login");
       })
       .catch(err => console.log(err));
@@ -52,16 +63,19 @@ export const logInAPI = (email, password) => {
       password,
     };
 
+    console.log(_user);
+
     apis
-      .logIn("2")
+      .logIn(_user)
       .then(res => {
-        console.log(res);
-        const user = res.data;
-        localStorage.setItem("token", user.token);
+        const token = res.data.data.token;
+        const user = res.data.data.user;
+        localStorage.setItem("token", token);
         dispatch(logIn(user));
         history.push("/");
       })
       .catch(error => {
+        console.log(error);
         dispatch(getLoginError(error));
       });
   };
@@ -70,24 +84,36 @@ export const logInAPI = (email, password) => {
 export const validateEmailAPI = email => {
   return function (dispatch, getState, { history }) {
     console.log(email);
-    // apis.emailValidation(email).then(res => {
-    //   console.log(res);
-    // dispatch(validateEmail(validation))
-    // });
+    apis
+      .emailValidation(email)
+      .then(res => {
+        console.log(res);
+        if (res.data.result === "success") {
+          dispatch(validateEmail(true));
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 };
-
-export const loginCheckAPI = () => {
-  return function (dispatch, getState, {history}) {
-    const token = localStorage.getItem('token')
-  }
-}
 
 export const logOutAPI = () => {
   return function (dispatch, getState, { history }) {
     localStorage.removeItem("token");
     dispatch(logOut());
     history.push("/login");
+  };
+};
+
+export const getUserAPI = () => {
+  return function (dispatch, getState, { history }) {
+    apis.getUser().then(res => {
+      const token = res.data.data.token;
+      const user = res.data.data.user;
+      dispatch(getUser(user));
+      history.push("/");
+    });
   };
 };
 
@@ -106,7 +132,7 @@ export default handleActions(
       }),
     [LOG_IN]: (state, action) =>
       produce(state, draft => {
-        draft.user = { ...action.payload.user };
+        draft.user = action.payload.user;
         draft.is_login = true;
       }),
     [VALIDATE_EMAIL]: (state, action) =>
@@ -117,6 +143,12 @@ export default handleActions(
       produce(state, draft => {
         draft.loginError = action.payload.error;
       }),
+    [GET_USER]: (state, action) =>
+      produce(state, draft => {
+        console.log(action.payload.user);
+        draft.user = action.payload.user;
+        draft.is_login = true;
+      }),
   },
   initialState
 );
@@ -126,6 +158,7 @@ const userActions = {
   logInAPI,
   logOutAPI,
   validateEmailAPI,
+  getUserAPI,
 };
 
 export { userActions };

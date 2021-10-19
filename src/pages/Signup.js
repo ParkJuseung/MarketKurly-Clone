@@ -9,14 +9,12 @@ import Text from "../elements/Text";
 const Signup = props => {
   const dispatch = useDispatch();
   const validation = useSelector(state => state.user.emailValidation);
-  console.log(validation);
 
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
 
-  const [checkEmail, setCheckEmail] = useState(false);
   const [checkPassword, setCheckPassword] = useState(true);
 
   const onChange = (e, setIntput) => {
@@ -25,10 +23,6 @@ const Signup = props => {
 
   const validateEmail = () => {
     dispatch(userActions.validateEmailAPI(email));
-
-    if (validation) {
-      setCheckEmail(true);
-    }
   };
 
   const signUp = () => {
@@ -36,7 +30,7 @@ const Signup = props => {
       setCheckPassword(false);
       return;
     }
-    if (checkEmail && checkPassword) {
+    if (validation && checkPassword) {
       dispatch(userActions.singUpAPI(email, username, password));
     } else {
       return;
@@ -64,7 +58,7 @@ const Signup = props => {
             />
             <Button onClick={validateEmail}>중복확인</Button>
           </InputWrapper>
-          {checkEmail && (
+          {validation && (
             <Text style={{ fontSize: "10px" }} bold>
               ✅&nbsp; 이메일 중복확인 완료
             </Text>

@@ -1,9 +1,11 @@
+/* eslint-disable */
+
 import React from "react";
 import styled from "styled-components";
 
 import { Text, Grid } from "./index";
 
-const Input = (props) => {
+const Input = props => {
   const {
     label,
     placeholder,
@@ -41,7 +43,7 @@ const Input = (props) => {
             placeholder={placeholder}
             onChange={_onChange}
             value={value}
-            onKeyPress={(e) => {
+            onKeyPress={e => {
               if (e.key === "Enter") {
                 onSubmit(e);
               }
