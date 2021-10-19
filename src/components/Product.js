@@ -99,11 +99,11 @@ const ProductContainer = styled.div`
 const ProductImgWrap = styled.div`
   overflow: hidden;
   position: relative;
-  width: 308px;
-  height: 396px;
+  width: 338px;
+  height: 435px;
   & img {
-    width: 308px;
-    height: 396px;
+    width: 338px;
+    height: 435px;
     margin: 0px;
     padding: 0px;
     -webkit-transform: scale(1);
@@ -117,11 +117,11 @@ const ProductImgWrap = styled.div`
     -o-transition: 0.4s;
     transition: 0.4s;
     &:hover {
-      transform: scale(1.1);
-      -webkit-transform: scale(1.1);
-      -moz-transform: scale(1.1);
-      -ms-transform: scale(1.1);
-      -o-transform: scale(1.1);
+      transform: scale(1.05);
+      -webkit-transform: scale(1.05);
+      -moz-transform: scale(1.05);
+      -ms-transform: scale(1.05);
+      -o-transform: scale(1.05);
     }
   }
 `;

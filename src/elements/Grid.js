@@ -47,7 +47,6 @@ const GridBox = styled.div`
   ${(props) => (props.center ? `text-align: center;` : "")}
   max-width: 1300px;
   margin: auto;
-  cursor: pointer;
 `;
 
 export default Grid;
