@@ -3,6 +3,7 @@ import Product from "../components/Product";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { productActions } from "../redux/modules/product";
+import { Grid } from "../elements/index";
 import Banner from "../shared/img/45f975c1-e57c-403f-9f4f-1cb0c965897a.webp";
 
 const ProductList = (props) => {
@@ -21,6 +22,20 @@ const ProductList = (props) => {
         <React.Fragment>
           <BannerImg src={Banner}></BannerImg>
           <CategoryText>신상품</CategoryText>
+          <Grid width="1050px" is_flex>
+            <LittleP>총 {}건</LittleP>
+            <div style={{ display: "flex" }}>
+              <LittleP2>추천순</LittleP2>
+              <LittleLine> | </LittleLine>
+              <LittleP2>신상품순</LittleP2>
+              <LittleLine> | </LittleLine>
+              <LittleP2>인기상품순</LittleP2>
+              <LittleLine> | </LittleLine>
+              <LittleP2>낮은 가격순</LittleP2>
+              <LittleLine> | </LittleLine>
+              <LittleP2>높은 가격순</LittleP2>
+            </div>
+          </Grid>
           <ProductWrap>
             {product_list.map((p, idx) => (
               <Product key={idx} {...p} />
@@ -59,6 +74,26 @@ const CategoryText = styled.p`
   line-height: 35px;
   letter-spacing: -1px;
   text-align: center;
+`;
+
+const LittleP = styled.p`
+  font-size: 12px;
+  color: #333;
+  line-height: 18px;
+`;
+
+const LittleP2 = styled.p`
+  font-size: 12px;
+  color: #999;
+  line-height: 18px;
+  margin-left: 6px;
+  cursor: pointer;
+`;
+const LittleLine = styled.p`
+  font-size: 12px;
+  color: #9999;
+  line-height: 18px;
+  margin-left: 6px;
 `;
 
 export default ProductList;
