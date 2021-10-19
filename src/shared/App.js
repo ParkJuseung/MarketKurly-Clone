@@ -9,6 +9,8 @@ import Product from "../pages/Product";
 
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
+import Comment from "../pages/CommentWrite";
+
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
           <Route path="/" exact component={ProductList}></Route>
           <Route path="/signup" exact component={Signup}></Route>
           <Route path="/login" exact component={Login}></Route>
+          <Route path="/product" exact component={Product}></Route>
+          <Route path="/comment" exact component={Comment}></Route>
         </Switch>
       </ConnectedRouter>
     </React.Fragment>
