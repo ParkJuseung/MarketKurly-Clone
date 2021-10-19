@@ -3,19 +3,32 @@
 import React from "react";
 import styled from "styled-components";
 
+import CartProduct from "../components/CartProduct";
+
 const Cart = props => {
   return (
     <>
       <Wrap>
         <Wrap>
-          <ProductWrap>
-            <div>상품리스트</div>
-          </ProductWrap>
+          <Wrap>
+            <CartProduct />
+          </Wrap>
+          <Wrap>
+            <PriceTitleWrap>
+              <div>가격정보</div>
+            </PriceTitleWrap>
+          </Wrap>
         </Wrap>
+
         <Wrap>
-          <PriceWrap>
-            <div>가격정보</div>
-          </PriceWrap>
+          <Wrap>
+            <ProductListWrap>
+              <div>프로덕트리스트</div>
+            </ProductListWrap>
+            <PriceInfoWrap>
+              <div>프로덕트리스트</div>
+            </PriceInfoWrap>
+          </Wrap>
         </Wrap>
       </Wrap>
     </>
@@ -29,12 +42,14 @@ const Wrap = styled.div`
   justify-content: center;
   align-items: center;
   width: 1050px;
-  height: 400px;
+  max-width: 800px;
   margin: 10px auto;
   box-sizing: border-box;
+  margin-top: 200px;
+  margin-right: 20px;
 `;
 
-const ProductWrap = styled.div`
+const ProductTitleWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,8 +59,30 @@ const ProductWrap = styled.div`
   background-color: green;
 `;
 
-const PriceWrap = styled.div`
+const PriceTitleWrap = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 284px;
+  box-sizing: border-box;
+  padding: 20px;
+  background-color: green;
+`;
+
+const ProductListWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1050px;
+  box-sizing: border-box;
+  padding: 20px;
+  background-color: green;
+  margin-right: 20px;
+`;
+
+const PriceInfoWrap = styled.div`
+  display: flex;
+  flex-direction: start;
   justify-content: center;
   align-items: center;
   width: 284px;
