@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useEffect } from "react";
 import Product from "../components/Product";
 import styled from "styled-components";
@@ -14,7 +16,6 @@ const ProductList = props => {
   }, []);
 
   const product_list = useSelector(state => state.product.products.content);
-  console.log(product_list);
   const product_list_count = useSelector(
     state => state.product.products.numberOfElements
   );

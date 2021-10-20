@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
@@ -18,7 +20,6 @@ const ProductDetail = props => {
       try {
         let product_id = props.match.params.id;
         const result = await apis.getProductDetail(product_id);
-        console.log(result.data.data);
         setProduct(result.data.data);
         setPrice(result.data.data.price);
       } catch (error) {
