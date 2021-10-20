@@ -1,22 +1,30 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
+import { productActions } from "../redux/modules/product";
+import { apis } from "../shared/axios";
 
 const ProductDetail = (props) => {
+  const dispatch = useDispatch();
   const [buy_count, setBuy_count] = React.useState(1);
-  const [price, setPrice] = React.useState();
-
-  const p_redux_id = useSelector((state) => state.product.list);
-  console.log(p_redux_id);
-
-  let product_id = props.match.params.id;
-
-  let product = p_redux_id.find((p) => p.id === product_id);
+  const [price, setPrice] = React.useState(null);
+  const [product, setProduct] = React.useState();
 
   React.useEffect(() => {
-    console.log(product);
-    setPrice(product.price);
+    const fetchData = async () => {
+      try {
+        let product_id = props.match.params.id;
+        const result = await apis.getProductDetail(product_id);
+        console.log(result.data.data);
+        setProduct(result.data.data);
+        setPrice(result.data.data.price);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
   }, []);
+  //   console.log(product);
 
   const BuyMinus = () => {
     if (buy_count > 1) {
@@ -33,74 +41,78 @@ const ProductDetail = (props) => {
   };
 
   return (
-    <React.Fragment>
-      <OutWrap>
-        <ImgWrap>
-          <img src="https://img-cf.kurly.com/shop/data/goods/1634522153802l0.jpg" />
-        </ImgWrap>
+    <>
+      {product && (
+        <React.Fragment>
+          <OutWrap>
+            <ImgWrap>
+              <img src={product.image} />
+            </ImgWrap>
 
-        <InfoWrap>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <TitleText>[그린밤]샌드위치</TitleText>
-            <ShareIcon src="https://res.kurly.com/mobile/service/goodsview/1910/ico_view_sns.png"></ShareIcon>
-          </div>
-
-          <Description>{product.description}</Description>
-          <PriceText>{product.price}원</PriceText>
-          <FlexDiv>
-            <FlexDiv_title>판매단위</FlexDiv_title>
-            <FlexDiv_des>1개</FlexDiv_des>
-          </FlexDiv>
-          <FlexDiv>
-            <FlexDiv_title>배송구분</FlexDiv_title>
-            <FlexDiv_des>샛별배송/택배배송</FlexDiv_des>
-          </FlexDiv>
-          <FlexDiv>
-            <FlexDiv_title>포장타입</FlexDiv_title>
-            <div style={{ display: "block" }}>
-              <FlexDiv_des>종이포장</FlexDiv_des>
-              <FlexDiv_des_des>
-                택배배송은 에코포장이 스티로폼으로 대체됩니다.
-              </FlexDiv_des_des>
-            </div>
-          </FlexDiv>
-
-          <FlexDivBuy>
-            <FlexDiv_title>구매수량</FlexDiv_title>
-            <Buycount>
-              <BuyCountMinus
-                onClick={() => {
-                  BuyMinus();
+            <InfoWrap>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
                 }}
               >
-                &nbsp;
-              </BuyCountMinus>
-              <BuyCountText>{buy_count}</BuyCountText>
-              <BuyCountPlus
-                onClick={() => {
-                  BuyPlus();
-                }}
-              >
-                &nbsp;{" "}
-              </BuyCountPlus>
-            </Buycount>
-          </FlexDivBuy>
-          <PriceBox>
-            <FlexDiv_des>총 상품금액: </FlexDiv_des>
-            <Price>{price}</Price>
-            <Won>&nbsp;원</Won>
-          </PriceBox>
-          <BuyButton>장바구니 담기</BuyButton>
-        </InfoWrap>
-      </OutWrap>
-      <FootMarketIMG src="https://media.vlpt.us/images/kbs2082/post/369c9ad0-6a69-4f23-9b7c-acbe288949c8/marketkurly_ProductDetail_Footer.PNG"></FootMarketIMG>
-    </React.Fragment>
+                <TitleText>{product.name}</TitleText>
+                <ShareIcon src="https://res.kurly.com/mobile/service/goodsview/1910/ico_view_sns.png"></ShareIcon>
+              </div>
+
+              <Description>{product.description}</Description>
+              <PriceText>{product.price}원</PriceText>
+              <FlexDiv>
+                <FlexDiv_title>판매단위</FlexDiv_title>
+                <FlexDiv_des>1개</FlexDiv_des>
+              </FlexDiv>
+              <FlexDiv>
+                <FlexDiv_title>배송구분</FlexDiv_title>
+                <FlexDiv_des>샛별배송/택배배송</FlexDiv_des>
+              </FlexDiv>
+              <FlexDiv>
+                <FlexDiv_title>포장타입</FlexDiv_title>
+                <div style={{ display: "block" }}>
+                  <FlexDiv_des>종이포장</FlexDiv_des>
+                  <FlexDiv_des_des>
+                    택배배송은 에코포장이 스티로폼으로 대체됩니다.
+                  </FlexDiv_des_des>
+                </div>
+              </FlexDiv>
+
+              <FlexDivBuy>
+                <FlexDiv_title>구매수량</FlexDiv_title>
+                <Buycount>
+                  <BuyCountMinus
+                    onClick={() => {
+                      BuyMinus();
+                    }}
+                  >
+                    &nbsp;
+                  </BuyCountMinus>
+                  <BuyCountText>{buy_count}</BuyCountText>
+                  <BuyCountPlus
+                    onClick={() => {
+                      BuyPlus();
+                    }}
+                  >
+                    &nbsp;{" "}
+                  </BuyCountPlus>
+                </Buycount>
+              </FlexDivBuy>
+              <PriceBox>
+                <FlexDiv_des>총 상품금액: </FlexDiv_des>
+                <Price>{price}</Price>
+                <Won>&nbsp;원</Won>
+              </PriceBox>
+              <BuyButton>장바구니 담기</BuyButton>
+            </InfoWrap>
+          </OutWrap>
+          <FootMarketIMG src="https://media.vlpt.us/images/kbs2082/post/369c9ad0-6a69-4f23-9b7c-acbe288949c8/marketkurly_ProductDetail_Footer.PNG"></FootMarketIMG>
+        </React.Fragment>
+      )}
+    </>
   );
 };
 
@@ -114,10 +126,30 @@ const OutWrap = styled.div`
 const ImgWrap = styled.div`
   overflow: hidden;
   position: relative;
-  width: 430px;
-  height: 552px;
+  width: 338px;
+  height: 435px;
   & img {
-    object-fit: fill;
+    width: 338px;
+    height: 435px;
+    margin: 0px;
+    padding: 0px;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: 0.4s;
+    -moz-transition: 0.4s;
+    -ms-transition: 0.4s;
+    -o-transition: 0.4s;
+    transition: 0.4s;
+    &:hover {
+      transform: scale(1.05);
+      -webkit-transform: scale(1.05);
+      -moz-transform: scale(1.05);
+      -ms-transform: scale(1.05);
+      -o-transform: scale(1.05);
+    }
   }
 `;
 

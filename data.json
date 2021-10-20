@@ -8,7 +8,8 @@
       "description": "꽉 찬 단면이 흐뭇한 샌드위치",
       "unit": 1,
       "delivery": "샛별배송/택배배송",
-      "type": "상온/종이포장"
+      "type": "상온/종이포장",
+      "image_url": "https://images-na.ssl-images-amazon.com/images/I/61ZvAe03FfL.jpg"
     },
     {
       "id": "productId2",
@@ -17,7 +18,8 @@
       "description": "간단설명",
       "unit": 1,
       "delivery": "샛별배송/택배배송",
-      "type": "상온/종이포장"
+      "type": "상온/종이포장",
+      "image_url": "https://images-na.ssl-images-amazon.com/images/I/61ZvAe03FfL.jpg"
     },
     {
       "id": "productId3",
@@ -26,7 +28,8 @@
       "description": "간단설명",
       "unit": 1,
       "delivery": "샛별배송/택배배송",
-      "type": "상온/종이포장"
+      "type": "상온/종이포장",
+      "image_url": "https://images-na.ssl-images-amazon.com/images/I/61ZvAe03FfL.jpg"
     },
     {
       "id": "productId4",
@@ -35,16 +38,8 @@
       "description": "간단설명",
       "unit": 1,
       "delivery": "샛별배송/택배배송",
-      "type": "상온/종이포장"
-    }
-  ],
-  "comments": [
-    {
-      "id": "1",
-      "postId": "2",
-      "commentDesc": "2번 댓글이다요",
-      "commentUserId": "aslkdfjas",
-      "commentDate": "2021-10-12"
+      "type": "상온/종이포장",
+      "image_url": "https://images-na.ssl-images-amazon.com/images/I/61ZvAe03FfL.jpg"
     }
   ],
   "reviews": [

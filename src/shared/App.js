@@ -1,4 +1,6 @@
-import React from "react";
+/* eslint-disable */
+
+import React, { useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux/configureStore";
@@ -9,10 +11,21 @@ import Footer from "../components/Footer";
 import Cart from "../pages/Cart";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
-import CommentWrite from "../pages/CommentWrite";
 import ProductDetail from "../pages/ProductDetail";
+import CommentWrite from "../pages/CommentWrite";
+
+import { useDispatch, useSelector } from "react-redux";
+import { userActions } from "../redux/modules/user";
 
 function App() {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
+  console.log(user);
+
+  useEffect(() => {
+    dispatch(userActions.getUserAPI());
+  }, []);
+
   return (
     <React.Fragment>
       <ConnectedRouter history={history}>
@@ -23,7 +36,6 @@ function App() {
           <Route path="/login" exact component={Login}></Route>
           <Route path="/product/:id" exact component={ProductDetail}></Route>
           <Route path="/cart" exact component={Cart}></Route>
-
           <Route path="/comment" exact component={CommentWrite}></Route>
         </Switch>
         <Footer />

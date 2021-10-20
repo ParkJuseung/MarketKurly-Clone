@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import React, { useEffect } from "react";
 import Product from "../components/Product";
 import styled from "styled-components";
@@ -11,13 +9,17 @@ import Banner from "../shared/img/45f975c1-e57c-403f-9f4f-1cb0c965897a.webp";
 const ProductList = (props) => {
   const dispatch = useDispatch();
 
-  const product_list = useSelector((state) => state.product.list);
-  console.log(product_list);
-
-  useEffect(() => {
+  React.useEffect(() => {
+    console.log("머야");
     dispatch(productActions.getProductAPI());
   }, []);
 
+  const product_list = useSelector((state) => state.product.list.content);
+  console.log(product_list);
+  const product_list_count = useSelector(
+    (state) => state.product.list.numberOfElements
+  );
+  console.log(product_list);
   return (
     <>
       {product_list && (
@@ -25,7 +27,7 @@ const ProductList = (props) => {
           <BannerImg src={Banner}></BannerImg>
           <CategoryText>신상품</CategoryText>
           <Grid width="1050px" is_flex>
-            <LittleP>총 {}건</LittleP>
+            <LittleP>총 {product_list_count}건</LittleP>
             <div style={{ display: "flex" }}>
               <LittleP2>추천순</LittleP2>
               <LittleLine> | </LittleLine>
