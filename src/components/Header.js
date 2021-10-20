@@ -13,9 +13,9 @@ const Header = props => {
 
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(userActions.getUserAPI());
-  // }, []);
+  useEffect(() => {
+    dispatch(userActions.getUserAPI());
+  }, []);
 
   return (
     <React.Fragment>

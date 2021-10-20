@@ -37,6 +37,7 @@ export const singUpAPI = (email, username, password) => {
       username,
       password,
     };
+    console.log(_user);
 
     apis
       .signUp(_user)
@@ -84,13 +85,13 @@ export const validateEmailAPI = email => {
     apis
       .emailValidation(email)
       .then(res => {
-        console.log(res);
         if (res.data.result === "success") {
           dispatch(validateEmail(true));
         }
       })
       .catch(err => {
-        console.log(err);
+        const message = err.response.data.message;
+        dispatch(getSignupError(message));
       });
   };
 };

@@ -28,15 +28,7 @@ const Signup = props => {
   };
 
   const signUp = () => {
-    if (password !== passwordCheck) {
-      setCheckPassword(false);
-      return;
-    }
-    if (validation && checkPassword) {
-      dispatch(userActions.singUpAPI(email, username, password));
-    } else {
-      return;
-    }
+    dispatch(userActions.singUpAPI(email, username, password));
   };
 
   return (
@@ -60,9 +52,13 @@ const Signup = props => {
             />
             <Button onClick={validateEmail}>중복확인</Button>
           </InputWrapper>
-          {validation && (
+          {validation ? (
             <Text style={{ fontSize: "10px" }} bold>
               ✅&nbsp; 이메일 중복확인 완료
+            </Text>
+          ) : (
+            <Text style={{ fontSize: "10px", color: "red" }} bold>
+              {errorMessage}
             </Text>
           )}
 
