@@ -5,7 +5,7 @@ const FooterLeft = (props) => {
 
     return (
       <React.Fragment>
-          <Titcc>
+          <Wrap>
             <Happy>고객행복센터</Happy>
             <FooterL>
               <h2>
@@ -42,12 +42,12 @@ const FooterLeft = (props) => {
                 <Dd>비회원의 경우 이메일로 문의바랍니다.</Dd>
               </RightContents>
             </FooterL1>
-          </Titcc>
+          </Wrap>
       </React.Fragment>
     );
 }
 
-const Titcc = styled.div`
+const Wrap = styled.div`
     width:50%
 `
 const Happy = styled.h3`
@@ -74,7 +74,6 @@ const FooterL1 = styled.div`
 const RightContents = styled.dl`
     font-size : 14px;
     color : #333;
-    line-hegiht : 22px;
     letter-spacing: -.2px;
     margin : 20px 0px 10px
 `

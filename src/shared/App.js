@@ -12,7 +12,6 @@ import Cart from "../pages/Cart";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import ProductDetail from "../pages/ProductDetail";
-import CommentWrite from "../pages/CommentWrite";
 
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../redux/modules/user";
@@ -29,14 +28,13 @@ function App() {
   return (
     <React.Fragment>
       <ConnectedRouter history={history}>
-        {/* <Header/> */}
+        <Header/>
         <Switch>
           <Route path="/" exact component={ProductList}></Route>
           <Route path="/signup" exact component={Signup}></Route>
           <Route path="/login" exact component={Login}></Route>
           <Route path="/cart" exact component={Cart}></Route>
-          <Route path="/product" exact component={ProductDetail}></Route>
-          <Route path="/comment" exact component={CommentWrite}></Route>
+          <Route path="/product/:id" exact component={ProductDetail}></Route>
         </Switch>
         <Footer />
       </ConnectedRouter>

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Comment from "../components/Comment";
 import { useSelector, useDispatch } from "react-redux";
 
 const ProductDetail = props => {
@@ -100,6 +101,7 @@ const ProductDetail = props => {
         </InfoWrap>
       </OutWrap>
       <FootMarketIMG src="https://media.vlpt.us/images/kbs2082/post/369c9ad0-6a69-4f23-9b7c-acbe288949c8/marketkurly_ProductDetail_Footer.PNG"></FootMarketIMG>
+                <Comment/>
     </React.Fragment>
   );
 };

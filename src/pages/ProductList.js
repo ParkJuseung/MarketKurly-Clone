@@ -15,7 +15,7 @@ const ProductList = props => {
   console.log(product_list);
 
   useEffect(() => {
-    // dispatch(productActions.getProductAPI());
+    dispatch(productActions.getProductAPI());
   }, []);
 
   return (
