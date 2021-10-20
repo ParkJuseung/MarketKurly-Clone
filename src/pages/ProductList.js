@@ -10,16 +10,15 @@ const ProductList = (props) => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    console.log("머야");
     dispatch(productActions.getProductAPI());
   }, []);
 
-  const product_list = useSelector((state) => state.product.list.content);
+  const product_list = useSelector((state) => state.product.products.content);
   console.log(product_list);
   const product_list_count = useSelector(
-    (state) => state.product.list.numberOfElements
+    (state) => state.product.products.numberOfElements
   );
-  console.log(product_list);
+
   return (
     <>
       {product_list && (

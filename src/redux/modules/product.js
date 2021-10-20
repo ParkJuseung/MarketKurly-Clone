@@ -7,13 +7,8 @@ const GET_PRODUCT = "GET_PRODUCT";
 const getProducts = createAction(GET_PRODUCT, (data) => ({ data }));
 
 const initialState = {
-  products: {
-    name: "강원도 감자",
-    price: 10000,
-    description: "간단한 설명이 들어가는 곳",
-    viewCount: 10,
-    productCount: 20,
-  },
+  products: [],
+  numberOfElement: "",
 };
 //product 전체 호출
 export const getProductAPI = () => {
@@ -34,8 +29,8 @@ export default handleActions(
     [GET_PRODUCT]: (state, action) =>
       produce(state, (draft) => {
         console.log("액션", action);
-        draft.list = action.payload.data;
-        // console.log("draft", draft.list);
+        draft.products = action.payload.data;
+        console.log("draft", draft.products);
       }),
   },
   initialState
