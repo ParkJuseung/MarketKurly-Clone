@@ -109,10 +109,10 @@ export const logOutAPI = () => {
 export const getUserAPI = () => {
   return function (dispatch, getState, { history }) {
     apis.getUser().then(res => {
-      const token = res.data.data.token;
+
       const user = res.data.data.user;
       dispatch(getUser(user));
-      history.push("/");
+
     });
   };
 };

@@ -117,9 +117,6 @@ const Comment = (props) => {
                         <td>0</td>
                     </tr>
                     </tbody>
-                    {comment_list[props.id]?.map((c) => {
-                     return <div key={c.id} {...c} />;
-                       })}
                 </Table>
                 <Button onClick={openModal}>후기쓰기</Button>  
             </Grid>
