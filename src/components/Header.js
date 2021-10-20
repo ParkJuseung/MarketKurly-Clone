@@ -9,7 +9,6 @@ import { userActions } from "../redux/modules/user";
 const Header = props => {
   const is_login = useSelector(state => state.user.is_login);
   const user = useSelector(state => state.user.user);
-  console.log(user);
 
   const dispatch = useDispatch();
 

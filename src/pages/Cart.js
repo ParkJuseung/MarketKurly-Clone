@@ -11,8 +11,15 @@ import { useSelector, useDispatch } from "react-redux";
 
 const Cart = props => {
   const dispatch = useDispatch();
-  const products = useSelector(state => state.product.products);
+
+  useEffect(() => {
+    dispatch(productActions.getMyProductAPI());
+  }, []);
+
+  const products = useSelector(state => state.product.myProducts);
   console.log(products);
+  const is_loaded = useSelector(state => state.product.is_loaded);
+  console.log(is_loaded);
 
   const [qty, setQty] = useState(1);
   const [price, setPrice] = useState(100);
@@ -33,164 +40,159 @@ const Cart = props => {
     console.log("주문!");
   };
 
-  useEffect(() => {
-    dispatch(productActions.getMyProductAPI());
-  }, []);
-
-  if (!products) {
-    return;
-  }
   return (
     <>
-      <Wrapper>
-        <Title>장바구니</Title>
-        <InfoWrapper>
-          <ProductWrapper>
-            <ProductSummary>
-              <CheckCircleIcon
-                color="disabled"
-                style={{ marginRight: "20px", cursor: "pointer" }}
-              />
-              <SelectText style={{ marginRight: "20px" }}>
-                전체선택 / {products.length}
-              </SelectText>
-              <SelectText>선택삭제</SelectText>
-            </ProductSummary>
-            <hr style={{ width: "720px", size: "5" }} />
+      {is_loaded && (
+        <Wrapper>
+          <Title>장바구니</Title>
+          <InfoWrapper>
+            <ProductWrapper>
+              <ProductSummary>
+                <CheckCircleIcon
+                  color="disabled"
+                  style={{ marginRight: "20px", cursor: "pointer" }}
+                />
+                <SelectText style={{ marginRight: "20px" }}>
+                  전체선택 / {products.length}
+                </SelectText>
+                <SelectText>선택삭제</SelectText>
+              </ProductSummary>
+              <hr style={{ width: "720px", size: "5" }} />
 
-            {products.map((p, idx) => {
-              return (
-                <ProductUnitWrapper key={p.idx}>
-                  <CheckCircleIcon
-                    color="disabled"
-                    style={{ marginRight: "10px", cursor: "pointer" }}
-                  />
-                  <ProductImage src={p.image} />
-                  <ProductTextWrapper>
-                    <ProductDeadline>{p.name}</ProductDeadline>
-                    <ProductName>{p.description}</ProductName>
-                  </ProductTextWrapper>
+              {products.map((p, idx) => {
+                return (
+                  <ProductUnitWrapper key={p.idx}>
+                    <CheckCircleIcon
+                      color="disabled"
+                      style={{ marginRight: "10px", cursor: "pointer" }}
+                    />
+                    <ProductImage src={p.image} />
+                    <ProductTextWrapper>
+                      <ProductDeadline>{p.name}</ProductDeadline>
+                      <ProductName>{p.description}</ProductName>
+                    </ProductTextWrapper>
 
-                  <ProductQtyWrapper>
-                    <ProductQtyButton
-                      onClick={subQty}
-                      style={{ cursor: "pointer" }}
-                    >
-                      -
-                    </ProductQtyButton>
-                    <ProductQty>{qty}</ProductQty>
-                    <ProductQtyButton
-                      style={{ cursor: "pointer" }}
-                      onClick={plusQty}
-                    >
-                      +
-                    </ProductQtyButton>
-                  </ProductQtyWrapper>
-                  <ProductPriceWrapper>
-                    <ProductActualPrice>{p.price * 0.5}</ProductActualPrice>
-                    <ProductPrice>{p.price}</ProductPrice>
-                  </ProductPriceWrapper>
-                  <ClearIcon
-                    style={{ color: "#e1e1e1", cursor: "pointer" }}
-                    onClick={() => deleteProduct(p.productId)}
-                  />
-                </ProductUnitWrapper>
-              );
-            })}
-          </ProductWrapper>
-          <PriceWrapper>
-            <DeliveryArea style={{ padding: "20px" }}>
-              <p style={{ fontWeight: 600 }}>🏠 &nbsp; 배송지</p>
-              <p
-                style={{
-                  lineHeight: "24px",
-                  margin: "0 0 5px 0",
-                  fontWeight: 600,
-                }}
-              >
-                서울시 중구 다산로36길 110(신당푸르지오) 103동 1302호
-              </p>
-              <p
-                style={{
-                  color: "#5f0080",
-                  fontSize: "14px",
-                  margin: 0,
-                  fontWeight: 600,
-                }}
-              >
-                샛별배송
-              </p>
+                    <ProductQtyWrapper>
+                      <ProductQtyButton
+                        onClick={subQty}
+                        style={{ cursor: "pointer" }}
+                      >
+                        -
+                      </ProductQtyButton>
+                      <ProductQty>{qty}</ProductQty>
+                      <ProductQtyButton
+                        style={{ cursor: "pointer" }}
+                        onClick={plusQty}
+                      >
+                        +
+                      </ProductQtyButton>
+                    </ProductQtyWrapper>
+                    <ProductPriceWrapper>
+                      <ProductActualPrice>{p.price * 0.5}</ProductActualPrice>
+                      <ProductPrice>{p.price}</ProductPrice>
+                    </ProductPriceWrapper>
+                    <ClearIcon
+                      style={{ color: "#e1e1e1", cursor: "pointer" }}
+                      onClick={() => deleteProduct(p.productId)}
+                    />
+                  </ProductUnitWrapper>
+                );
+              })}
+            </ProductWrapper>
+            <PriceWrapper>
+              <DeliveryArea style={{ padding: "20px" }}>
+                <p style={{ fontWeight: 600 }}>🏠 &nbsp; 배송지</p>
+                <p
+                  style={{
+                    lineHeight: "24px",
+                    margin: "0 0 5px 0",
+                    fontWeight: 600,
+                  }}
+                >
+                  서울시 중구 다산로36길 110(신당푸르지오) 103동 1302호
+                </p>
+                <p
+                  style={{
+                    color: "#5f0080",
+                    fontSize: "14px",
+                    margin: 0,
+                    fontWeight: 600,
+                  }}
+                >
+                  샛별배송
+                </p>
+                <button
+                  style={{
+                    color: "#5f0080",
+                    backgroundColor: "white",
+                    border: "1px solid #5f0080",
+                    height: "36px",
+                    marginTop: "17px",
+                    fontWeight: 600,
+                    fontSize: "12px",
+                    width: "281px",
+                    margin: "20px 0 30px 0",
+                  }}
+                >
+                  배송지 변경
+                </button>
+              </DeliveryArea>
+              <PriceArea style={{ padding: "20px" }}>
+                <PriceDetail>
+                  <p>상품금액</p>
+                  <p>{price * qty}원</p>
+                </PriceDetail>
+                <PriceDetail>
+                  <p style={{ margin: 0 }}>상품할인금액</p>
+                  <p style={{ margin: 0 }}>0원</p>
+                </PriceDetail>
+                <PriceDetail>
+                  <p>배송비</p>
+                  <p>0원</p>
+                </PriceDetail>
+                <hr style={{ width: "278px", border: "1px solid #f2f2f2" }} />
+                <PriceDetail style={{ alignItems: "center" }}>
+                  <p>결제예정금액</p>
+                  <p style={{ fontSize: "20px", fontWeight: "700" }}>
+                    {price * qty}원
+                  </p>
+                </PriceDetail>
+              </PriceArea>
               <button
                 style={{
-                  color: "#5f0080",
-                  backgroundColor: "white",
-                  border: "1px solid #5f0080",
-                  height: "36px",
-                  marginTop: "17px",
-                  fontWeight: 600,
-                  fontSize: "12px",
-                  width: "281px",
-                  margin: "20px 0 30px 0",
+                  backgroundColor: "#5f0080",
+                  color: "white",
+                  height: "50px",
+                  borderRadius: "5px",
+                  fontSize: "17px",
+                  fontWeight: 700,
+                  width: "326px",
+                  border: "none",
+                  cursor: "pointer",
                 }}
               >
-                배송지 변경
+                주문하기
               </button>
-            </DeliveryArea>
-            <PriceArea style={{ padding: "20px" }}>
-              <PriceDetail>
-                <p>상품금액</p>
-                <p>{price * qty}원</p>
-              </PriceDetail>
-              <PriceDetail>
-                <p style={{ margin: 0 }}>상품할인금액</p>
-                <p style={{ margin: 0 }}>0원</p>
-              </PriceDetail>
-              <PriceDetail>
-                <p>배송비</p>
-                <p>0원</p>
-              </PriceDetail>
-              <hr style={{ width: "278px", border: "1px solid #f2f2f2" }} />
-              <PriceDetail style={{ alignItems: "center" }}>
-                <p>결제예정금액</p>
-                <p style={{ fontSize: "20px", fontWeight: "700" }}>
-                  {price * qty}원
-                </p>
-              </PriceDetail>
-            </PriceArea>
-            <button
-              style={{
-                backgroundColor: "#5f0080",
-                color: "white",
-                height: "50px",
-                borderRadius: "5px",
-                fontSize: "17px",
-                fontWeight: 700,
-                width: "326px",
-                border: "none",
-                cursor: "pointer",
-              }}
-            >
-              주문하기
-            </button>
 
-            <ul
-              style={{
-                fontSize: 11,
-                fontWeight: 400,
-                lineHeight: 1.5,
-                padding: "20px 0 0 20px",
-              }}
-            >
-              <li>쿠폰/적립금은 주문서에서 사용 가능합니다</li>
-              <li>
-                '입금확인'상태일 때는 주문 내역 상세에서 직접 주문취소가
-                가능합니다.
-              </li>
-              <li>'입금확인'이후 상태에는 고객센터로 문의해주세요.</li>
-            </ul>
-          </PriceWrapper>
-        </InfoWrapper>
-      </Wrapper>
+              <ul
+                style={{
+                  fontSize: 11,
+                  fontWeight: 400,
+                  lineHeight: 1.5,
+                  padding: "20px 0 0 20px",
+                }}
+              >
+                <li>쿠폰/적립금은 주문서에서 사용 가능합니다</li>
+                <li>
+                  '입금확인'상태일 때는 주문 내역 상세에서 직접 주문취소가
+                  가능합니다.
+                </li>
+                <li>'입금확인'이후 상태에는 고객센터로 문의해주세요.</li>
+              </ul>
+            </PriceWrapper>
+          </InfoWrapper>
+        </Wrapper>
+      )}
     </>
   );
 };

@@ -14,7 +14,9 @@ const deleteMyProducts = createAction(DELETE_MY_PRODUCT, id => ({ id }));
 
 const initialState = {
   products: [],
+  myProducts: [],
   numberOfElement: "",
+  is_loaded: false,
 };
 //product 전체 호출
 export const getProductAPI = () => {
@@ -55,7 +57,9 @@ export default handleActions(
       }),
     [GET_MY_PRODUCT]: (state, action) =>
       produce(state, draft => {
-        draft.products = action.payload.data;
+        draft.myProducts = action.payload.data;
+        console.log(draft.myProducts);
+        draft.is_loaded = true;
       }),
     [DELETE_MY_PRODUCT]: (state, action) =>
       produce(state, draft => {
