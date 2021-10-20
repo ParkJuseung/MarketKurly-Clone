@@ -3,6 +3,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { apis } from "../../shared/axios";
+import { headers } from "../../shared/axios";
 
 const SIGN_UP = "SIGN_UP";
 const LOG_IN = "LOG_IN";
@@ -19,8 +20,13 @@ const getUser = createAction(GET_USER, user => ({ user }));
 const validateEmail = createAction(VALIDATE_EMAIL, validation => ({
   validation,
 }));
+<<<<<<< HEAD
 const getLoginError = createAction(GET_LOGIN_ERROR, error => ({ error }));
 const getSignupError = createAction(GET_SINGUP_ERROR, error => ({ error }));
+=======
+const getLoginError = createAction(GET_LOGIN_ERROR, (error) => ({ error }));
+const getSignupError = createAction(GET_SINGUP_ERROR, (error) => ({ error }));
+>>>>>>> origin/productDetail
 
 const initialState = {
   user: null,
@@ -70,8 +76,9 @@ export const logInAPI = (email, password) => {
         localStorage.setItem("token", token);
         dispatch(logIn(user));
         history.push("/");
+        console.log(headers);
       })
-      .catch(err => {
+      .catch((err) => {
         const message = err.response.data.message;
         console.log(message);
         dispatch(getLoginError(message));
@@ -84,7 +91,7 @@ export const validateEmailAPI = email => {
     console.log(email);
     apis
       .emailValidation(email)
-      .then(res => {
+      .then((res) => {
         if (res.data.result === "success") {
           dispatch(validateEmail(true));
         }
@@ -99,6 +106,7 @@ export const validateEmailAPI = email => {
 export const logOutAPI = () => {
   return function (dispatch, getState, { history }) {
     localStorage.removeItem("token");
+    console.log(headers);
     dispatch(logOut());
     history.push("/login");
   };
@@ -106,7 +114,7 @@ export const logOutAPI = () => {
 
 export const getUserAPI = () => {
   return function (dispatch, getState, { history }) {
-    apis.getUser().then(res => {
+    apis.getUser().then((res) => {
       const user = res.data.data.user;
       dispatch(getUser(user));
     });
@@ -139,11 +147,11 @@ export default handleActions(
         draft.loginError = action.payload.error;
       }),
     [GET_SINGUP_ERROR]: (state, action) =>
-      produce(state, draft => {
+      produce(state, (draft) => {
         draft.signUpError = action.payload.error;
       }),
     [GET_USER]: (state, action) =>
-      produce(state, draft => {
+      produce(state, (draft) => {
         draft.user = action.payload.user;
         draft.is_login = true;
       }),
