@@ -12,19 +12,15 @@ const VALIDATE_EMAIL = "VALIDATE_EMAIL";
 const GET_LOGIN_ERROR = "GET_LOGIN_ERROR";
 const GET_SINGUP_ERROR = "GET_SINGUP_ERROR";
 
-const signUp = createAction(SIGN_UP, (user) => ({ user }));
-const logIn = createAction(LOG_IN, (user) => ({ user }));
+const signUp = createAction(SIGN_UP, user => ({ user }));
+const logIn = createAction(LOG_IN, user => ({ user }));
 const logOut = createAction(LOG_OUT);
-const getUser = createAction(GET_USER, (user) => ({ user }));
-const validateEmail = createAction(VALIDATE_EMAIL, (validation) => ({
+const getUser = createAction(GET_USER, user => ({ user }));
+const validateEmail = createAction(VALIDATE_EMAIL, validation => ({
   validation,
 }));
-<<<<<<< HEAD
 const getLoginError = createAction(GET_LOGIN_ERROR, error => ({ error }));
 const getSignupError = createAction(GET_SINGUP_ERROR, error => ({ error }));
-=======
-const getLoginError = createAction(GET_LOGIN_ERROR, (error) => ({ error }));
->>>>>>> origin/productDetail
 
 const initialState = {
   user: null,
@@ -45,11 +41,11 @@ export const singUpAPI = (email, username, password) => {
 
     apis
       .signUp(_user)
-      .then((res) => {
+      .then(res => {
         console.log(res);
         history.push("/login");
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err.response);
         window.alert(err.response.data.message);
       });
@@ -67,7 +63,7 @@ export const logInAPI = (email, password) => {
 
     apis
       .logIn(_user)
-      .then((res) => {
+      .then(res => {
         console.log("유저 토큰", res);
         const token = res.data.data.token;
         const user = res.data.data.user;
@@ -83,7 +79,7 @@ export const logInAPI = (email, password) => {
   };
 };
 
-export const validateEmailAPI = (email) => {
+export const validateEmailAPI = email => {
   return function (dispatch, getState, { history }) {
     console.log(email);
     apis
@@ -93,7 +89,7 @@ export const validateEmailAPI = (email) => {
           dispatch(validateEmail(true));
         }
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err.response);
         window.alert(err.response.data.message);
       });
@@ -120,26 +116,26 @@ export const getUserAPI = () => {
 export default handleActions(
   {
     [SIGN_UP]: (state, action) =>
-      produce(state, (draft) => {
+      produce(state, draft => {
         draft.user = { ...action.payload.user };
         draft.is_login = true;
       }),
     [LOG_OUT]: (state, action) =>
-      produce(state, (draft) => {
+      produce(state, draft => {
         draft.user = null;
         draft.is_login = false;
       }),
     [LOG_IN]: (state, action) =>
-      produce(state, (draft) => {
+      produce(state, draft => {
         draft.user = action.payload.user;
         draft.is_login = true;
       }),
     [VALIDATE_EMAIL]: (state, action) =>
-      produce(state, (draft) => {
+      produce(state, draft => {
         draft.emailValidation = action.payload.validation;
       }),
     [GET_LOGIN_ERROR]: (state, action) =>
-      produce(state, (draft) => {
+      produce(state, draft => {
         draft.loginError = action.payload.error;
       }),
     [GET_SINGUP_ERROR]: (state, action) =>

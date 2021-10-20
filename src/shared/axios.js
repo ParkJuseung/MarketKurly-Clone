@@ -50,7 +50,10 @@ export const apis = {
     }),
 
   // 상세페이지 후기 추가
-  addReviews: data => instance.post(`/reviews`, data, { headers: headers }),
+  addReviews: data =>
+    instance.post(`/reviews`, data, {
+      headers: { authorization: `${localStorage.getItem("token")}` },
+    }),
 
   // 상세페이지 후기 조회
   getReviews: id => instance.get(`/reviews/${id}`, { headers: headers }),
