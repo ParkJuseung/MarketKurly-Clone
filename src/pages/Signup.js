@@ -6,10 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../redux/modules/user";
 import Text from "../elements/Text";
 
-const Signup = props => {
+const Signup = (props) => {
   const dispatch = useDispatch();
-  const validation = useSelector(state => state.user.emailValidation);
-  const errorMessage = useSelector(state => state.user.signUpError);
+  const validation = useSelector((state) => state.user.emailValidation);
+  const errorMessage = useSelector((state) => state.user.signUpError);
   console.log(errorMessage);
 
   const [email, setEmail] = useState("");
@@ -24,7 +24,11 @@ const Signup = props => {
   };
 
   const validateEmail = () => {
-    dispatch(userActions.validateEmailAPI(email));
+    if (email) {
+      dispatch(userActions.validateEmailAPI(email));
+    } else {
+      window.alert("이메일을 입력하세요.");
+    }
   };
 
   const signUp = () => {
@@ -47,7 +51,7 @@ const Signup = props => {
               type="text"
               placeholer="Email"
               required
-              onChange={e => onChange(e, setEmail)}
+              onChange={(e) => onChange(e, setEmail)}
               value={email}
             />
             <Button onClick={validateEmail}>중복확인</Button>
@@ -71,7 +75,7 @@ const Signup = props => {
             <Input
               type="text"
               placeholer="Email"
-              onChange={e => onChange(e, setUsername)}
+              onChange={(e) => onChange(e, setUsername)}
               required
               value={username}
             />
@@ -86,7 +90,7 @@ const Signup = props => {
             <Input
               type="password"
               placeholer="Email"
-              onChange={e => onChange(e, setPassword)}
+              onChange={(e) => onChange(e, setPassword)}
               required
               value={password}
             />
@@ -102,7 +106,7 @@ const Signup = props => {
             <Input
               type="password"
               placeholer="Email"
-              onChange={e => onChange(e, setPasswordCheck)}
+              onChange={(e) => onChange(e, setPasswordCheck)}
               required
               value={passwordCheck}
             />

@@ -11,17 +11,22 @@ import { apis } from "../shared/axios";
 
 const ProductList = (props) => {
   const dispatch = useDispatch();
+  const [banner, setBenner] = React.useState(null);
 
   React.useEffect(() => {
     dispatch(productActions.getProductAPI());
     const fetchData = async () => {
       try {
         const result = await apis.getBanner();
-        console.log(result);
+        // console.log("배너", result);
+        const _banner = result.data.data.banners[9];
+        // console.log("배너", _banner);
+        setBenner(_banner);
       } catch (err) {
         console.log(err);
       }
     };
+    fetchData();
   }, []);
 
   const product_list = useSelector((state) => state.product.products.content);
@@ -33,7 +38,7 @@ const ProductList = (props) => {
     <>
       {product_list && (
         <React.Fragment>
-          <BannerImg src={Banner}></BannerImg>
+          <BannerImg src={banner}></BannerImg>
           <CategoryText>신상품</CategoryText>
           <Grid width="1050px" is_flex>
             <LittleP>총 {product_list_count}건</LittleP>
