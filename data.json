@@ -1,5 +1,4 @@
 {
-  
   "products": [
     {
       "id": "productId1",
@@ -50,6 +49,30 @@
       "createdAt": "20211018",
       "likeCount": 3,
       "viewCount": 55
+    },
+    {
+      "id": "XSKGDpx"
+    },
+    {
+      "id": "1fkDt_C"
+    },
+    {
+      "id": "hOreakz"
+    },
+    {
+      "id": "FAda26V"
+    },
+    {
+      "id": "wHH93I3"
+    },
+    {
+      "id": "qpjV4w3"
+    },
+    {
+      "id": "zGuE4B3"
+    },
+    {
+      "id": "VATzPgD"
     }
   ],
   "user": [

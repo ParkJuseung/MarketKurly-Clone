@@ -9,12 +9,11 @@ import Banner from "../shared/img/45f975c1-e57c-403f-9f4f-1cb0c965897a.webp";
 const ProductList = props => {
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    console.log("머야");
+  useEffect(() => {
     dispatch(productActions.getProductAPI());
   }, []);
 
-  const product_list = useSelector(state => state);
+  const product_list = useSelector(state => state.product.products);
   console.log(product_list);
   // const product_list_count = useSelector(
   //   state => state.product.list.numberOfElements
@@ -22,12 +21,12 @@ const ProductList = props => {
   // console.log(product_list);
   return (
     <>
-      {/* {product_list && (
+      {product_list && (
         <React.Fragment>
           <BannerImg src={Banner}></BannerImg>
           <CategoryText>신상품</CategoryText>
           <Grid width="1050px" is_flex>
-            <LittleP>총 {product_list_count}건</LittleP>
+            <LittleP>총 0건</LittleP>
             <div style={{ display: "flex" }}>
               <LittleP2>추천순</LittleP2>
               <LittleLine> | </LittleLine>
@@ -46,7 +45,7 @@ const ProductList = props => {
             ))}
           </ProductWrap>
         </React.Fragment>
-      )} */}
+      )}
     </>
   );
 };

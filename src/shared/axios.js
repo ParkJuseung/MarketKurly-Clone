@@ -2,10 +2,10 @@ import axios from "axios";
 
 const instance = axios.create({
   // 백엔드 배포 주소
-  baseURL: "http://15.165.159.211",
+  // baseURL: "http://15.165.159.211",
 
-  // 제이슨 서버
-  // baseURL: "http://localhost:4000",
+  // 제이슨 서버(npx json-server ./data.json --port 4000)
+  baseURL: "http://localhost:4000",
   // headers: {
   //   "content-type": "application/json;charset=UTF-8",
   //   accept: "application/json",
@@ -37,6 +37,15 @@ export const apis = {
   // 상세페이지 상품 조회
   getProductDetail: id =>
     instance.get(`products/${id}`, {
+      headers: {
+        "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+      },
+    }),
+
+  // 상세페이지 후기 추가
+  addReviews: data =>
+    instance.post(`/reviews`, data, {
       headers: {
         "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
