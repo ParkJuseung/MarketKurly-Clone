@@ -1,10 +1,11 @@
 /* eslint-disable */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import ClearIcon from "@mui/icons-material/Clear";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { productActions } from "../redux/modules/product";
 import RoomIcon from "@mui/icons-material/Room";
 import { useSelector } from "react-redux";
 
@@ -30,6 +31,10 @@ const Cart = props => {
   const setOrder = () => {
     console.log("주문!");
   };
+
+  useEffect(() => {
+    // dispatch(productActions.getMyProduct())
+  }, []);
 
   return (
     <>
@@ -204,7 +209,6 @@ const ProductWrapper = styled.div`
   box-sizing: border-box;
   padding: 10px;
   margin-right: 20px;
-  border: 1px solid black;
 `;
 
 const ProductSummary = styled.div`
