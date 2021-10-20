@@ -14,15 +14,15 @@ const ProductList = props => {
     dispatch(productActions.getProductAPI());
   }, []);
 
-  const product_list = useSelector(state => state.product.list.content);
+  const product_list = useSelector(state => state);
   console.log(product_list);
-  const product_list_count = useSelector(
-    state => state.product.list.numberOfElements
-  );
-  console.log(product_list);
+  // const product_list_count = useSelector(
+  //   state => state.product.list.numberOfElements
+  // );
+  // console.log(product_list);
   return (
     <>
-      {product_list && (
+      {/* {product_list && (
         <React.Fragment>
           <BannerImg src={Banner}></BannerImg>
           <CategoryText>신상품</CategoryText>
@@ -46,7 +46,7 @@ const ProductList = props => {
             ))}
           </ProductWrap>
         </React.Fragment>
-      )}
+      )} */}
     </>
   );
 };

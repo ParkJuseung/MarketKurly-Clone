@@ -2,10 +2,10 @@ import axios from "axios";
 
 const instance = axios.create({
   // 백엔드 배포 주소
-  // baseURL: "http://15.165.159.211",
+  baseURL: "http://15.165.159.211",
 
   // 제이슨 서버
-  baseURL: "http://localhost:4000",
+  // baseURL: "http://localhost:4000",
   // headers: {
   //   "content-type": "application/json;charset=UTF-8",
   //   accept: "application/json",
