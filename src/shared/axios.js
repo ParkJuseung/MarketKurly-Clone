@@ -56,10 +56,11 @@ export const apis = {
   getCartProduct: () => instance.get("/cart", { headers: headers }),
 
   // 장바구니 상품 추가
-  AddProductToCart: () => instance.get("/cart", { headers: headers }),
+  AddProductToCart: data => instance.get("/cart", data, { headers: headers }),
 
   // 장바구니 상품 삭제
-  RemoveCartProduct: () => instance.delete("/cart", { headers: headers }),
+  RemoveCartProduct: productId =>
+    instance.delete(`/cart/${productId}`, { headers: headers }),
 
   // 회원가입
   signUp: user =>

@@ -8,7 +8,8 @@ import Text from "../elements/Text";
 
 const Login = props => {
   const dispatch = useDispatch();
-  const loginError = useSelector(state => state.user.loginError);
+  const errorMessage = useSelector(state => state.user.loginError);
+  console.log(errorMessage);
 
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -63,8 +64,10 @@ const Login = props => {
             <FakeDiv />
           </InputWrapper>
 
-          {!checkPassword && (
-            <Text style={{ fontSize: "10px" }}>비밀번호 확인하셈</Text>
+          {errorMessage && (
+            <Text style={{ fontSize: "10px", color: "red" }} bold>
+              {`🚨  ${errorMessage}`}
+            </Text>
           )}
         </Wrap>
 

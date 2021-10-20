@@ -9,6 +9,8 @@ import Text from "../elements/Text";
 const Signup = props => {
   const dispatch = useDispatch();
   const validation = useSelector(state => state.user.emailValidation);
+  const errorMessage = useSelector(state => state.user.signUpError);
+  console.log(errorMessage);
 
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -113,6 +115,11 @@ const Signup = props => {
           {!checkPassword && (
             <Text style={{ fontSize: "10px" }} bold>
               🕵️&nbsp; 비밀번호 확인해보셈
+            </Text>
+          )}
+          {errorMessage && (
+            <Text style={{ fontSize: "10px", color: "red" }} bold>
+              {`🚨  ${errorMessage}`}
             </Text>
           )}
         </Wrap>

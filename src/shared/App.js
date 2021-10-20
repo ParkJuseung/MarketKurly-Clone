@@ -19,10 +19,9 @@ import { userActions } from "../redux/modules/user";
 function App() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user.user);
-  console.log(user);
 
   useEffect(() => {
-    // dispatch(userActions.getUserAPI());
+    dispatch(userActions.getUserAPI());
   }, []);
 
   return (

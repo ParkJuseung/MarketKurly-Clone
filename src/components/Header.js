@@ -9,82 +9,81 @@ import { userActions } from "../redux/modules/user";
 const Header = props => {
   const is_login = useSelector(state => state.user.is_login);
   const user = useSelector(state => state.user.user);
+  console.log(user);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(userActions.getUserAPI());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(userActions.getUserAPI());
+  // }, []);
 
   return (
     <React.Fragment>
-      {user && (
-        <Grid>
-          <HeaderMenu>
-            {!is_login && (
-              <React.Fragment>
-                <li
-                  onClick={() => history.push("/signup")}
-                  className="header-menu signup"
-                >
-                  회원가입
-                </li>
-                <li
-                  onClick={() => history.push("/login")}
-                  className="header-menu"
-                >
-                  로그인
-                </li>
-                <li>고객센터 ▼</li>
-              </React.Fragment>
-            )}
-            {is_login && (
-              <React.Fragment>
-                <li className="header-menu">{user.username}님</li>
-                <li
-                  className="header-menu"
-                  onClick={() => {
-                    dispatch(userActions.logOutAPI());
-                  }}
-                >
-                  로그아웃
-                </li>
-              </React.Fragment>
-            )}
-          </HeaderMenu>
+      <Grid>
+        <HeaderMenu>
+          {!is_login && (
+            <React.Fragment>
+              <li
+                onClick={() => history.push("/signup")}
+                className="header-menu signup"
+              >
+                회원가입
+              </li>
+              <li
+                onClick={() => history.push("/login")}
+                className="header-menu"
+              >
+                로그인
+              </li>
+              <li>고객센터 ▼</li>
+            </React.Fragment>
+          )}
+          {is_login && (
+            <React.Fragment>
+              <li className="header-menu">{user ? user.username : "농민"}님</li>
+              <li
+                className="header-menu"
+                onClick={() => {
+                  dispatch(userActions.logOutAPI());
+                }}
+              >
+                로그아웃
+              </li>
+            </React.Fragment>
+          )}
+        </HeaderMenu>
 
-          <Logo
-            onClick={() => {
-              history.push("/");
+        <Logo
+          onClick={() => {
+            history.push("/");
+          }}
+        ></Logo>
+
+        <HeaderCategory>
+          <li className="all-category">전체 카테고리</li>
+          <li onClick={() => history.push("/new")}>신상품</li>
+          <li onClick={() => history.push("/")}>베스트</li>
+          <li onClick={() => history.push("/cheap")}>알뜰쇼핑 </li>
+          <li onClick={() => history.push("/event")}> 특가/혜택</li>
+          <input
+            style={{
+              borderRadius: "50px",
+              boxSizing: "border-box",
+              border: "1px solid #f7f7f7",
+              backgroundColor: "#f7f7f7",
+              backgroundImage:
+                "https://res.kurly.com/pc/service/common/1908/ico_search_x2.png",
+              outline: "none",
+              width: "235px",
+              height: "35px",
+              fontSize: "16px",
+              letterSpacing: "-1px",
+              placeholer: "검색어를 입력해주세요.",
             }}
-          ></Logo>
-
-          <HeaderCategory>
-            <li className="all-category">전체 카테고리</li>
-            <li onClick={() => history.push("/new")}>신상품</li>
-            <li onClick={() => history.push("/")}>베스트</li>
-            <li onClick={() => history.push("/cheap")}>알뜰쇼핑 </li>
-            <li onClick={() => history.push("/event")}> 특가/혜택</li>
-            <input
-              style={{
-                borderRadius: "50px",
-                boxSizing: "border-box",
-                border: "1px solid #f7f7f7",
-                backgroundColor: "#f7f7f7",
-                backgroundImage:
-                  "https://res.kurly.com/pc/service/common/1908/ico_search_x2.png",
-                outline: "none",
-                width: "235px",
-                height: "35px",
-                fontSize: "16px",
-                letterSpacing: "-1px",
-                placeholer: "검색어를 입력해주세요.",
-              }}
-            ></input>
-            <CartIcon onClick={() => history.push("/cart")} />
-          </HeaderCategory>
-        </Grid>
-      )}
+          ></input>
+          <CartIcon onClick={() => history.push("/cart")} />
+        </HeaderCategory>
+      </Grid>
     </React.Fragment>
   );
 };

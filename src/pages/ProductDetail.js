@@ -28,7 +28,6 @@ const ProductDetail = props => {
     };
     fetchData();
   }, []);
-  //   console.log(product);
 
   const BuyMinus = () => {
     if (buy_count > 1) {

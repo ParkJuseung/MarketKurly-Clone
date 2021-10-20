@@ -10,6 +10,7 @@ const LOG_OUT = "LOG_OUT";
 const GET_USER = "GET_USER";
 const VALIDATE_EMAIL = "VALIDATE_EMAIL";
 const GET_LOGIN_ERROR = "GET_LOGIN_ERROR";
+const GET_SINGUP_ERROR = "GET_SINGUP_ERROR";
 
 const signUp = createAction(SIGN_UP, user => ({ user }));
 const logIn = createAction(LOG_IN, user => ({ user }));
@@ -19,19 +20,14 @@ const validateEmail = createAction(VALIDATE_EMAIL, validation => ({
   validation,
 }));
 const getLoginError = createAction(GET_LOGIN_ERROR, error => ({ error }));
+const getSignupError = createAction(GET_SINGUP_ERROR, error => ({ error }));
 
 const initialState = {
   user: null,
   is_login: false,
   emailValidation: false,
-  loginError: null,
-};
-
-const headers = {
-  "content-type": "application/json;charset=UTF-8",
-  accept: "application/json",
-  // authorization: `Bearer ${localStorage.getItem("token")}`,
-  // "Access-Control-Allow-Origin": "*",
+  signUpError: "",
+  loginError: "",
 };
 
 export const singUpAPI = (email, username, password) => {
@@ -41,18 +37,17 @@ export const singUpAPI = (email, username, password) => {
       username,
       password,
     };
-    console.log(_user);
 
     apis
       .signUp(_user)
       .then(res => {
         console.log(res);
-        // const user = res.data;
-        // localStorage.setItem("token", res.data.token);
-        // dispatch(signUp(user));
         history.push("/login");
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        const message = err.response.data.message;
+        dispatch(getSignupError(message));
+      });
   };
 };
 
@@ -75,9 +70,10 @@ export const logInAPI = (email, password) => {
         dispatch(logIn(user));
         history.push("/");
       })
-      .catch(error => {
-        console.log(error);
-        dispatch(getLoginError(error));
+      .catch(err => {
+        const message = err.response.data.message;
+        console.log(message);
+        dispatch(getLoginError(message));
       });
   };
 };
@@ -110,11 +106,8 @@ export const logOutAPI = () => {
 export const getUserAPI = () => {
   return function (dispatch, getState, { history }) {
     apis.getUser().then(res => {
-      console.log(res);
-      // const token = res.data.data.token;
-      // const user = res.data.data.user;
-      // dispatch(getUser(user));
-      // history.push("/");
+      const user = res.data.data.user;
+      dispatch(getUser(user));
     });
   };
 };
@@ -124,7 +117,6 @@ export default handleActions(
     [SIGN_UP]: (state, action) =>
       produce(state, draft => {
         draft.user = { ...action.payload.user };
-        console.log(draft.user);
         draft.is_login = true;
       }),
     [LOG_OUT]: (state, action) =>
@@ -145,9 +137,12 @@ export default handleActions(
       produce(state, draft => {
         draft.loginError = action.payload.error;
       }),
+    [GET_SINGUP_ERROR]: (state, action) =>
+      produce(state, draft => {
+        draft.signUpError = action.payload.error;
+      }),
     [GET_USER]: (state, action) =>
       produce(state, draft => {
-        console.log(action.payload.user);
         draft.user = action.payload.user;
         draft.is_login = true;
       }),

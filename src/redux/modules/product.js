@@ -6,9 +6,11 @@ import { apis } from "../../shared/axios";
 
 const GET_PRODUCT = "GET_PRODUCT";
 const GET_MY_PRODUCT = "GET_MY_PRODUCT";
+const DELETE_MY_PRODUCT = "DELETE_MY_PRODUCT";
 
 const getProducts = createAction(GET_PRODUCT, data => ({ data }));
 const getMyProducts = createAction(GET_MY_PRODUCT, data => ({ data }));
+const deleteMyProducts = createAction(DELETE_MY_PRODUCT, id => ({ id }));
 
 const initialState = {
   products: [],
@@ -29,7 +31,18 @@ export const getProductAPI = () => {
 export const getMyProductAPI = () => {
   return function (dispatch, getState, { history }) {
     apis.getCartProduct().then(res => {
+      const products = res.data.data.products;
+      dispatch(getMyProducts(products));
+    });
+  };
+};
+
+export const deleteMyProductAPI = id => {
+  return function (dispatch, getState, { history }) {
+    console.log(id);
+    apis.RemoveCartProduct(id).then(res => {
       console.log(res);
+      dispatch(deleteMyProducts(id));
     });
   };
 };
@@ -44,11 +57,18 @@ export default handleActions(
       produce(state, draft => {
         draft.products = action.payload.data;
       }),
+    [DELETE_MY_PRODUCT]: (state, action) =>
+      produce(state, draft => {
+        draft.products = draft.products.filter(
+          p => p.productId !== action.payload.id
+        );
+      }),
   },
   initialState
 );
 const productActions = {
   getProductAPI,
   getMyProductAPI,
+  deleteMyProductAPI,
 };
 export { productActions };
