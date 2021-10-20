@@ -1,7 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 // 불변성 관리(immer)
 import { produce } from "immer";
-import {apis} from "../../shared/axios";
+import { apis } from "../../shared/axios";
 
 // actions
 const SET_COMMENT = "SET_COMMENT";
@@ -17,28 +17,27 @@ const addComment = createAction(ADD_COMMENT, (product_id, comment) => ({
   comment,
 }));
 
-
 const initialState = {
   list: {},
 };
 
-const addCommentAPI = (product_id, comment) => {
+const addCommentAPI = (product_id, content) => {
   return function (dispatch, getState, { history }) {
-
     let comment_data = {
-      productId : product_id,
-      username : "",
-      comment: comment,
+      productId: product_id,
+      content: content,
+      title: "가짜타이틀임",
     };
 
     apis
-      .addReviews()
-      .then((res) => {
-        window.alert("코멘트 더하기", product_id, comment_data);
-        dispatch(addComment(product_id, comment_data));
+      .addReviews(comment_data)
+      .then(res => {
+        console.log(res);
+        // window.alert("코멘트 더하기", product_id, comment_data);
+        // dispatch(addComment(product_id, comment_data));
       })
-      .catch((err) => {
-        window.alert("코멘트 기능 에러", err);
+      .catch(err => {
+        console.log(err);
       });
   };
 };
@@ -46,20 +45,19 @@ const addCommentAPI = (product_id, comment) => {
 // enables to bring specific comment info about a certain post from the DB
 const getCommentAPI = (product_id, comment) => {
   return function (dispatch, getState, { history }) {
-
     let comment_data = {
-        productId : product_id,
-        username : "",
-        comment: comment,
-      };
+      productId: product_id,
+      username: "",
+      comment: comment,
+    };
 
     if (!product_id) {
       return;
     }
 
     apis
-        .getReviews()
-        .then((res) => {
+      .getReviews()
+      .then(res => {
         let list = [];
 
         // let response_data = res.data;
@@ -67,21 +65,21 @@ const getCommentAPI = (product_id, comment) => {
         //   list.push({ ...rd });
         // });
 
-                dispatch(setComment(comment_data, list));
-            })
-        .catch((err) => console.log("Get Error!", err));
+        dispatch(setComment(comment_data, list));
+      })
+      .catch(err => console.log("Get Error!", err));
   };
 };
 
 export default handleActions(
   {
     [SET_COMMENT]: (state, action) =>
-      produce(state, (draft) => {
+      produce(state, draft => {
         // let data = {[post_id]: com_list, ...}
         draft.list[action.payload.product_id] = action.payload.comment_list;
       }),
     [ADD_COMMENT]: (state, action) =>
-      produce(state, (draft) => {
+      produce(state, draft => {
         // when starts with an empty array
         if (!draft.list[action.payload.product_id]) {
           draft.list[action.payload.product_id] = [action.payload.comment];
@@ -94,11 +92,11 @@ export default handleActions(
   initialState
 );
 
-const actionCreators = {
+const commentActions = {
   setComment,
   addComment,
   getCommentAPI,
   addCommentAPI,
 };
 
-export { actionCreators };
+export { commentActions };

@@ -2,14 +2,14 @@ import axios from "axios";
 
 const instance = axios.create({
   // 백엔드 배포 주소
-  // baseURL: "http://15.165.159.211",
+  baseURL: "http://15.165.159.211",
 
   // 제이슨 서버(npx json-server ./data.json --port 4000)
-  baseURL: "http://localhost:4000",
+  // baseURL: "http://localhost:4000",
   // headers: {
   //   "content-type": "application/json;charset=UTF-8",
   //   accept: "application/json",
-  //   authorization: `${localStorage.getItem("token")}`,
+  //   // authorization: `${localStorage.getItem("token")}`,
   //   // "Access-Control-Allow-Origin": "*",
   // },
 });
@@ -18,26 +18,33 @@ const headers = {
   "content-type": "application/json;charset=UTF-8",
   accept: "application/json",
   authorization: `${localStorage.getItem("token")}`,
-  // "Access-Control-Allow-Origin": "*",
+  // "Access-Control-Allow-Origin": "http://localhost:3000/",
 };
 
 export const apis = {
   // 메인 상품리스트 불러오기
-  getProduct: () => instance.get("/products", { headers: headers }),
+  getProduct: () =>
+    instance.get("/products?category1=&category2=", {
+      headers: {
+        "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+      },
+    }),
 
   // 메인 배너 불러오기
   getBanner: () => instance.get("/banners", { headers: headers }),
 
   // 상세페이지 상품 조회
-  getProductDetail: id => instance.get(`products/${id}`, { headers: headers }),
+  getProductDetail: id =>
+    instance.get(`products/${id}`, {
+      headers: {
+        "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+      },
+    }),
 
   // 상세페이지 후기 추가
-  addReviews: (data) => instance.post(`/reviews`, {data}, {
-    headers: {
-      "content-type": "application/json;charset=UTF-8",
-      accept: "application/json",
-    },
-  }),
+  addReviews: data => instance.post(`/reviews`, data, { headers: headers }),
 
   // 상세페이지 후기 조회
   getReviews: id => instance.get(`/reviews/${id}`, { headers: headers }),

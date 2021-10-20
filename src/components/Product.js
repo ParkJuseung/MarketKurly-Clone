@@ -6,9 +6,9 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { history } from "../redux/configureStore";
 
-const Product = props => {
+const Product = (props) => {
   const dispatch = useDispatch();
-  console.log("프롭스", props);
+
   return (
     <React.Fragment>
       <ProductContainer
@@ -17,7 +17,7 @@ const Product = props => {
         }}
       >
         <ProductImgWrap>
-          <img src="https://img-cf.kurly.com/shop/data/goods/1634280888964l0.jpg" />
+          <img src={props.image} />
         </ProductImgWrap>
         <ProductTitle>{props.name}</ProductTitle>
         <CostBox>
