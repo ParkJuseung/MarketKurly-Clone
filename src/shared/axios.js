@@ -17,19 +17,31 @@ const instance = axios.create({
 const headers = {
   "content-type": "application/json;charset=UTF-8",
   accept: "application/json",
-  // authorization: `${localStorage.getItem("token")}`,
-  // "Access-Control-Allow-Origin": "*",
+  authorization: `${localStorage.getItem("token")}`,
+  // "Access-Control-Allow-Origin": "http://localhost:3000/",
 };
 
 export const apis = {
   // 메인 상품리스트 불러오기
-  getProduct: () => instance.get("/products"),
+  getProduct: () =>
+    instance.get("/products?category1=&category2=", {
+      headers: {
+        "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+      },
+    }),
 
   // 메인 배너 불러오기
   getBanner: () => instance.get("/banners", { headers: headers }),
 
   // 상세페이지 상품 조회
-  getProductDetail: id => instance.get(`products/${id}`),
+  getProductDetail: id =>
+    instance.get(`products/${id}`, {
+      headers: {
+        "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+      },
+    }),
 
   // 상세페이지 후기 조회
   getReviews: id => instance.get(`/reviews/${id}`, { headers: headers }),
