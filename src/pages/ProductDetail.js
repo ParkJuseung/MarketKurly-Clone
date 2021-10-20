@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { productActions } from "../redux/modules/product";
 import { apis } from "../shared/axios";
 
-import Comment from "../components/Comment";
+import Comment from "../components/CommentList";
 
 const ProductDetail = props => {
   const productId = props.match.params.id;
