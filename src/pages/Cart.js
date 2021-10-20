@@ -7,9 +7,10 @@ import ClearIcon from "@mui/icons-material/Clear";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { productActions } from "../redux/modules/product";
 import RoomIcon from "@mui/icons-material/Room";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 const Cart = props => {
+  const dispatch = useDispatch();
   const productList = useSelector(state => state);
   console.log(productList);
 
@@ -33,7 +34,7 @@ const Cart = props => {
   };
 
   useEffect(() => {
-    // dispatch(productActions.getMyProduct())
+    dispatch(productActions.getMyProductAPI());
   }, []);
 
   return (

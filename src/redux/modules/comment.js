@@ -21,25 +21,24 @@ const initialState = {
   list: {},
 };
 
-const addCommentAPI = (product_id, comment) => {
+const addCommentAPI = (product_id, content) => {
   return function (dispatch, getState, { history }) {
     let comment_data = {
       productId: product_id,
-      username: "",
-      comment: comment,
+      content: content,
+      title: "가짜타이틀임",
     };
 
-    console.log(comment_data);
-
-    // apis
-    //   .addReviews()
-    //   .then((res) => {
-    //     window.alert("코멘트 더하기", product_id, comment_data);
-    //     dispatch(addComment(product_id, comment_data));
-    //   })
-    //   .catch((err) => {
-    //     window.alert("코멘트 기능 에러", err);
-    //   });
+    apis
+      .addReviews(comment_data)
+      .then(res => {
+        console.log(res);
+        // window.alert("코멘트 더하기", product_id, comment_data);
+        // dispatch(addComment(product_id, comment_data));
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 };
 
@@ -93,11 +92,11 @@ export default handleActions(
   initialState
 );
 
-const actionCreators = {
+const commentActions = {
   setComment,
   addComment,
   getCommentAPI,
   addCommentAPI,
 };
 
-export { actionCreators };
+export { commentActions };

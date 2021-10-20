@@ -68,6 +68,7 @@ export const logInAPI = (email, password) => {
     apis
       .logIn(_user)
       .then(res => {
+        console.log(res);
         const token = res.data.data.token;
         const user = res.data.data.user;
         localStorage.setItem("token", token);

@@ -6,6 +6,7 @@ import { userActions } from "../redux/modules/user";
 
 const Header = props => {
   const is_login = useSelector(state => state.user.is_login);
+  const userName = useSelector(state => state.user.user.username);
 
   const dispatch = useDispatch();
 
@@ -32,7 +33,7 @@ const Header = props => {
           )}
           {is_login && (
             <React.Fragment>
-              <li className="header-menu">박주승 님</li>
+              <li className="header-menu">{userName} 님</li>
               <li
                 className="header-menu"
                 onClick={() => {
