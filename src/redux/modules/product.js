@@ -5,10 +5,12 @@ import { produce } from "immer";
 import { apis } from "../../shared/axios";
 
 const GET_PRODUCT = "GET_PRODUCT";
+const GET_BANNER = "GET_BANNER";
 const GET_MY_PRODUCT = "GET_MY_PRODUCT";
 const ADD_CART = "ADD_CART";
 
 const getProducts = createAction(GET_PRODUCT, (data) => ({ data }));
+const getBanners = createAction(GET_BANNER, (data) => ({ data }));
 const getMyProducts = createAction(GET_MY_PRODUCT, (data) => ({ data }));
 const addCart = createAction(ADD_CART, (data) => ({ data }));
 
@@ -27,6 +29,14 @@ export const getProductAPI = () => {
       .catch((err) => console.log(err));
   };
 };
+
+// export const getBanner = () => {
+//   return function (dispatch, getState, { history }) {
+//     apis.getBanner().then((res) => {
+//       console.log(res);
+//     });
+//   };
+// };
 
 export const getMyProductAPI = () => {
   return function (dispatch, getState, { history }) {
