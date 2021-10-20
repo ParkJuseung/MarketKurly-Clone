@@ -29,6 +29,11 @@ const ProductDetail = props => {
     fetchData();
   }, []);
 
+  const buyCart = () => {
+    let product_id = props.match.params.id;
+    dispatch(productActions.addCartAPI(product_id, buy_count));
+  };
+
   const BuyMinus = () => {
     if (buy_count > 1) {
       setBuy_count(buy_count - 1);
@@ -109,7 +114,13 @@ const ProductDetail = props => {
                 <Price>{price}</Price>
                 <Won>&nbsp;원</Won>
               </PriceBox>
-              <BuyButton>장바구니 담기</BuyButton>
+              <BuyButton
+                onClick={() => {
+                  buyCart();
+                }}
+              >
+                장바구니 담기
+              </BuyButton>
             </InfoWrap>
           </OutWrap>
           <FootMarketIMG src="https://media.vlpt.us/images/kbs2082/post/369c9ad0-6a69-4f23-9b7c-acbe288949c8/marketkurly_ProductDetail_Footer.PNG"></FootMarketIMG>

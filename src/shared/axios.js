@@ -32,7 +32,13 @@ export const apis = {
     }),
 
   // 메인 배너 불러오기
-  getBanner: () => instance.get("/banners", { headers: headers }),
+  getBanner: () =>
+    instance.get("/banners", {
+      headers: {
+        "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+      },
+    }),
 
   // 상세페이지 상품 조회
   getProductDetail: id =>
@@ -56,7 +62,7 @@ export const apis = {
   getCartProduct: () => instance.get("/cart", { headers: headers }),
 
   // 장바구니 상품 추가
-  AddProductToCart: data => instance.get("/cart", data, { headers: headers }),
+  AddProductToCart: cart => instance.post("/cart", cart, { headers: headers }),
 
   // 장바구니 상품 삭제
   RemoveCartProduct: productId =>
