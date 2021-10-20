@@ -52,7 +52,10 @@ export const singUpAPI = (email, username, password) => {
         // dispatch(signUp(user));
         history.push("/login");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err.response);
+        window.alert(err.response.data.message);
+      });
   };
 };
 
@@ -68,6 +71,7 @@ export const logInAPI = (email, password) => {
     apis
       .logIn(_user)
       .then((res) => {
+        console.log("유저 토큰", res);
         const token = res.data.data.token;
         const user = res.data.data.user;
         localStorage.setItem("token", token);
@@ -93,7 +97,8 @@ export const validateEmailAPI = (email) => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response);
+        window.alert(err.response.data.message);
       });
   };
 };
@@ -109,10 +114,8 @@ export const logOutAPI = () => {
 export const getUserAPI = () => {
   return function (dispatch, getState, { history }) {
     apis.getUser().then((res) => {
-      const token = res.data.data.token;
       const user = res.data.data.user;
       dispatch(getUser(user));
-      history.push("/");
     });
   };
 };

@@ -1,11 +1,15 @@
 /* eslint-disable */
+
 import React from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { productActions } from "../redux/modules/product";
 import { apis } from "../shared/axios";
 
+import Comment from "../components/Comment";
+
 const ProductDetail = (props) => {
+  const productId = props.match.params.id;
   const dispatch = useDispatch();
   const [buy_count, setBuy_count] = React.useState(1);
   const [price, setPrice] = React.useState(null);
@@ -16,7 +20,6 @@ const ProductDetail = (props) => {
       try {
         let product_id = props.match.params.id;
         const result = await apis.getProductDetail(product_id);
-        console.log(result.data.data);
         setProduct(result.data.data);
         setPrice(result.data.data.price);
       } catch (error) {
@@ -26,6 +29,11 @@ const ProductDetail = (props) => {
     fetchData();
   }, []);
   //   console.log(product);
+
+  const buyCart = () => {
+    let product_id = props.match.params.id;
+    dispatch(productActions.addCartAPI(product_id, buy_count));
+  };
 
   const BuyMinus = () => {
     if (buy_count > 1) {
@@ -107,10 +115,17 @@ const ProductDetail = (props) => {
                 <Price>{price}</Price>
                 <Won>&nbsp;원</Won>
               </PriceBox>
-              <BuyButton>장바구니 담기</BuyButton>
+              <BuyButton
+                onClick={() => {
+                  buyCart();
+                }}
+              >
+                장바구니 담기
+              </BuyButton>
             </InfoWrap>
           </OutWrap>
           <FootMarketIMG src="https://media.vlpt.us/images/kbs2082/post/369c9ad0-6a69-4f23-9b7c-acbe288949c8/marketkurly_ProductDetail_Footer.PNG"></FootMarketIMG>
+          <Comment productId={productId} />
         </React.Fragment>
       )}
     </>

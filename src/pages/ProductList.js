@@ -1,4 +1,5 @@
 /* eslint-disable */
+
 import React, { useEffect } from "react";
 import Product from "../components/Product";
 import styled from "styled-components";
@@ -6,16 +7,24 @@ import { useSelector, useDispatch } from "react-redux";
 import { productActions } from "../redux/modules/product";
 import { Grid } from "../elements/index";
 import Banner from "../shared/img/45f975c1-e57c-403f-9f4f-1cb0c965897a.webp";
+import { apis } from "../shared/axios";
 
 const ProductList = (props) => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     dispatch(productActions.getProductAPI());
+    const fetchData = async () => {
+      try {
+        const result = await apis.getBanner();
+        console.log(result);
+      } catch (err) {
+        console.log(err);
+      }
+    };
   }, []);
 
   const product_list = useSelector((state) => state.product.products.content);
-  console.log(product_list);
   const product_list_count = useSelector(
     (state) => state.product.products.numberOfElements
   );
