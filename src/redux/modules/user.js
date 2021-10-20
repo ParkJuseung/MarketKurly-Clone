@@ -3,6 +3,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { apis } from "../../shared/axios";
+import { headers } from "../../shared/axios";
 
 const SIGN_UP = "SIGN_UP";
 const LOG_IN = "LOG_IN";
@@ -70,6 +71,7 @@ export const logInAPI = (email, password) => {
         localStorage.setItem("token", token);
         dispatch(logIn(user));
         history.push("/");
+        console.log(headers);
       })
       .catch((err) => {
         const message = err.response.data.message;
@@ -99,6 +101,7 @@ export const validateEmailAPI = (email) => {
 export const logOutAPI = () => {
   return function (dispatch, getState, { history }) {
     localStorage.removeItem("token");
+    console.log(headers);
     dispatch(logOut());
     history.push("/login");
   };

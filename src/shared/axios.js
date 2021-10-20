@@ -14,7 +14,7 @@ const instance = axios.create({
   // },
 });
 
-const headers = {
+export const headers = {
   "content-type": "application/json;charset=UTF-8",
   accept: "application/json",
   authorization: `${localStorage.getItem("token")}`,
@@ -50,23 +50,40 @@ export const apis = {
     }),
 
   // 상세페이지 후기 추가
-  addReviews: data => instance.post(`/reviews`, data, { headers: headers }),
+  addReviews: data =>
+    instance.post(`/reviews`, data, {
+      headers: { authorization: `${localStorage.getItem("token")}` },
+    }),
 
   // 상세페이지 후기 조회
-  getReviews: id => instance.get(`/reviews/${id}`, { headers: headers }),
+  getReviews: id =>
+    instance.get(`/reviews/${id}`, {
+      headers: { authorization: `${localStorage.getItem("token")}` },
+    }),
 
   // 상세페이지 후기 삭제
-  deleteReviews: id => instance.delete(`/reviews/${id}`, { headers: headers }),
+  deleteReviews: id =>
+    instance.delete(`/reviews/${id}`, {
+      headers: { authorization: `${localStorage.getItem("token")}` },
+    }),
 
   // 장바구니 상품리스트 조회
-  getCartProduct: () => instance.get("/cart", { headers: headers }),
+  getCartProduct: () =>
+    instance.get("/cart", {
+      headers: { authorization: `${localStorage.getItem("token")}` },
+    }),
 
   // 장바구니 상품 추가
-  AddProductToCart: cart => instance.post("/cart", cart, { headers: headers }),
+  AddProductToCart: cart =>
+    instance.post("/cart", cart, {
+      headers: { authorization: `${localStorage.getItem("token")}` },
+    }),
 
   // 장바구니 상품 삭제
   RemoveCartProduct: productId =>
-    instance.delete(`/cart/${productId}`, { headers: headers }),
+    instance.delete(`/cart/${productId}`, {
+      headers: { authorization: `${localStorage.getItem("token")}` },
+    }),
 
   // 회원가입
   signUp: user =>
@@ -90,5 +107,8 @@ export const apis = {
     }),
 
   //회원정보 요청
-  getUser: () => instance.get(`/user/info`, { headers: headers }),
+  getUser: () =>
+    instance.get(`/user/info`, {
+      headers: { authorization: `${localStorage.getItem("token")}` },
+    }),
 };
