@@ -7,15 +7,15 @@ import Modal from "react-modal";
 import { commentActions } from "../redux/modules/comment";
 import Comment from "./Comment";
 
-const CommentList = props => {
+const CommentList = (props) => {
   const { productId } = props;
 
   const dispatch = useDispatch();
 
   // checks logined
-  const is_login = useSelector(state => state.user.is_login);
-  const comment_list = useSelector(state => state.comment.list);
-  const isloaded = useSelector(state => state.comment.loaded);
+  const is_login = useSelector((state) => state.user.is_login);
+  const comment_list = useSelector((state) => state.comment.list);
+  const isloaded = useSelector((state) => state.comment.loaded);
 
   React.useEffect(() => {
     // if (!comment_list[productId]) {
@@ -28,7 +28,7 @@ const CommentList = props => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const [comment, setComment] = useState("");
-  const onChange = e => {
+  const onChange = (e) => {
     console.log(e.target.value);
     setComment(e.target.value);
   };
@@ -48,7 +48,7 @@ const CommentList = props => {
   };
 
   // Open modal
-  const openModal = e => {
+  const openModal = (e) => {
     setModalIsOpen(true);
   };
 
