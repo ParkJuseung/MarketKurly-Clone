@@ -2,6 +2,7 @@ import React from 'react';
 import styled from "styled-components";
 
 const Comment = (props) => {
+    console.log(props)
     return(
         <CommentTr>
             <CommentTd>{props.index}</CommentTd>
@@ -29,6 +30,7 @@ const CommentTr = styled.tr`
 `
 
 const CommentTd = styled.td`
+    
      padding: 20px;
     border-bottom: 0.5px solid #dcdcdc;
     &.title{

@@ -9,10 +9,10 @@ const ADD_COMMENT = "ADD_COMMENT";
 
 
 // action creator functions
-const setComment = createAction(SET_COMMENT, (product_id, comment_list) => ({
-  product_id,
-  comment_list,
+const setComment = createAction(SET_COMMENT, (data) => ({
+  data
 }));
+
 const addComment = createAction(ADD_COMMENT, (product_id, comment) => ({
   product_id,
   comment,
@@ -52,17 +52,17 @@ const getCommentAPI = (product_id) => {
     }
 
     apis
-      .getReviews()
+      .getReviews(product_id)
       .then(res => {
-        let list = [];
+        // let list = [];
 
-        res.data.forEach((d) => {
-          list.push({ ...d });
-        });
-
-        dispatch(setComment(product_id, list));
+        // res.data.forEach((d) => {
+        //   list.push({ ...d });
+        // });
+        console.log(res);
+        dispatch(setComment(res.data.data.reviews));
       })
-      .catch(err => console.log("Get Error!", err));
+      .catch(err => console.log("Get Error!", err.response));
   };
 };
 
@@ -70,7 +70,11 @@ export default handleActions(
   {
     [SET_COMMENT]: (state, action) =>
       produce(state, draft => {
-        draft.list[action.payload.product_id] = action.payload.comment_list;
+
+        draft.list = action.payload.data;
+
+        draft.loaded = true;
+        console.log(action)
       }),
 
     [ADD_COMMENT]: (state, action) =>
