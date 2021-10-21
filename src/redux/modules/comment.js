@@ -8,10 +8,10 @@ const SET_COMMENT = "SET_COMMENT";
 const ADD_COMMENT = "ADD_COMMENT";
 
 // action creator functions
-const setComment = createAction(SET_COMMENT, (product_id, comment_list) => ({
-  product_id,
-  comment_list,
+const setComment = createAction(SET_COMMENT, data => ({
+  data,
 }));
+
 const addComment = createAction(ADD_COMMENT, (product_id, comment) => ({
   product_id,
   comment,
@@ -43,31 +43,24 @@ const addCommentAPI = (product_id, content) => {
 };
 
 // enables to bring specific comment info about a certain post from the DB
-const getCommentAPI = (product_id, comment) => {
+const getCommentAPI = product_id => {
   return function (dispatch, getState, { history }) {
-    let comment_data = {
-      productId: product_id,
-      username: "",
-      comment: comment,
-    };
-
     if (!product_id) {
       return;
     }
 
     apis
-      .getReviews()
+      .getReviews(product_id)
       .then(res => {
-        let list = [];
+        // let list = [];
 
-        // let response_data = res.data;
-        // response_data.forEach((rd) => {
-        //   list.push({ ...rd });
+        // res.data.forEach((d) => {
+        //   list.push({ ...d });
         // });
-
-        dispatch(setComment(comment_data, list));
+        console.log(res);
+        dispatch(setComment(res.data.data.reviews));
       })
-      .catch(err => console.log("Get Error!", err));
+      .catch(err => console.log("Get Error!", err.response));
   };
 };
 
@@ -75,9 +68,12 @@ export default handleActions(
   {
     [SET_COMMENT]: (state, action) =>
       produce(state, draft => {
-        // let data = {[post_id]: com_list, ...}
-        draft.list[action.payload.product_id] = action.payload.comment_list;
+        draft.list = action.payload.data;
+
+        draft.loaded = true;
+        console.log(action);
       }),
+
     [ADD_COMMENT]: (state, action) =>
       produce(state, draft => {
         // when starts with an empty array

@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { productActions } from "../redux/modules/product";
 import { apis } from "../shared/axios";
 
-import Comment from "../components/Comment";
+import Comment from "../components/CommentList";
 
 const ProductDetail = props => {
   const productId = props.match.params.id;
@@ -61,7 +61,6 @@ const ProductDetail = props => {
                   justifyContent: "space-between",
                 }}
               >
-
                 <TitleText>{product.name}</TitleText>
                 <ShareIcon src="https://res.kurly.com/mobile/service/goodsview/1910/ico_view_sns.png"></ShareIcon>
               </div>
