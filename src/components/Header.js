@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { history } from "../redux/configureStore";
 import { userActions } from "../redux/modules/user";
+import { apis } from "../shared/axios";
 
 const Header = (props) => {
   const is_login = useSelector((state) => state.user.is_login);
@@ -19,12 +20,14 @@ const Header = (props) => {
   };
 
   const onKeyPress = (e) => {
-    if (e.key == "Enter") {
+    if (e.key == "Enter" && searchInput) {
       const fetchData = async () => {
         try {
+          console.log(searchInput);
           const result = await apis.getSearch(searchInput);
           console.log(result);
           console.log("검색완료");
+          //isLoading 추가 구현
         } catch (error) {
           console.log(error.response);
         }

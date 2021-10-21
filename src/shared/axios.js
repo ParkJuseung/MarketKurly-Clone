@@ -24,7 +24,7 @@ export const headers = {
 export const apis = {
   // 메인 상품리스트 불러오기
   getProduct: () =>
-    instance.get("/products?category1=&category2=", {
+    instance.get("/products?category1=&category2=&query=", {
       headers: {
         "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
@@ -39,9 +39,9 @@ export const apis = {
         accept: "application/json",
       },
     }),
-
+  //검색
   getSearch: (input) =>
-    instance.get(`/query?query=${input}`, {
+    instance.get(`/products?category1=&category2=&query=${input}`, {
       headers: {
         "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
