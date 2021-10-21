@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Comment = props => {
+const Comment = (props) => {
   return (
     <CommentTr>
       <CommentTd>{props.id + 1}</CommentTd>
