@@ -7,7 +7,7 @@ const Comment = props => {
       <CommentTd>{props.id + 1}</CommentTd>
       <CommentTd className="title">{props.content}</CommentTd>
       <CommentTd>{props.username}</CommentTd>
-      <CommentTd>{props.createdAt}</CommentTd>
+      <CommentTd>{props.createdAt.split("T")[0]}</CommentTd>
       <CommentTd>{props.like}</CommentTd>
     </CommentTr>
   );
@@ -18,7 +18,7 @@ Comment.defaultProps = {
   content: "테스트",
   username: "아무개",
   createdAt: "2000-01-01",
-  like: "3",
+  like: "0",
 };
 
 const CommentTr = styled.tr`
