@@ -1,16 +1,37 @@
 /* eslint-disable */
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { history } from "../redux/configureStore";
 import { userActions } from "../redux/modules/user";
 
-const Header = props => {
-  const is_login = useSelector(state => state.user.is_login);
-  const user = useSelector(state => state.user.user);
-
+const Header = (props) => {
+  const is_login = useSelector((state) => state.user.is_login);
+  const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
+
+  const [searchInput, setSearchInput] = useState("");
+
+  const onChange = (e) => {
+    // console.log(e.target.value);
+    setSearchInput(e.target.value);
+  };
+
+  const onKeyPress = (e) => {
+    if (e.key == "Enter") {
+      const fetchData = async () => {
+        try {
+          const result = await apis.getSearch(searchInput);
+          console.log(result);
+          console.log("검색완료");
+        } catch (error) {
+          console.log(error.response);
+        }
+      };
+      fetchData();
+    }
+  };
 
   useEffect(() => {
     dispatch(userActions.getUserAPI());
@@ -64,22 +85,8 @@ const Header = props => {
           <li onClick={() => history.push("/")}>베스트</li>
           <li onClick={() => history.push("/cheap")}>알뜰쇼핑 </li>
           <li onClick={() => history.push("/event")}> 특가/혜택</li>
-          <input
-            style={{
-              borderRadius: "50px",
-              boxSizing: "border-box",
-              border: "1px solid #f7f7f7",
-              backgroundColor: "#f7f7f7",
-              backgroundImage:
-                "https://res.kurly.com/pc/service/common/1908/ico_search_x2.png",
-              outline: "none",
-              width: "235px",
-              height: "35px",
-              fontSize: "16px",
-              letterSpacing: "-1px",
-              placeholer: "검색어를 입력해주세요.",
-            }}
-          ></input>
+          <Search onChange={onChange} onKeyPress={onKeyPress}></Search>
+
           <CartIcon onClick={() => history.push("/cart")} />
         </HeaderCategory>
       </Grid>
@@ -163,6 +170,19 @@ const CartIcon = styled.span`
   &:hover {
     background-image: url("https://res.kurly.com/pc/service/common/2011/ico_cart_on.svg?v=1");
   }
+`;
+
+const Search = styled.input`
+  border-radius: 50px;
+  box-sizing: border-box;
+  border: 1px solid #f7f7f7;
+  background-color: #f7f7f7;
+  background-image: "https://res.kurly.com/pc/service/common/1908/ico_search_x2.png";
+  outline: none;
+  width: 235px;
+  height: 35px;
+  font-size: 16px;
+  letter-spacing: -1px;
 `;
 
 export default Header;

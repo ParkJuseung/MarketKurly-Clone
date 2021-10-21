@@ -39,7 +39,7 @@ const ProductList = (props) => {
       {product_list && (
         <React.Fragment>
           <BannerImg src={banner}></BannerImg>
-          <CategoryText>신상품</CategoryText>
+          <CategoryText>베스트</CategoryText>
           <Grid width="1050px" is_flex>
             <LittleP>총 {product_list_count}건</LittleP>
             <div style={{ display: "flex" }}>
