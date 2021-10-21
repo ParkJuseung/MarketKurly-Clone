@@ -9,18 +9,17 @@ import { Grid } from "../elements/index";
 import Banner from "../shared/img/45f975c1-e57c-403f-9f4f-1cb0c965897a.webp";
 import { apis } from "../shared/axios";
 
-const ProductList = (props) => {
+const ProductList = props => {
   const dispatch = useDispatch();
   const [banner, setBenner] = React.useState(null);
 
   React.useEffect(() => {
+    console.log("유즈이펙트");
     dispatch(productActions.getProductAPI());
     const fetchData = async () => {
       try {
         const result = await apis.getBanner();
-        // console.log("배너", result);
         const _banner = result.data.data.banners[9];
-        // console.log("배너", _banner);
         setBenner(_banner);
       } catch (err) {
         console.log(err);
@@ -29,10 +28,12 @@ const ProductList = (props) => {
     fetchData();
   }, []);
 
-  const product_list = useSelector((state) => state.product.products.content);
+  const product_list = useSelector(state => state.product.products.content);
   const product_list_count = useSelector(
-    (state) => state.product.products.numberOfElements
+    state => state.product.products.numberOfElements
   );
+
+  console.log(product_list);
 
   return (
     <>
