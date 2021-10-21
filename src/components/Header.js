@@ -5,28 +5,37 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { history } from "../redux/configureStore";
 import { userActions } from "../redux/modules/user";
+import { productActions } from "../redux/modules/product";
 import { apis } from "../shared/axios";
+import { LocalConvenienceStoreOutlined } from "@material-ui/icons";
 
-const Header = (props) => {
-  const is_login = useSelector((state) => state.user.is_login);
-  const user = useSelector((state) => state.user.user);
+const Header = props => {
+  const is_login = useSelector(state => state.user.is_login);
+  const user = useSelector(state => state.user.user);
+  const paging = useSelector(state => state.product.paging);
+
   const dispatch = useDispatch();
 
   const [searchInput, setSearchInput] = useState("");
 
-  const onChange = (e) => {
+  const onChange = e => {
     // console.log(e.target.value);
     setSearchInput(e.target.value);
   };
 
-  const onKeyPress = (e) => {
+  // 입력후엔터키 누르면 정보 받아옴
+  const onKeyPress = e => {
     if (e.key == "Enter" && searchInput) {
+      history.push("/");
       const fetchData = async () => {
         try {
           console.log(searchInput);
-          const result = await apis.getSearch(searchInput);
+          const result = await apis.getSearch(searchInput, paging.next + 1);
+          const res = result.data.data.content;
+          console.log(res);
           console.log(result);
           console.log("검색완료");
+          dispatch(productActions.getSearchProducts(res));
           //isLoading 추가 구현
         } catch (error) {
           console.log(error.response);
