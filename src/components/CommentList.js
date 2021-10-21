@@ -94,11 +94,7 @@ const CommentList = props => {
               {isloaded && (
                 <>
                   {comment_list.map((doc, idx) => {
-<<<<<<< HEAD
                     return <Comment key={idx} {...doc} id={idx} />;
-=======
-                    return <Comment key={idx} {...doc} />;
->>>>>>> 24a8027ef11b3ab2a6482c53652d230b314d1284
                   })}
                 </>
               )}
