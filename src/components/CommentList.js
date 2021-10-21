@@ -7,13 +7,12 @@ import Modal from "react-modal";
 import { commentActions } from "../redux/modules/comment";
 import Comment from "./Comment";
 
-const CommentList = props => {
+const CommentList = (props) => {
   const { productId } = props;
   const dispatch = useDispatch();
   // checks logined
   const is_login = useSelector((state) => state.user.is_login);
-  const comment_list = useSelector(state => state.comment.list);
-  
+  const comment_list = useSelector((state) => state.comment.list);
 
   React.useEffect(() => {
     if (!comment_list[props.product_id]) {
@@ -28,7 +27,7 @@ const CommentList = props => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const [comment, setComment] = useState("");
-  const onChange = e => {
+  const onChange = (e) => {
     console.log(e.target.value);
     setComment(e.target.value);
   };
@@ -48,7 +47,7 @@ const CommentList = props => {
   };
 
   // Open modal
-  const openModal = e => {
+  const openModal = (e) => {
     setModalIsOpen(true);
   };
 
@@ -87,23 +86,22 @@ const CommentList = props => {
             </tr>
           </thead>
           <tbody>
-            <Comment/>
+            <Comment />
           </tbody>
         </Table>
-        {is_login &&<Button onClick={openModal}>후기쓰기</Button>}
+        {is_login && <Button onClick={openModal}>후기쓰기</Button>}
         {comment_list[props.product_id]?.map((doc) => {
           return <Comment key={doc.id} {...doc} />;
         })}
       </Grid>
 
-
-
-
       <ModalFrame>
-        <Modal isOpen={modalIsOpen}
-               onRequestClose={props.clearSelectedOption}
-               ariaHideApp={false}
-               contentLabel="Selected Option" className="Modal"
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={props.clearSelectedOption}
+          ariaHideApp={false}
+          contentLabel="Selected Option"
+          className="Modal"
         >
           <ModalTitle>리뷰 작성하기</ModalTitle>
           <br />
@@ -149,7 +147,6 @@ const Table = styled.p`
     padding: 20px;
     border-bottom: 0.5px solid #dcdcdc;
   }
-
 `;
 
 const Button = styled.button`

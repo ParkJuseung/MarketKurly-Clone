@@ -24,7 +24,7 @@ const headers = {
 export const apis = {
   // 메인 상품리스트 불러오기
   getProduct: () =>
-    instance.get("/products?category1=&category2=", {
+    instance.get("/products?category1=&category2=&query=", {
       headers: {
         "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
@@ -35,7 +35,7 @@ export const apis = {
   getBanner: () => instance.get("/banners", { headers: headers }),
 
   // 상세페이지 상품 조회
-  getProductDetail: id =>
+  getProductDetail: (id) =>
     instance.get(`products/${id}`, {
       headers: {
         "content-type": "application/json;charset=UTF-8",
@@ -44,13 +44,14 @@ export const apis = {
     }),
 
   // 상세페이지 후기 추가
-  addReviews: data => instance.post(`/reviews`, data, { headers: headers }),
+  addReviews: (data) => instance.post(`/reviews`, data, { headers: headers }),
 
   // 상세페이지 후기 조회
-  getReviews: id => instance.get(`/reviews/${id}`, { headers: headers }),
+  getReviews: (id) => instance.get(`/reviews/${id}`, { headers: headers }),
 
   // 상세페이지 후기 삭제
-  deleteReviews: id => instance.delete(`/reviews/${id}`, { headers: headers }),
+  deleteReviews: (id) =>
+    instance.delete(`/reviews/${id}`, { headers: headers }),
 
   // 장바구니 상품리스트 조회
   getCartProduct: () => instance.get("/cart", { headers: headers }),
@@ -62,7 +63,7 @@ export const apis = {
   RemoveCartProduct: () => instance.delete("/cart", { headers: headers }),
 
   // 회원가입
-  signUp: user =>
+  signUp: (user) =>
     instance.post(`/user/register`, user, {
       headers: {
         "content-type": "application/json;charset=UTF-8",
@@ -71,10 +72,10 @@ export const apis = {
     }),
 
   // 이메일 유효확인
-  emailValidation: email => instance.get(`/user/register?email=${email}`),
+  emailValidation: (email) => instance.get(`/user/register?email=${email}`),
 
   //로그인
-  logIn: user =>
+  logIn: (user) =>
     instance.post(`/user/login`, user, {
       headers: {
         "content-type": "application/json;charset=UTF-8",
