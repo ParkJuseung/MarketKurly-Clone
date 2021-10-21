@@ -5,17 +5,18 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import Modal from "react-modal";
 import { commentActions } from "../redux/modules/comment";
+import Comment from "./Comment";
 
-const Comment = (props) => {
+const CommentList = (props) => {
   const { productId } = props;
   const dispatch = useDispatch();
   // checks logined
-  // const is_login = useSelector((state) => state.user.is_login);
+  const is_login = useSelector((state) => state.user.is_login);
   const comment_list = useSelector((state) => state.comment.list);
 
   React.useEffect(() => {
-    if (!comment_list[props.id]) {
-      dispatch(commentActions.getCommentAPI(props.id));
+    if (!comment_list[props.product_id]) {
+      dispatch(commentActions.getCommentAPI(props.product_id));
     }
   }, []);
 
@@ -26,7 +27,6 @@ const Comment = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const [comment, setComment] = useState("");
-
   const onChange = (e) => {
     console.log(e.target.value);
     setComment(e.target.value);
@@ -86,59 +86,23 @@ const Comment = (props) => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td className="title">비싼데 맛있어요</td>
-              <td>김*지</td>
-              <td>2020-10-11</td>
-              <td>3</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td className="title">개맛없네요 사지마세요</td>
-              <td>박*승</td>
-              <td>2020-09-09</td>
-              <td>0</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td className="title">무야호</td>
-              <td>최*식</td>
-              <td>1999-01-01</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td className="title">
-                길이체크길이체크길이체크길이체크길이체크길이체크길이체크v길이체크길이체크길이체크길이체크길이체크길이체크길이체크길이체크길이체크
-              </td>
-              <td>세글자</td>
-              <td>1000-01-01</td>
-              <td>100</td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td className="title">마지막리뷰</td>
-              <td>세글자</td>
-              <td>2000-11-11</td>
-              <td>0</td>
-            </tr>
-            <tr>
-              <td>6</td>
-              <td className="title">{props.content}</td>
-              <td>{props.username}</td>
-              <td>{props.createdDate}</td>
-              <td>0</td>
-            </tr>
+            <Comment />
           </tbody>
-          {comment_list[props.id]?.map((c) => {
-            return <div key={c.id} {...c} />;
-          })}
         </Table>
-        <Button onClick={openModal}>후기쓰기</Button>
+        {is_login && <Button onClick={openModal}>후기쓰기</Button>}
+        {comment_list[props.product_id]?.map((doc) => {
+          return <Comment key={doc.id} {...doc} />;
+        })}
       </Grid>
+
       <ModalFrame>
-        <Modal isOpen={modalIsOpen} className="Modal">
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={props.clearSelectedOption}
+          ariaHideApp={false}
+          contentLabel="Selected Option"
+          className="Modal"
+        >
           <ModalTitle>리뷰 작성하기</ModalTitle>
           <br />
 
@@ -178,26 +142,10 @@ const Table = styled.p`
   border-top: 2px solid purple;
   border-bottom: 1px solid purple;
   font-size: 12px;
-  & tr {
-  }
-
-  & td {
-    padding: 20px;
-    border-bottom: 0.5px solid #dcdcdc;
-  }
 
   & th {
     padding: 20px;
     border-bottom: 0.5px solid #dcdcdc;
-  }
-
-  & td.title {
-    text-align: left;
-    padding-left: 15px;
-  }
-
-  & tr:hover {
-    background-color: #d3d3d3;
   }
 `;
 
@@ -267,4 +215,4 @@ const ElTextarea = styled.textarea`
   padding: 12px 4px;
   box-sizing: border-box;
 `;
-export default Comment;
+export default CommentList;
