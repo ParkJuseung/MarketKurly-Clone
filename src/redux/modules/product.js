@@ -36,7 +36,7 @@ const initialState = {
   paging: { start: null, next: null },
   is_loading: false,
 };
-//product 전체 호출
+
 export const getProductAPI = () => {
   return function (dispatch, getState, { history }) {
     apis
@@ -49,14 +49,6 @@ export const getProductAPI = () => {
   };
 };
 
-// export const getBanner = () => {
-//   return function (dispatch, getState, { history }) {
-//     apis.getBanner().then((res) => {
-//       console.log(res);
-//     });
-//   };
-// };
-
 export const getMyProductAPI = () => {
   return function (dispatch, getState, { history }) {
     apis.getCartProduct().then(res => {
@@ -66,28 +58,18 @@ export const getMyProductAPI = () => {
   };
 };
 
-export const getProductForInfinityAPI = (_start = null) => {
+export const getProductForInfinityAPI = () => {
   return function (dispatch, getState, { history }) {
     let _paging = getState().product.paging;
-    console.log(_paging);
     dispatch(isLoading(true));
-    let start = _start;
 
-    if (_paging.start && !_paging.next) {
-      return;
-    }
-
-    if (_start === null) {
-      start = 1;
-    }
-
-    apis.getProduct(start).then(res => {
+    console.log(_paging.next + 1);
+    apis.getProduct(_paging.next + 1).then(res => {
       const products = res.data.data.content;
       let paging = {
         start: _paging.next,
         next: _paging.next + 1,
       };
-      console.log(paging);
       dispatch(getProductForInfinity(products, paging));
     });
   };

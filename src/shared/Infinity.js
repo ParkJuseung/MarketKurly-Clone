@@ -10,10 +10,8 @@ const Infinity = props => {
     const scrollTop =
       (document.documentElement && document.documentElement.scrollTop) ||
       document.body.scrollTop;
-    console.log(scrollHeight - innerHeight - scrollTop);
 
     if (scrollHeight - innerHeight - scrollTop < 500 && paging.next < 5) {
-      console.log("지금이야");
       callNext();
     }
   }, 300);

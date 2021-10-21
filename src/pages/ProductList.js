@@ -27,7 +27,10 @@ const ProductList = props => {
       }
     };
     fetchData();
-    dispatch(productActions.getProductForInfinityAPI());
+
+    if (infinityProducts.length === 0) {
+      dispatch(productActions.getProductForInfinityAPI());
+    }
   }, []);
 
   const product_list = useSelector(state => state.product.products.content);
@@ -46,8 +49,7 @@ const ProductList = props => {
           paging={paging}
           is_loading={is_loading}
           callNext={() => {
-            console.log(paging);
-            dispatch(productActions.getProductForInfinityAPI(paging.next));
+            dispatch(productActions.getProductForInfinityAPI());
           }}
           is_next={paging.next < 5 ? true : false}
         >
