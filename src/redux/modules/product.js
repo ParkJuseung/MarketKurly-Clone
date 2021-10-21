@@ -63,13 +63,14 @@ export const getProductForInfinityAPI = () => {
     let _paging = getState().product.paging;
     dispatch(isLoading(true));
 
-    console.log(_paging.next + 1);
+    console.log(_paging, "돌기 전");
     apis.getProduct(_paging.next + 1).then(res => {
       const products = res.data.data.content;
       let paging = {
         start: _paging.next,
         next: _paging.next + 1,
       };
+      console.log(_paging, "돈 후");
       dispatch(getProductForInfinity(products, paging));
     });
   };
