@@ -17,11 +17,9 @@ const Cart = props => {
   }, []);
 
   const products = useSelector(state => state.product.myProducts);
-  console.log(products);
   const is_loaded = useSelector(state => state.product.is_loaded);
-  console.log(is_loaded);
 
-  const [qty, setQty] = useState(1);
+  const [qty, setQty] = useState(0);
   const [price, setPrice] = useState(100);
 
   const plusQty = () => {
@@ -79,7 +77,7 @@ const Cart = props => {
                       >
                         -
                       </ProductQtyButton>
-                      <ProductQty>{qty}</ProductQty>
+                      <ProductQty>{p.amount + qty}</ProductQty>
                       <ProductQtyButton
                         style={{ cursor: "pointer" }}
                         onClick={plusQty}
