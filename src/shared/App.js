@@ -18,10 +18,12 @@ import { userActions } from "../redux/modules/user";
 
 function App() {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.user.user);
+  const user = useSelector((state) => state.user.user);
 
   useEffect(() => {
-    dispatch(userActions.getUserAPI());
+    if (localStorage.getItem("token")) {
+      dispatch(userActions.getUserAPI());
+    }
   }, []);
 
   return (
