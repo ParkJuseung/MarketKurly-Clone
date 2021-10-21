@@ -5,6 +5,7 @@ import { produce } from "immer";
 import { apis } from "../../shared/axios";
 
 const GET_PRODUCT = "GET_PRODUCT";
+const GET_SEARCH_PRODUCT = "GET_SEARCH_PRODUCT";
 const GET_BANNER = "GET_BANNER";
 const GET_MY_PRODUCT = "GET_MY_PRODUCT";
 const ADD_CART = "ADD_CART";
@@ -14,6 +15,9 @@ const addCart = createAction(ADD_CART, (data) => ({ data }));
 const getBanners = createAction(GET_BANNER, (data) => ({ data }));
 
 const getProducts = createAction(GET_PRODUCT, (data) => ({ data }));
+const getSearchProducts = createAction(GET_SEARCH_PRODUCT, (data) => ({
+  data,
+}));
 const getMyProducts = createAction(GET_MY_PRODUCT, (data) => ({ data }));
 const deleteMyProducts = createAction(DELETE_MY_PRODUCT, (id) => ({ id }));
 
@@ -22,6 +26,7 @@ const initialState = {
   myProducts: [],
   numberOfElement: "",
   is_loaded: false,
+  search: false,
 };
 //product 전체 호출
 export const getProductAPI = () => {
@@ -86,6 +91,13 @@ export default handleActions(
     [GET_PRODUCT]: (state, action) =>
       produce(state, (draft) => {
         draft.products = action.payload.data;
+        draft.search = false;
+      }),
+    [GET_SEARCH_PRODUCT]: (state, action) =>
+      produce(state, (draft) => {
+        console.log("액션빔", action);
+        draft.products = action.payload.data;
+        draft.search = true;
       }),
     [GET_MY_PRODUCT]: (state, action) =>
       produce(state, (draft) => {
@@ -107,5 +119,7 @@ const productActions = {
   getMyProductAPI,
   deleteMyProductAPI,
   addCartAPI,
+  getSearchProducts,
+  getProducts,
 };
 export { productActions };
