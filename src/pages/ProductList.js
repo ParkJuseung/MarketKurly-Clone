@@ -9,13 +9,13 @@ import { Grid } from "../elements/index";
 import Banner from "../shared/img/45f975c1-e57c-403f-9f4f-1cb0c965897a.webp";
 import { apis } from "../shared/axios";
 import _ from "lodash";
+import Infinity from "../shared/Infinity";
 
 const ProductList = props => {
   const dispatch = useDispatch();
   const [banner, setBenner] = React.useState(null);
 
   React.useEffect(() => {
-    console.log("유즈이펙트");
     dispatch(productActions.getProductAPI());
     const fetchData = async () => {
       try {
@@ -27,52 +27,54 @@ const ProductList = props => {
       }
     };
     fetchData();
+    dispatch(productActions.getProductForInfinityAPI());
   }, []);
-
-  let page = 1;
-  window.onscroll = function () {
-    const _handleScroll = _.throttle(() => {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        page += 1;
-        console.log(page);
-      }
-    }, 300);
-    _handleScroll();
-  };
 
   const product_list = useSelector(state => state.product.products.content);
   const product_list_count = useSelector(
     state => state.product.products.numberOfElements
   );
 
-  console.log(product_list);
+  const infinityProducts = useSelector(state => state.product.infinityProducts);
+  const is_loading = useSelector(state => state.product.is_loading);
+  const paging = useSelector(state => state.product.paging);
 
   return (
     <>
-      {product_list && (
-        <React.Fragment>
-          <BannerImg src={banner}></BannerImg>
-          <CategoryText>베스트</CategoryText>
-          <Grid width="1050px" is_flex>
-            <LittleP>총 {product_list_count}건</LittleP>
-            <div style={{ display: "flex" }}>
-              <LittleP2>추천순</LittleP2>
-              <LittleLine> | </LittleLine>
-              <LittleP2>신상품순</LittleP2>
-              <LittleLine> | </LittleLine>
-              <LittleP2>인기상품순</LittleP2>
-              <LittleLine> | </LittleLine>
-              <LittleP2>낮은 가격순</LittleP2>
-              <LittleLine> | </LittleLine>
-              <LittleP2>높은 가격순</LittleP2>
-            </div>
-          </Grid>
-          <ProductWrap>
-            {product_list.map((p, idx) => (
-              <Product key={idx} {...p} />
-            ))}
-          </ProductWrap>
-        </React.Fragment>
+      {infinityProducts && (
+        <Infinity
+          paging={paging}
+          is_loading={is_loading}
+          callNext={() => {
+            console.log(paging);
+            dispatch(productActions.getProductForInfinityAPI(paging.next));
+          }}
+          is_next={paging.next < 5 ? true : false}
+        >
+          <React.Fragment>
+            <BannerImg src={banner}></BannerImg>
+            <CategoryText>베스트</CategoryText>
+            <Grid width="1050px" is_flex>
+              <LittleP>총 {product_list_count}건</LittleP>
+              <div style={{ display: "flex" }}>
+                <LittleP2>추천순</LittleP2>
+                <LittleLine> | </LittleLine>
+                <LittleP2>신상품순</LittleP2>
+                <LittleLine> | </LittleLine>
+                <LittleP2>인기상품순</LittleP2>
+                <LittleLine> | </LittleLine>
+                <LittleP2>낮은 가격순</LittleP2>
+                <LittleLine> | </LittleLine>
+                <LittleP2>높은 가격순</LittleP2>
+              </div>
+            </Grid>
+            <ProductWrap>
+              {infinityProducts.map((p, idx) => (
+                <Product key={idx} {...p} />
+              ))}
+            </ProductWrap>
+          </React.Fragment>
+        </Infinity>
       )}
     </>
   );

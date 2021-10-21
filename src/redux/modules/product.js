@@ -18,10 +18,14 @@ const getBanners = createAction(GET_BANNER, data => ({ data }));
 const getProducts = createAction(GET_PRODUCT, data => ({ data }));
 const getMyProducts = createAction(GET_MY_PRODUCT, data => ({ data }));
 const deleteMyProducts = createAction(DELETE_MY_PRODUCT, id => ({ id }));
-const getProductForInfinity = createAction(GET_PRODUCT_FOR_INFINITY, data => ({
-  data,
-}));
-const isLoading = createAction(LOADING, loading => ({ loadiing }));
+const getProductForInfinity = createAction(
+  GET_PRODUCT_FOR_INFINITY,
+  (products, paging) => ({
+    products,
+    paging,
+  })
+);
+const isLoading = createAction(LOADING, loading => ({ loading }));
 
 const initialState = {
   products: [],
@@ -29,8 +33,8 @@ const initialState = {
   numberOfElement: "",
   is_loaded: false,
   infinityProducts: [],
-  paging: { start: null, next: null, size: 6 },
-  is_laoding: false,
+  paging: { start: null, next: null },
+  is_loading: false,
 };
 //product 전체 호출
 export const getProductAPI = () => {
@@ -57,20 +61,34 @@ export const getMyProductAPI = () => {
   return function (dispatch, getState, { history }) {
     apis.getCartProduct().then(res => {
       const products = res.data.data.products;
-      console.log(products);
       dispatch(getMyProducts(products));
     });
   };
 };
 
-export const getProductForInfinityAPI = () => {
+export const getProductForInfinityAPI = (_start = null) => {
   return function (dispatch, getState, { history }) {
-    apis.getProduct().then(res => {
-      let _paging = getState().product.paging;
-      console.log(_paging);
+    let _paging = getState().product.paging;
+    console.log(_paging);
+    dispatch(isLoading(true));
+    let start = _start;
 
-      dispatch(isLoading(true));
-      console.log(res);
+    if (_paging.start && !_paging.next) {
+      return;
+    }
+
+    if (_start === null) {
+      start = 1;
+    }
+
+    apis.getProduct(start).then(res => {
+      const products = res.data.data.content;
+      let paging = {
+        start: _paging.next,
+        next: _paging.next + 1,
+      };
+      console.log(paging);
+      dispatch(getProductForInfinity(products, paging));
     });
   };
 };
@@ -79,7 +97,6 @@ export const deleteMyProductAPI = id => {
   return function (dispatch, getState, { history }) {
     console.log(id);
     apis.RemoveCartProduct(id).then(res => {
-      console.log(res);
       dispatch(deleteMyProducts(id));
     });
   };
@@ -122,11 +139,12 @@ export default handleActions(
       }),
     [GET_PRODUCT_FOR_INFINITY]: (state, action) =>
       produce(state, draft => {
-        daraft.infinityProducts = action.payload.data;
+        draft.infinityProducts.push(...action.payload.products);
+        draft.paging = action.payload.paging;
+        draft.is_loading = false;
       }),
     [LOADING]: (state, action) =>
       produce(state, draft => {
-        console.log(action.payload.loading);
         draft.is_loading = action.payload.loading;
       }),
   },
@@ -137,5 +155,6 @@ const productActions = {
   getMyProductAPI,
   deleteMyProductAPI,
   addCartAPI,
+  getProductForInfinityAPI,
 };
 export { productActions };
