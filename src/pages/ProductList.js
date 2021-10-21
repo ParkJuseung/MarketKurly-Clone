@@ -8,6 +8,7 @@ import { productActions } from "../redux/modules/product";
 import { Grid } from "../elements/index";
 import Banner from "../shared/img/45f975c1-e57c-403f-9f4f-1cb0c965897a.webp";
 import { apis } from "../shared/axios";
+import _ from "lodash";
 
 const ProductList = props => {
   const dispatch = useDispatch();
@@ -27,6 +28,17 @@ const ProductList = props => {
     };
     fetchData();
   }, []);
+
+  let page = 1;
+  window.onscroll = function () {
+    const _handleScroll = _.throttle(() => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        page += 1;
+        console.log(page);
+      }
+    }, 300);
+    _handleScroll();
+  };
 
   const product_list = useSelector(state => state.product.products.content);
   const product_list_count = useSelector(
