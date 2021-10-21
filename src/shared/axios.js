@@ -22,8 +22,8 @@ export const headers = {
 
 export const apis = {
   // 메인 상품리스트 불러오기
-  getProduct: () =>
-    instance.get("/products?category1=&category2=&query=", {
+  getProduct: (page) =>
+    instance.get(`/products?category1=&category2=&query=&page=${page}`, {
       headers: {
         "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
@@ -38,13 +38,16 @@ export const apis = {
       },
     }),
   //검색
-  getSearch: (input) =>
-    instance.get(`/products?category1=&category2=&query=${input}`, {
-      headers: {
-        "content-type": "application/json;charset=UTF-8",
-        accept: "application/json",
-      },
-    }),
+  getSearch: (input, page) =>
+    instance.get(
+      `/products?category1=&category2=&query=${input}&page=${page}`,
+      {
+        headers: {
+          "content-type": "application/json;charset=UTF-8",
+          accept: "application/json",
+        },
+      }
+    ),
 
   // 상세페이지 상품 조회
   getProductDetail: (id) =>
@@ -59,6 +62,7 @@ export const apis = {
     instance.post(`/reviews`, data, {
       headers: { authorization: `${localStorage.getItem("token")}` },
     }),
+
   // 상세페이지 후기 조회
   getReviews: (id) =>
     instance.get(`/reviews?productId=${id}&page=1&display=10`, {
