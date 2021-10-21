@@ -12,7 +12,7 @@ import { LocalConvenienceStoreOutlined } from "@material-ui/icons";
 const Header = props => {
   const is_login = useSelector(state => state.user.is_login);
   const user = useSelector(state => state.user.user);
-  const paging = useSelector(state => state.product.paging);
+  const _paging = useSelector(state => state.product.paging);
 
   const dispatch = useDispatch();
 
@@ -27,21 +27,7 @@ const Header = props => {
   const onKeyPress = e => {
     if (e.key == "Enter" && searchInput) {
       history.push("/");
-      const fetchData = async () => {
-        try {
-          console.log(searchInput);
-          const result = await apis.getSearch(searchInput, paging.next + 1);
-          const res = result.data.data.content;
-          console.log(res);
-          console.log(result);
-          console.log("검색완료");
-          dispatch(productActions.getSearchProducts(res));
-          //isLoading 추가 구현
-        } catch (error) {
-          console.log(error.response);
-        }
-      };
-      fetchData();
+      dispatch(productActions.getSearchProductAPI(searchInput));
     }
   };
 

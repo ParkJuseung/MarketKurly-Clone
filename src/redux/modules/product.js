@@ -16,9 +16,13 @@ const DELETE_MY_PRODUCT = "DELETE_MY_PRODUCT";
 const addCart = createAction(ADD_CART, data => ({ data }));
 const getBanners = createAction(GET_BANNER, data => ({ data }));
 
-const getSearchProducts = createAction(GET_SEARCH_PRODUCT, data => ({
-  data,
-}));
+const getSearchProducts = createAction(
+  GET_SEARCH_PRODUCT,
+  (products, paging) => ({
+    products,
+    paging,
+  })
+);
 
 const getProducts = createAction(GET_PRODUCT, (products, paging) => ({
   products,
@@ -26,22 +30,17 @@ const getProducts = createAction(GET_PRODUCT, (products, paging) => ({
 }));
 const getMyProducts = createAction(GET_MY_PRODUCT, data => ({ data }));
 const deleteMyProducts = createAction(DELETE_MY_PRODUCT, id => ({ id }));
-const getProductForInfinity = createAction(
-  GET_PRODUCT_FOR_INFINITY,
-  (products, paging) => ({
-    products,
-    paging,
-  })
-);
 const isLoading = createAction(LOADING, loading => ({ loading }));
 
 const initialState = {
   products: [],
   myProducts: [],
+  searchProducts: [],
   numberOfElement: "",
   is_loaded: false,
 
   search: false,
+  searchInput: null,
 
   infinityProducts: [],
   paging: { start: null, next: null },
@@ -67,13 +66,25 @@ export const getProductAPI = () => {
 
     console.log(_paging.next + 1);
     apis.getProduct(_paging.next + 1).then(res => {
-      console.log(res);
       const products = res.data.data.content;
       let paging = {
         start: _paging.next,
         next: _paging.next + 1,
       };
-      dispatch(getProducts(products, paging));
+      dispatch(getSearchProducts(products, paging));
+    });
+  };
+};
+
+export const getSearchProductAPI = input => {
+  return function (dispatch, getState, { history }) {
+    let _paging = getState().product.paging;
+    dispatch(isLoading(true));
+
+    console.log(_paging.next + 1);
+    apis.getSearch(input, _paging.next + 1).then(res => {
+      const products = res.data.data.content;
+      dispatch(getSearchProducts(products, paging));
     });
   };
 };
@@ -119,14 +130,14 @@ export default handleActions(
     [GET_PRODUCT]: (state, action) =>
       produce(state, draft => {
         draft.products.push(...action.payload.products);
-        // draft.paging = action.payload.paging;
-        // draft.is_loading = false;
-        // draft.search = false;
+        draft.paging = action.payload.paging;
+        draft.is_loading = false;
+        draft.search = false;
       }),
     [GET_SEARCH_PRODUCT]: (state, action) =>
       produce(state, draft => {
-        console.log("액션빔", action);
-        draft.products = action.payload.data;
+        draft.searchProducts.push(...action.payload.products);
+        draft.paging = action.payload.paging;
         draft.search = true;
       }),
     [GET_MY_PRODUCT]: (state, action) =>
@@ -160,5 +171,6 @@ const productActions = {
   addCartAPI,
   getSearchProducts,
   getProducts,
+  getSearchProductAPI,
 };
 export { productActions };

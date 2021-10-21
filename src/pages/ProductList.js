@@ -61,7 +61,9 @@ const ProductList = props => {
           paging={paging}
           is_loading={is_loading}
           callNext={() => {
-            dispatch(productActions.getProductAPI());
+            search === true;
+            // ? dispatch(productActions.getProductAPI());
+            // : dispatch(productActions.getSearchProductAPI())
           }}
           is_next={paging.next < 5 ? true : false}
         >
