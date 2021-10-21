@@ -35,7 +35,7 @@ export const apis = {
       },
     }),
   // 상세페이지 상품 조회
-  getProductDetail: id =>
+  getProductDetail: (id) =>
     instance.get(`products/${id}`, {
       headers: {
         "content-type": "application/json;charset=UTF-8",
@@ -43,17 +43,20 @@ export const apis = {
       },
     }),
   // 상세페이지 후기 추가
-  addReviews: data =>
+  addReviews: (data) =>
     instance.post(`/reviews`, data, {
       headers: { authorization: `${localStorage.getItem("token")}` },
     }),
   // 상세페이지 후기 조회
-  getReviews: id =>
+  getReviews: (id) =>
     instance.get(`/reviews?productId=${id}&page=1&display=10`, {
-      headers: { authorization: `${localStorage.getItem("token")}` },
+      headers: {
+        "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+      },
     }),
   // 상세페이지 후기 삭제
-  deleteReviews: id =>
+  deleteReviews: (id) =>
     instance.delete(`/reviews/${id}`, {
       headers: { authorization: `${localStorage.getItem("token")}` },
     }),
@@ -63,17 +66,17 @@ export const apis = {
       headers: { authorization: `${localStorage.getItem("token")}` },
     }),
   // 장바구니 상품 추가
-  AddProductToCart: cart =>
+  AddProductToCart: (cart) =>
     instance.post("/cart", cart, {
       headers: { authorization: `${localStorage.getItem("token")}` },
     }),
   // 장바구니 상품 삭제
-  RemoveCartProduct: productId =>
+  RemoveCartProduct: (productId) =>
     instance.delete(`/cart/${productId}`, {
       headers: { authorization: `${localStorage.getItem("token")}` },
     }),
   // 회원가입
-  signUp: user =>
+  signUp: (user) =>
     instance.post(`/user/register`, user, {
       headers: {
         "content-type": "application/json;charset=UTF-8",
@@ -81,9 +84,9 @@ export const apis = {
       },
     }),
   // 이메일 유효확인
-  emailValidation: email => instance.get(`/user/register?email=${email}`),
+  emailValidation: (email) => instance.get(`/user/register?email=${email}`),
   //로그인
-  logIn: user =>
+  logIn: (user) =>
     instance.post(`/user/login`, user, {
       headers: {
         "content-type": "application/json;charset=UTF-8",

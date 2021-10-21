@@ -5,7 +5,7 @@ const Comment = (props) => {
     console.log(props)
     return(
         <CommentTr>
-            <CommentTd>{props.index}</CommentTd>
+            <CommentTd>{props.reviewId}</CommentTd>
             <CommentTd className="title">{props.content}</CommentTd>
             <CommentTd>{props.username}</CommentTd>
             <CommentTd>{props.createdAt}</CommentTd>
@@ -30,7 +30,7 @@ const CommentTr = styled.tr`
 `
 
 const CommentTd = styled.td`
-    
+
      padding: 20px;
     border-bottom: 0.5px solid #dcdcdc;
     &.title{
