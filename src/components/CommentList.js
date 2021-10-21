@@ -9,19 +9,20 @@ import Comment from "./Comment";
 
 const CommentList = (props) => {
   const { productId } = props;
+
   const dispatch = useDispatch();
+
   // checks logined
   const is_login = useSelector((state) => state.user.is_login);
   const comment_list = useSelector((state) => state.comment.list);
+  const isloaded = useSelector((state) => state.comment.loaded);
 
   React.useEffect(() => {
-    if (!comment_list[props.product_id]) {
-      dispatch(commentActions.getCommentAPI(props.product_id));
-    }
+    // if (!comment_list[productId]) {
+    //   dispatch(commentActions.getCommentAPI(productId));
+    // }
+    dispatch(commentActions.getCommentAPI(productId));
   }, []);
-
-  // Rating
-  //   const [value, setValue] = useState(0);
 
   // Modal functions
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -57,72 +58,77 @@ const CommentList = (props) => {
   };
 
   return (
-    <React.Fragment>
-      <Grid>
-        <P>
-          PRODUCT REVIEW
-          <br />
-          ▪ 상품에 대한 리뷰가 쓰여지는 공간입니다.
-          <br />
-        </P>
-        <Table>
-          <thead>
-            <tr>
-              <th scope="cols" style={{ width: "50px" }}>
-                번호
-              </th>
-              <th scope="cols" style={{ width: "1000px" }}>
-                내용
-              </th>
-              <th scope="cols" style={{ width: "100px" }}>
-                작성자
-              </th>
-              <th scope="cols" style={{ width: "100px" }}>
-                작성일
-              </th>
-              <th scope="cols" style={{ width: "50px" }}>
-                추천
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <Comment />
-          </tbody>
-        </Table>
-        {is_login && <Button onClick={openModal}>후기쓰기</Button>}
-        {comment_list[props.product_id]?.map((doc) => {
-          return <Comment key={doc.id} {...doc} />;
-        })}
-      </Grid>
+    <>
+      <React.Fragment>
+        <Grid>
+          <P>
+            PRODUCT REVIEW
+            <br />
+            ▪ 상품에 대한 리뷰가 쓰여지는 공간입니다.
+            <br />
+          </P>
+          <Table>
+            <thead>
+              <tr>
+                <th scope="cols" style={{ width: "50px" }}>
+                  번호
+                </th>
+                <th scope="cols" style={{ width: "1000px" }}>
+                  내용
+                </th>
+                <th scope="cols" style={{ width: "100px" }}>
+                  작성자
+                </th>
+                <th scope="cols" style={{ width: "100px" }}>
+                  작성일
+                </th>
+                <th scope="cols" style={{ width: "50px" }}>
+                  추천
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {isloaded && (
+                <>
+                  {comment_list.map((doc, idx) => {
+                    return <Comment key={idx} {...doc} id={idx} />;
+                  })}
+                </>
+              )}
+            </tbody>
+          </Table>
+          {is_login && <Button onClick={openModal}>후기쓰기</Button>}
+        </Grid>
 
-      <ModalFrame>
-        <Modal
-          isOpen={modalIsOpen}
-          onRequestClose={props.clearSelectedOption}
-          ariaHideApp={false}
-          contentLabel="Selected Option"
-          className="Modal"
-        >
-          <ModalTitle>리뷰 작성하기</ModalTitle>
-          <br />
+        <ModalFrame>
+          <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={props.clearSelectedOption}
+            ariaHideApp={false}
+            contentLabel="Selected Option"
+            className="Modal"
+          >
+            <ModalTitle>리뷰 작성하기</ModalTitle>
+            <br />
 
-          <ElTextarea
-            placeholder="리뷰 작성"
-            rows={5}
-            onChange={onChange}
-            value={comment}
-          />
-          <ModalBtn className="ModalBtn">
-            <BtnInModal className="BtnInModal" onClick={addComment}>
-              작성 완료
-            </BtnInModal>
-            <BtnInModal className="BtnInModal" onClick={closeModal}>
-              닫기
-            </BtnInModal>
-          </ModalBtn>
-        </Modal>
-      </ModalFrame>
-    </React.Fragment>
+            <ElTextarea
+              placeholder="리뷰 작성"
+              rows={5}
+              onChange={onChange}
+              value={comment}
+            />
+            <ModalBtn className="ModalBtn">
+              <BtnInModal className="BtnInModal" onClick={addComment}>
+                작성 완료
+              </BtnInModal>
+              <BtnInModal className="BtnInModal" onClick={closeModal}>
+                닫기
+              </BtnInModal>
+            </ModalBtn>
+          </Modal>
+        </ModalFrame>
+      </React.Fragment>
+    </>
   );
 };
 
@@ -136,7 +142,7 @@ const P = styled.p`
   text-align: left;
   color: #4c4c4c;
 `;
-const Table = styled.p`
+const Table = styled.table`
   width: 100%;
   color: #4c4c4c;
   border-top: 2px solid purple;

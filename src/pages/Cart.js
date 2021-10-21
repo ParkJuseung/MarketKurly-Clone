@@ -9,19 +9,17 @@ import product, { productActions } from "../redux/modules/product";
 import RoomIcon from "@mui/icons-material/Room";
 import { useSelector, useDispatch } from "react-redux";
 
-const Cart = (props) => {
+const Cart = props => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(productActions.getMyProductAPI());
   }, []);
 
-  const products = useSelector((state) => state.product.myProducts);
-  console.log(products);
-  const is_loaded = useSelector((state) => state.product.is_loaded);
-  console.log(is_loaded);
+  const products = useSelector(state => state.product.myProducts);
+  const is_loaded = useSelector(state => state.product.is_loaded);
 
-  const [qty, setQty] = useState(1);
+  const [qty, setQty] = useState(0);
   const [price, setPrice] = useState(100);
 
   const plusQty = () => {
@@ -32,7 +30,7 @@ const Cart = (props) => {
     setQty(qty - 1);
   };
 
-  const deleteProduct = (id) => {
+  const deleteProduct = id => {
     dispatch(productActions.deleteMyProductAPI(id));
   };
 
@@ -79,7 +77,7 @@ const Cart = (props) => {
                       >
                         -
                       </ProductQtyButton>
-                      <ProductQty>{qty}</ProductQty>
+                      <ProductQty>{p.amount + qty}</ProductQty>
                       <ProductQtyButton
                         style={{ cursor: "pointer" }}
                         onClick={plusQty}

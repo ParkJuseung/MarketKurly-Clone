@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { productActions } from "../redux/modules/product";
 import { apis } from "../shared/axios";
 
-import Comment from "../components/Comment";
+import CommentList from "../components/CommentList";
 
 const ProductDetail = props => {
   const productId = props.match.params.id;
@@ -124,7 +124,7 @@ const ProductDetail = props => {
             </InfoWrap>
           </OutWrap>
           <FootMarketIMG src="https://media.vlpt.us/images/kbs2082/post/369c9ad0-6a69-4f23-9b7c-acbe288949c8/marketkurly_ProductDetail_Footer.PNG"></FootMarketIMG>
-          <Comment productId={productId} />
+          <CommentList productId={productId} />
         </React.Fragment>
       )}
     </>
