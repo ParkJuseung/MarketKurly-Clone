@@ -7,9 +7,15 @@ import { apis } from "../../shared/axios";
 const SET_COMMENT = "SET_COMMENT";
 const ADD_COMMENT = "ADD_COMMENT";
 
+
 // action creator functions
+<<<<<<< HEAD
 const setComment = createAction(SET_COMMENT, data => ({
   data,
+=======
+const setComment = createAction(SET_COMMENT, (data) => ({
+  data
+>>>>>>> 24a8027ef11b3ab2a6482c53652d230b314d1284
 }));
 
 const addComment = createAction(ADD_COMMENT, (product_id, comment) => ({
@@ -43,8 +49,14 @@ const addCommentAPI = (product_id, content) => {
 };
 
 // enables to bring specific comment info about a certain post from the DB
+<<<<<<< HEAD
 const getCommentAPI = product_id => {
   return function (dispatch, getState, { history }) {
+=======
+const getCommentAPI = (product_id) => {
+  return function (dispatch, getState, { history }) {
+
+>>>>>>> 24a8027ef11b3ab2a6482c53652d230b314d1284
     if (!product_id) {
       return;
     }
@@ -68,10 +80,18 @@ export default handleActions(
   {
     [SET_COMMENT]: (state, action) =>
       produce(state, draft => {
+<<<<<<< HEAD
         draft.list = action.payload.data;
 
         draft.loaded = true;
         console.log(action);
+=======
+
+        draft.list = action.payload.data;
+
+        draft.loaded = true;
+        console.log(action)
+>>>>>>> 24a8027ef11b3ab2a6482c53652d230b314d1284
       }),
 
     [ADD_COMMENT]: (state, action) =>
