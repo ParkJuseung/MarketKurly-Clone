@@ -40,8 +40,11 @@ const ProductList = props => {
 
   const product_list =
     search === true
-      ? useSelector(state => state.product.products)
+      ? useSelector(state => state.product.searchProducts)
       : useSelector(state => state.product.products);
+
+  console.log(search);
+  console.log(product_list);
 
   const product_list_count = useSelector(
     state => state.product.products.numberOfElements
@@ -61,9 +64,9 @@ const ProductList = props => {
           paging={paging}
           is_loading={is_loading}
           callNext={() => {
-            search === true;
-            // ? dispatch(productActions.getProductAPI());
-            // : dispatch(productActions.getSearchProductAPI())
+            search === true
+              ? dispatch(productActions.getSearchProductAPI())
+              : dispatch(productActions.getProductAPI());
           }}
           is_next={paging.next < 5 ? true : false}
         >
