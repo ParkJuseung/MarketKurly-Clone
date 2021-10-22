@@ -11,7 +11,7 @@ import { apis } from "../shared/axios";
 import _ from "lodash";
 import Infinity from "../shared/Infinity";
 
-const ProductList = props => {
+const ProductList = (props) => {
   const dispatch = useDispatch();
   const [banner, setBenner] = React.useState(null);
 
@@ -28,34 +28,30 @@ const ProductList = props => {
       }
     };
     fetchData();
-
-    if (product_list.length === 0) {
-      dispatch(productActions.getProductAPI());
-    }
   }, []);
 
   // 그냥 productList 불러오는거랑 search 해서 불러오는거랑 구조가 다름. => 리덕스의 search flag를 이용해서 product_list
   //에 무엇을 넣을지 삼항연산자로 넣음
-  const search = useSelector(state => state.product.search);
+  const search = useSelector((state) => state.product.search);
 
   const product_list =
     search === true
-      ? useSelector(state => state.product.searchProducts)
-      : useSelector(state => state.product.products);
+      ? useSelector((state) => state.product.searchProducts)
+      : useSelector((state) => state.product.products);
 
   console.log(search);
   console.log(product_list);
 
   const product_list_count = useSelector(
-    state => state.product.products.numberOfElements
+    (state) => state.product.products.numberOfElements
   );
 
-  console.log(useSelector(state => state.product.infinityProducts));
+  console.log(useSelector((state) => state.product.infinityProducts));
   // const infinityProducts = useSelector(
   //   (state) => state.product.infinityProducts
   // );
-  const is_loading = useSelector(state => state.product.is_loading);
-  const paging = useSelector(state => state.product.paging);
+  const is_loading = useSelector((state) => state.product.is_loading);
+  const paging = useSelector((state) => state.product.paging);
 
   return (
     <>
