@@ -13,8 +13,8 @@ const GET_PRODUCT_FOR_INFINITY = "GET_PRODUCT_FOR_INFINITY";
 const LOADING = "LOADING";
 
 const DELETE_MY_PRODUCT = "DELETE_MY_PRODUCT";
-const addCart = createAction(ADD_CART, data => ({ data }));
-const getBanners = createAction(GET_BANNER, data => ({ data }));
+const addCart = createAction(ADD_CART, (data) => ({ data }));
+const getBanners = createAction(GET_BANNER, (data) => ({ data }));
 
 const getSearchProducts = createAction(
   GET_SEARCH_PRODUCT,
@@ -28,9 +28,9 @@ const getProducts = createAction(GET_PRODUCT, (products, paging) => ({
   products,
   paging,
 }));
-const getMyProducts = createAction(GET_MY_PRODUCT, data => ({ data }));
-const deleteMyProducts = createAction(DELETE_MY_PRODUCT, id => ({ id }));
-const isLoading = createAction(LOADING, loading => ({ loading }));
+const getMyProducts = createAction(GET_MY_PRODUCT, (data) => ({ data }));
+const deleteMyProducts = createAction(DELETE_MY_PRODUCT, (id) => ({ id }));
+const isLoading = createAction(LOADING, (loading) => ({ loading }));
 
 const initialState = {
   products: [],
@@ -65,24 +65,25 @@ export const getProductAPI = () => {
     dispatch(isLoading(true));
 
     console.log(_paging.next + 1);
-    apis.getProduct(_paging.next + 1).then(res => {
+    apis.getProduct(_paging.next + 1).then((res) => {
+      console.log(res);
       const products = res.data.data.content;
       let paging = {
         start: _paging.next,
         next: _paging.next + 1,
       };
-      dispatch(getSearchProducts(products, paging));
+      dispatch(getProducts(products, paging));
     });
   };
 };
 
-export const getSearchProductAPI = input => {
+export const getSearchProductAPI = (input) => {
   return function (dispatch, getState, { history }) {
     let _paging = getState().product.paging;
     dispatch(isLoading(true));
 
     console.log(_paging.next + 1);
-    apis.getSearch(input, _paging.next + 1).then(res => {
+    apis.getSearch(input, _paging.next + 1).then((res) => {
       const products = res.data.data.content;
       dispatch(getSearchProducts(products, paging));
     });
@@ -91,17 +92,17 @@ export const getSearchProductAPI = input => {
 
 export const getMyProductAPI = () => {
   return function (dispatch, getState, { history }) {
-    apis.getCartProduct().then(res => {
+    apis.getCartProduct().then((res) => {
       const products = res.data.data.products;
       dispatch(getMyProducts(products));
     });
   };
 };
 
-export const deleteMyProductAPI = id => {
+export const deleteMyProductAPI = (id) => {
   return function (dispatch, getState, { history }) {
     console.log(id);
-    apis.RemoveCartProduct(id).then(res => {
+    apis.RemoveCartProduct(id).then((res) => {
       dispatch(deleteMyProducts(id));
     });
   };
@@ -115,11 +116,11 @@ export const addCartAPI = (productId, amount) => {
     };
     apis
       .AddProductToCart(_cart)
-      .then(res => {
+      .then((res) => {
         console.log(" 장바구니 성공", res);
         window.alert(res.data.message);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err.response);
       });
   };
@@ -128,37 +129,37 @@ export const addCartAPI = (productId, amount) => {
 export default handleActions(
   {
     [GET_PRODUCT]: (state, action) =>
-      produce(state, draft => {
+      produce(state, (draft) => {
         draft.products.push(...action.payload.products);
         draft.paging = action.payload.paging;
         draft.is_loading = false;
         draft.search = false;
       }),
     [GET_SEARCH_PRODUCT]: (state, action) =>
-      produce(state, draft => {
+      produce(state, (draft) => {
         draft.searchProducts.push(...action.payload.products);
         draft.paging = action.payload.paging;
         draft.search = true;
       }),
     [GET_MY_PRODUCT]: (state, action) =>
-      produce(state, draft => {
+      produce(state, (draft) => {
         draft.myProducts = action.payload.data;
         draft.is_loaded = true;
       }),
     [DELETE_MY_PRODUCT]: (state, action) =>
-      produce(state, draft => {
+      produce(state, (draft) => {
         draft.myProducts = draft.myProducts.filter(
-          p => p.productId !== action.payload.id
+          (p) => p.productId !== action.payload.id
         );
       }),
     [GET_PRODUCT_FOR_INFINITY]: (state, action) =>
-      produce(state, draft => {
+      produce(state, (draft) => {
         draft.infinityProducts.push(...action.payload.products);
         draft.paging = action.payload.paging;
         draft.is_loading = false;
       }),
     [LOADING]: (state, action) =>
-      produce(state, draft => {
+      produce(state, (draft) => {
         draft.is_loading = action.payload.loading;
       }),
   },
