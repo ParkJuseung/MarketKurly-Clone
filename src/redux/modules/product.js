@@ -69,7 +69,7 @@ export const getProductAPI = () => {
     let _paging = getState().product.paging;
     dispatch(isLoading(true));
 
-    console.log(_paging.next + 1);
+    console.log("겟 프러덕트 미들웨어");
     apis.getProduct(_paging.next + 1).then(res => {
       const products = res.data.data.content;
       console.log(products);
@@ -86,6 +86,8 @@ export const getSearchProductAPI = _input => {
   return function (dispatch, getState, { history }) {
     let _paging = getState().product.paging;
     let input = getState().product.searchInput;
+
+    console.log("겟 써치프러덕트 미들웨어");
 
     dispatch(isLoading(true));
     if (_input !== null) {

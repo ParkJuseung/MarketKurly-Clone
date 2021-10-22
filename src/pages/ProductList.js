@@ -14,6 +14,7 @@ import Infinity from "../shared/Infinity";
 const ProductList = props => {
   const dispatch = useDispatch();
   const [banner, setBenner] = React.useState(null);
+  const search = useSelector(state => state.product.search);
 
   //배너 가져오기
   React.useEffect(() => {
@@ -32,7 +33,6 @@ const ProductList = props => {
 
   // 그냥 productList 불러오는거랑 search 해서 불러오는거랑 구조가 다름. => 리덕스의 search flag를 이용해서 product_list
   //에 무엇을 넣을지 삼항연산자로 넣음
-  const search = useSelector(state => state.product.search);
 
   const product_list =
     search === true
@@ -45,13 +45,15 @@ const ProductList = props => {
     state => state.product.products.numberOfElements
   );
 
-  console.log(useSelector(state => state.product.infinityProducts));
-  // const infinityProducts = useSelector(
-  //   (state) => state.product.infinityProducts
-  // );
   const is_loading = useSelector(state => state.product.is_loading);
   const paging = useSelector(state => state.product.paging);
-  const searchInput = useSelector(state => state.product.earchInput);
+  const searchInput = useSelector(state => state.product.searchInput);
+
+  const callNext = () => {
+    search === true
+      ? dispatch(productActions.getSearchProductAPI(searchInput))
+      : dispatch(productActions.getProductAPI());
+  };
 
   return (
     <>
@@ -59,11 +61,7 @@ const ProductList = props => {
         <Infinity
           paging={paging}
           is_loading={is_loading}
-          callNext={() => {
-            search === true
-              ? dispatch(productActions.getSearchProductAPI())
-              : dispatch(productActions.getProductAPI(searchInput));
-          }}
+          callNext={callNext}
           is_next={paging.next < 5 ? true : false}
         >
           <React.Fragment>
