@@ -92,7 +92,6 @@ export const getSearchProductAPI = _input => {
       dispatch(setSearchInput(_input));
     }
 
-    console.log(_paging.next + 1);
     apis
       .getSearch(_input !== null ? _input : input, _paging.next + 1)
       .then(res => {

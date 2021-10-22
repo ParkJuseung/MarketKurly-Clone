@@ -28,10 +28,6 @@ const ProductList = props => {
       }
     };
     fetchData();
-
-    if (product_list.length === 0) {
-      dispatch(productActions.getProductAPI());
-    }
   }, []);
 
   // 그냥 productList 불러오는거랑 search 해서 불러오는거랑 구조가 다름. => 리덕스의 search flag를 이용해서 product_list
@@ -44,7 +40,6 @@ const ProductList = props => {
       : useSelector(state => state.product.products);
 
   console.log(search);
-  console.log(product_list);
 
   const product_list_count = useSelector(
     state => state.product.products.numberOfElements
@@ -56,6 +51,7 @@ const ProductList = props => {
   // );
   const is_loading = useSelector(state => state.product.is_loading);
   const paging = useSelector(state => state.product.paging);
+  const searchInput = useSelector(state => state.product.earchInput);
 
   return (
     <>
@@ -64,9 +60,11 @@ const ProductList = props => {
           paging={paging}
           is_loading={is_loading}
           callNext={() => {
+            console.log(search);
+            console.log(searchInput);
             search === true
               ? dispatch(productActions.getSearchProductAPI())
-              : dispatch(productActions.getProductAPI());
+              : dispatch(productActions.getProductAPI(searchInput));
           }}
           is_next={paging.next < 5 ? true : false}
         >
