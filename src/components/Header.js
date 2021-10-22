@@ -9,22 +9,22 @@ import { productActions } from "../redux/modules/product";
 import { apis } from "../shared/axios";
 import { LocalConvenienceStoreOutlined } from "@material-ui/icons";
 
-const Header = props => {
-  const is_login = useSelector(state => state.user.is_login);
-  const user = useSelector(state => state.user.user);
-  const _paging = useSelector(state => state.product.paging);
+const Header = (props) => {
+  const is_login = useSelector((state) => state.user.is_login);
+  const user = useSelector((state) => state.user.user);
+  const _paging = useSelector((state) => state.product.paging);
 
   const dispatch = useDispatch();
 
   const [searchInput, setSearchInput] = useState("");
 
-  const onChange = e => {
+  const onChange = (e) => {
     // console.log(e.target.value);
     setSearchInput(e.target.value);
   };
 
   // 입력후엔터키 누르면 정보 받아옴
-  const onKeyPress = e => {
+  const onKeyPress = (e) => {
     if (e.key == "Enter" && searchInput) {
       history.push("/");
       dispatch(productActions.getSearchProductAPI(searchInput));
