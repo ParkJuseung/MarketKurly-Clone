@@ -14,7 +14,7 @@ https://kurly.com/shop/main/index.php<br>
 <li>Redux</li> 
 <li>react-router-dom</li>
 <h2>주요기능</h2> 
-<li>상품 읽기, 수정, 삭제, 입력기능</li>
+<li>상품 읽기</li>
 <li>회원가입, 로그인, 로그아웃, 로그인유지</li>
 <li>댓글추가 기능</li>
 <li>장바구니 추가, 삭제</li>
