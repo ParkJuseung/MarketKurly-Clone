@@ -22,7 +22,9 @@ function App() {
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      dispatch(userActions.getUserAPI());
+      if (user) {
+        dispatch(userActions.getUserAPI());
+      }
     }
   }, []);
 

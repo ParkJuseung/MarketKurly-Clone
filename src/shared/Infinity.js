@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from "react";
 import _ from "lodash";
 
-const Infinity = props => {
+const Infinity = (props) => {
   const { children, callNext, paging, is_loading } = props;
 
   const _handleScroll = _.throttle(() => {
@@ -10,7 +10,7 @@ const Infinity = props => {
     const scrollTop =
       (document.documentElement && document.documentElement.scrollTop) ||
       document.body.scrollTop;
-
+    //1. 페이지 5페이지 이상으로 넘어감.
     if (scrollHeight - innerHeight - scrollTop < 500 && paging.next < 5) {
       callNext();
     }
