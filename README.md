@@ -7,7 +7,7 @@ https://kurly.com/shop/main/index.php<br>
 <li> 2021 10월18일 ~ 2021 10월 22일</li> 
 <li>5인 1조 팀프로젝트<br>
   front-end: 김덕현, 김범수, 박주승 <br> 
-  back-end : 김혜림, 하원빈<br>
+  back-end: 김혜림, 하원빈<br>
 <h2>사용기술</h2> 
 <li>javascript</li> 
 <li>React</li> 
