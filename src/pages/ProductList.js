@@ -60,8 +60,6 @@ const ProductList = props => {
           paging={paging}
           is_loading={is_loading}
           callNext={() => {
-            console.log(search);
-            console.log(searchInput);
             search === true
               ? dispatch(productActions.getSearchProductAPI())
               : dispatch(productActions.getProductAPI(searchInput));
