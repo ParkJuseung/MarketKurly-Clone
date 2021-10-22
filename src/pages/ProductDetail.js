@@ -8,7 +8,7 @@ import { apis } from "../shared/axios";
 
 import CommentList from "../components/CommentList";
 
-const ProductDetail = (props) => {
+const ProductDetail = props => {
   const productId = props.match.params.id;
   const dispatch = useDispatch();
   const [buy_count, setBuy_count] = React.useState(1);
@@ -30,10 +30,6 @@ const ProductDetail = (props) => {
   }, []);
 
   const buyCart = () => {
-    if (!localStorage.getItem("token")) {
-      window.alert("로그인 후 이용하실 수 있습니다.");
-      return;
-    }
     let product_id = props.match.params.id;
     dispatch(productActions.addCartAPI(product_id, buy_count));
   };

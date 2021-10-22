@@ -11,6 +11,7 @@ const GET_MY_PRODUCT = "GET_MY_PRODUCT";
 const ADD_CART = "ADD_CART";
 const GET_PRODUCT_FOR_INFINITY = "GET_PRODUCT_FOR_INFINITY";
 const LOADING = "LOADING";
+const SET_SEARCHINPUT = "SET_SEARCHINPUT";
 
 const DELETE_MY_PRODUCT = "DELETE_MY_PRODUCT";
 const addCart = createAction(ADD_CART, (data) => ({ data }));
@@ -31,11 +32,15 @@ const getProducts = createAction(GET_PRODUCT, (products, paging) => ({
 const getMyProducts = createAction(GET_MY_PRODUCT, (data) => ({ data }));
 const deleteMyProducts = createAction(DELETE_MY_PRODUCT, (id) => ({ id }));
 const isLoading = createAction(LOADING, (loading) => ({ loading }));
+const setSearchInput = createAction(SET_SEARCHINPUT, (searchInput) => ({
+  searchInput,
+}));
 
 const initialState = {
   products: [],
   myProducts: [],
   searchProducts: [],
+
   numberOfElement: "",
   is_loaded: false,
 
@@ -68,6 +73,7 @@ export const getProductAPI = () => {
     apis.getProduct(_paging.next + 1).then((res) => {
       console.log(res);
       const products = res.data.data.content;
+      console.log(products);
       let paging = {
         start: _paging.next,
         next: _paging.next + 1,
@@ -77,16 +83,27 @@ export const getProductAPI = () => {
   };
 };
 
-export const getSearchProductAPI = (input) => {
+export const getSearchProductAPI = (_input) => {
   return function (dispatch, getState, { history }) {
     let _paging = getState().product.paging;
+    let input = getState().product.searchInput;
+
     dispatch(isLoading(true));
+    if (_input !== null) {
+      dispatch(setSearchInput(_input));
+    }
 
     console.log(_paging.next + 1);
-    apis.getSearch(input, _paging.next + 1).then((res) => {
-      const products = res.data.data.content;
-      dispatch(getSearchProducts(products, paging));
-    });
+    apis
+      .getSearch(_input !== null ? _input : input, _paging.next + 1)
+      .then((res) => {
+        const products = res.data.data.content;
+        let paging = {
+          start: _paging.next,
+          next: _paging.next + 1,
+        };
+        dispatch(getSearchProducts(products, paging));
+      });
   };
 };
 
@@ -152,15 +169,13 @@ export default handleActions(
           (p) => p.productId !== action.payload.id
         );
       }),
-    [GET_PRODUCT_FOR_INFINITY]: (state, action) =>
-      produce(state, (draft) => {
-        draft.infinityProducts.push(...action.payload.products);
-        draft.paging = action.payload.paging;
-        draft.is_loading = false;
-      }),
     [LOADING]: (state, action) =>
       produce(state, (draft) => {
         draft.is_loading = action.payload.loading;
+      }),
+    [SET_SEARCHINPUT]: (state, action) =>
+      produce(state, (draft) => {
+        draft.searchInput = action.payload.searchInput;
       }),
   },
   initialState
