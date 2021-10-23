@@ -13,6 +13,8 @@ https://kurly.com/shop/main/index.php<br>
 <li>React</li> 
 <li>Redux</li> 
 <li>react-router-dom</li>
+<li>axios</li>
+<br>
 <h2>주요기능</h2> 
 <li>상품 읽기, </li>
 <li>회원가입, 로그인, 로그아웃, 로그인유지</li>
