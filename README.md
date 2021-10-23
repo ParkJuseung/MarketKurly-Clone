@@ -3,7 +3,7 @@
 MarketKurly 클론코딩입니다.<br>
 https://kurly.com/shop/main/index.php<br>
 
-``` javascript
+``` html
 <iframe width="640" height="360" src="https://youtu.be/6Q4pqA0q8Q0" frameborder="0" gesture="media" allowfullscreen=""></iframe>
 ```
 
