@@ -2,7 +2,6 @@
 <h2>사이트설명</h2>
 MarketKurly 클론코딩입니다.<br>
 https://kurly.com/shop/main/index.php<br>
-<img width="80%" src="https://user-images.githubusercontent.com/16822641/109461495-913fc480-7aa5-11eb-9d0e-aff762669f98.gif"/>
 
 <h2>제작기간 팀원소개</h2> 
 <li> 2021 10월18일 ~ 2021 10월 22일</li> 
