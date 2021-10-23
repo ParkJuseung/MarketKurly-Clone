@@ -14,11 +14,12 @@ https://kurly.com/shop/main/index.php<br>
 <li>Redux</li> 
 <li>react-router-dom</li>
 <h2>주요기능</h2> 
-<li>상품 읽기</li>
+<li>상품 읽기, </li>
 <li>회원가입, 로그인, 로그아웃, 로그인유지</li>
 <li>댓글추가</li>
 <li>장바구니 추가, 삭제</li>
 <li>무한 스크롤</li>
+
 <br>
 <h2>실행화면링크</h2>
 http://kbumsoo.s3-website.ap-northeast-2.amazonaws.com/
