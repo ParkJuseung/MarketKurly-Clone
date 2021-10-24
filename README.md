@@ -38,7 +38,7 @@ https://kurly.com/shop/main/index.php<br>
   
    <details markdown = "3">
 <summary>
-문제점 / 해결과정
+문제점 / 해결과정 [김범수]
 </summary>
 
  - ## 문제 1 제품 상세정보를 눌렀을 때 axios를 통해 받아온 값을 리덕스에 넣고, 그 값을 바로 state에 저장하려고 하면 왜 undefined가 뜰까?
