@@ -9,19 +9,24 @@ import { Grid } from "../elements/index";
 import Banner from "../shared/img/45f975c1-e57c-403f-9f4f-1cb0c965897a.webp";
 import { apis } from "../shared/axios";
 import _ from "lodash";
+import Infinity from "../shared/Infinity";
+import Search from "../shared/Search";
 
 const ProductList = (props) => {
   const dispatch = useDispatch();
   const [banner, setBenner] = React.useState(null);
+  // const search = useSelector((state) => state.product.search);
+  const search = Search();
+  console.log(useSelector((state) => state.product));
 
+  //배너 가져오기
   React.useEffect(() => {
     dispatch(productActions.getProductAPI());
+
     const fetchData = async () => {
       try {
         const result = await apis.getBanner();
-        // console.log("배너", result);
         const _banner = result.data.data.banners[9];
-        // console.log("배너", _banner);
         setBenner(_banner);
       } catch (err) {
         console.log(err);
@@ -30,48 +35,76 @@ const ProductList = (props) => {
     fetchData();
   }, []);
 
-  let page = 1;
-  window.onscroll = function () {
-    const _handleScroll = _.throttle(() => {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        page += 1;
-        console.log(page);
-      }
-    }, 300);
-    _handleScroll();
-  };
+  // 그냥 productList 불러오는거랑 search 해서 불러오는거랑 구조가 다름. => 리덕스의 search flag를 이용해서 product_list
+  //에 무엇을 넣을지 삼항연산자로 넣음
 
-  const product_list = useSelector((state) => state.product.products.content);
+  const product_list =
+    search === true
+      ? useSelector((state) => state.product.searchProducts)
+      : useSelector((state) => state.product.products);
+  console.log(
+    "노릇노릇빔",
+    useSelector((state) => state.product)
+  );
+  console.log(search);
+
   const product_list_count = useSelector(
     (state) => state.product.products.numberOfElements
   );
 
+  const is_loading = useSelector((state) => state.product.is_loading);
+  const paging = useSelector((state) => state.product.paging);
+  const searchInput = useSelector((state) => state.product.searchInput);
+
+  const callNext = () => {
+    if (search === true) {
+      console.log("서치서치서치", search);
+      console.log("검색한걸로 불러오기");
+      dispatch(productActions.getSearchProductAPI(searchInput));
+    } else {
+      console.log("서치서치서치", search);
+      console.log("그냥 불러오기");
+      dispatch(productActions.getProductAPI());
+    }
+
+    // search === true
+    // ? dispatch(productActions.getSearchProductAPI(searchInput))
+    // : dispatch(productActions.getProductAPI());
+  };
+
   return (
     <>
       {product_list && (
-        <React.Fragment>
-          <BannerImg src={banner}></BannerImg>
-          <CategoryText>베스트</CategoryText>
-          <Grid width="1050px" is_flex>
-            <LittleP>총 {product_list_count}건</LittleP>
-            <div style={{ display: "flex" }}>
-              <LittleP2>추천순</LittleP2>
-              <LittleLine> | </LittleLine>
-              <LittleP2>신상품순</LittleP2>
-              <LittleLine> | </LittleLine>
-              <LittleP2>인기상품순</LittleP2>
-              <LittleLine> | </LittleLine>
-              <LittleP2>낮은 가격순</LittleP2>
-              <LittleLine> | </LittleLine>
-              <LittleP2>높은 가격순</LittleP2>
-            </div>
-          </Grid>
-          <ProductWrap>
-            {product_list.map((p, idx) => (
-              <Product key={idx} {...p} />
-            ))}
-          </ProductWrap>
-        </React.Fragment>
+        <Infinity
+          paging={paging}
+          is_loading={is_loading}
+          callNext={callNext}
+          is_next={paging.next < 5 ? true : false}
+        >
+          <React.Fragment>
+            <BannerImg src={banner}></BannerImg>
+            <CategoryText>베스트</CategoryText>
+            <Grid width="1050px" is_flex>
+              <LittleP>총 {product_list_count}건</LittleP>
+              <div style={{ display: "flex" }}>
+                <LittleP2>추천순</LittleP2>
+                <LittleLine> | </LittleLine>
+                <LittleP2>신상품순</LittleP2>
+                <LittleLine> | </LittleLine>
+                <LittleP2>인기상품순</LittleP2>
+                <LittleLine> | </LittleLine>
+                <LittleP2>낮은 가격순</LittleP2>
+                <LittleLine> | </LittleLine>
+                <LittleP2>높은 가격순</LittleP2>
+              </div>
+            </Grid>
+            <ProductWrap>
+              {product_list.map((p, idx) => (
+                <Product key={idx} {...p} />
+              ))}
+            </ProductWrap>
+          </React.Fragment>
+        </Infinity>
       )}
     </>
   );

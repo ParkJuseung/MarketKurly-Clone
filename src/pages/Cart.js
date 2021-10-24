@@ -18,6 +18,11 @@ const Cart = props => {
 
   const products = useSelector(state => state.product.myProducts);
   const is_loaded = useSelector(state => state.product.is_loaded);
+  const totalPrice = products.reduce((acc, cur) => {
+    return acc + cur.price * 0.5 * cur.amount;
+  }, 0);
+
+  console.log(totalPrice);
 
   const [qty, setQty] = useState(0);
   const [price, setPrice] = useState(100);
@@ -138,7 +143,7 @@ const Cart = props => {
               <PriceArea style={{ padding: "20px" }}>
                 <PriceDetail>
                   <p>상품금액</p>
-                  <p>{price * qty}원</p>
+                  <p>{totalPrice}원</p>
                 </PriceDetail>
                 <PriceDetail>
                   <p style={{ margin: 0 }}>상품할인금액</p>
@@ -152,7 +157,7 @@ const Cart = props => {
                 <PriceDetail style={{ alignItems: "center" }}>
                   <p>결제예정금액</p>
                   <p style={{ fontSize: "20px", fontWeight: "700" }}>
-                    {price * qty}원
+                    {totalPrice}원
                   </p>
                 </PriceDetail>
               </PriceArea>
